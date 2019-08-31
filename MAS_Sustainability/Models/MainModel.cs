@@ -60,6 +60,8 @@ namespace MAS_Sustainability
 
         public String LoggedUserEmail { get; set; }
 
+        public String LoggedUserDepartment { get; set; }
+
 
 
         //for UserManagement Controller's UserProfile View

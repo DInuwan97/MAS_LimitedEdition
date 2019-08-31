@@ -57,6 +57,8 @@ namespace MAS_Sustainability
         public String RepairStatus { get; set; }
         public String AddedUserName { get; set; }
 
+        public String TokenManagerStatus { get; set; }
+
 
     }
 }

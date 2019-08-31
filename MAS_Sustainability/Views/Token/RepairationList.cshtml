@@ -1,6 +1,10 @@
 ﻿@using MAS_Sustainability.Models;
 @model MainModel
 
+@{
+    Layout = "~/Views/Home/LayoutBody.cshtml";
+}
+
 
 @{
     ViewBag.Title = "RepairationList";
@@ -142,7 +146,7 @@
                                 <th>Attention Level</th>
                                 <th>Location</th>
                                 <th>Added By</th>
-                                <th>Sent Date</th>
+
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -210,7 +214,7 @@
                                         </td>
 
                                         <td>@no_of_tokens.AddedUserName</td>
-                                        <td>@no_of_tokens.SentDate</td>
+
 
                                         <td>
                                             <span class="badge badge-success"><a href="@Url.Action("ViewRepairation", "Token", new { @id = @no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
@@ -271,7 +275,7 @@
                                             <th>Attention Level</th>
                                             <th>Location</th>
                                             <th>Added By</th>
-                                            <th>Sent Date</th>
+
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -344,7 +348,7 @@
                                                     <td>@no_of_tokens.SentDate</td>
 
                                                     <td>
-                                                        <span class="badge badge-success"><a href="@Url.Action("", "", new { @id = @no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
+                                                        <span class="badge badge-success"><a href="@Url.Action("ViewRepairation", "Token", new { @id = @no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
                                                         <span class="badge badge-warning">Eject</span>
                                                     </td>
                                                 </tr>

@@ -236,9 +236,9 @@ namespace MAS_Sustainability.Controllers
 
             }
             // TODO: Add insert logic here
-         
 
-            return View();
+
+            return RedirectToAction("Index");
         }
 
 
@@ -344,7 +344,7 @@ namespace MAS_Sustainability.Controllers
             {
 
                 mySqlCon.Open();
-                string qry = "INSERT INTO token_review(TokenAuditID,SpecialActs,RepairDepartment,SentDate,SentUser,Deadline,Status)VALUES(@TokenAuditID,@SpecialActs,@ReparationDepartment,NOW(),@SentUser,0,0)";
+                string qry = "INSERT INTO token_review(TokenAuditID,SpecialActs,RepairDepartment,SentDate,SentUser,Deadline,Status)VALUES(@TokenAuditID,@SpecialActs,@ReparationDepartment,NOW(),@SentUser,'null','null')";
                 MySqlCommand mySqlCmd_TokenFoward = new MySqlCommand(qry, mySqlCon);
                 mySqlCmd_TokenFoward.Parameters.AddWithValue("@TokenAuditID", tokenModel.TokenAuditID);
                 mySqlCmd_TokenFoward.Parameters.AddWithValue("@SpecialActs", "Urgent");
@@ -645,33 +645,59 @@ namespace MAS_Sustainability.Controllers
             List<Token> Token_List = new List<Token>();
 
             DataTable dtblRepair = new DataTable();
+            DataTable userDetailsDataTable = new DataTable();
+            
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
             {
-                String qry = "SELECT tk.ProblemName,tk.Location,tk.AttentionLevel,usr.UserName,tkr.SentDate,tkr.Status,tka.TokenAuditID FROM token_audit tka,tokens tk,token_flow tkf,users usr,token_review tkr WHERE tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and tk.TokenAuditID = tkf.TokenAuditID and tkr.TokenAuditID = tka.TokenAuditID";
+                String qry = "SELECT tk.ProblemName,tk.Location,tk.AttentionLevel,usr.UserName,tkr.SentDate,tkr.Status,tka.TokenAuditID,tkf.TokenManagerStatus FROM token_audit tka,tokens tk,token_flow tkf,users usr,token_review tkr WHERE tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and tk.TokenAuditID = tkf.TokenAuditID and tkr.TokenAuditID = tka.TokenAuditID";
                 MySqlDataAdapter mySqlDataRepair = new MySqlDataAdapter(qry, mySqlCon);
                 mySqlDataRepair.Fill(dtblRepair);
 
+                String qry_listOfUserDetails = "SELECT UserName,UserType,UserID,UserEmail,UserImage,UserDepartment FROM users WHERE UserEmail = '" + Session["user"] + "'";
+                MySqlDataAdapter mySqlDa = new MySqlDataAdapter(qry_listOfUserDetails, mySqlCon);
+                mySqlDa.Fill(userDetailsDataTable);
+
+            }
+
+
+            if (userDetailsDataTable.Rows.Count == 1)
+            {
+                mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
+                mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
+                mainModel.LoggedUserID = Convert.ToInt32(userDetailsDataTable.Rows[0][2]);
+                mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
+                mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
+                mainModel.LoggedUserDepartment = userDetailsDataTable.Rows[0][5].ToString();
             }
 
             for (int i = 0; i < dtblRepair.Rows.Count; i++)
             {
-                List_Token.Add(new Token
-                {
-                    ProblemName = dtblRepair.Rows[i][0].ToString(),
-                    Location = dtblRepair.Rows[i][1].ToString(),
-                    AttentionLevel = Convert.ToInt32(dtblRepair.Rows[i][2]),
-                    AddedUserName = dtblRepair.Rows[i][3].ToString(),
-                    SentDate = dtblRepair.Rows[i][4].ToString(),
-                    RecievedStatus = dtblRepair.Rows[i][5].ToString(),
-                    TokenAuditID = Convert.ToInt32(dtblRepair.Rows[i][6])
 
-                }
-                );
+
+                if (mainModel.LoggedUserDepartment == dtblRepair.Rows[i][7].ToString()) {
+
+                    if (mainModel.LoggedUserType == "Department Leader" || mainModel.LoggedUserType == "Administrator") {
+
+                        List_Token.Add(new Token
+                        {
+                            ProblemName = dtblRepair.Rows[i][0].ToString(),
+                            Location = dtblRepair.Rows[i][1].ToString(),
+                            AttentionLevel = Convert.ToInt32(dtblRepair.Rows[i][2]),
+                            AddedUserName = dtblRepair.Rows[i][3].ToString(),
+                            SentDate = dtblRepair.Rows[i][4].ToString(),
+                            RecievedStatus = dtblRepair.Rows[i][5].ToString(),
+                            TokenAuditID = Convert.ToInt32(dtblRepair.Rows[i][6]),
+                            TokenManagerStatus = dtblRepair.Rows[i][7].ToString()
+
+                        }
+                        );
+                    }//user type
+                }//user dept
             }
 
             mainModel.ListToken = List_Token;
-            //mainModel.ListUserLogin = List_UserLogin;
+            mainModel.ListUserLogin = List_UserLogin;
             mainModel.TokenList = Token_List;
 
 

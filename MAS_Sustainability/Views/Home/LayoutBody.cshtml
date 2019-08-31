@@ -359,15 +359,15 @@
 
                         @if (Model.LoggedUserType == ("Administrator"))
                         {
-                            <li class="nav-item">
-                                <a href="@Url.Action("Index","UserManagement")">
-                                    <i class="fas fa-user"></i>
-                                    <p>User Manager</p>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","UserManagement")">
+                                <i class="fas fa-user"></i>
+                                <p>User Manager</p>
 
-                                </a>
-                            </li>
+                            </a>
+                        </li>
 
-                            <li class="nav-item">
+                        <li class="nav-item">
                             <a href="@Url.Action("RepairationList","Token")">
                                 <i class="fas fa-list"></i>
                                 <p>Repairations</p>
@@ -376,6 +376,8 @@
                         </li>
                         }
 
+
+
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Report")">
                                 <i class="fas fa-list"></i>
@@ -383,6 +385,27 @@
 
                             </a>
                         </li>
+
+
+
+
+                        @if (Model.LoggedUserType == ("Department Leader"))
+                        {
+                        <li class="nav-item">
+                            <a href="@Url.Action("RepairationList","Token")">
+                                <i class="fas fa-list"></i>
+                                <p>Repairations</p>
+
+                            </a>
+                        </li>
+
+
+                        }
+
+
+
+
+
 
 
 
