@@ -209,6 +209,7 @@
     <Content Include="Views\UserRegistration\SecureCode.cshtml" />
     <Content Include="Views\Token\RepairationList.cshtml" />
     <Content Include="Views\Token\ViewRepairation.cshtml" />
+    <Content Include="Views\UserManagement\UsersInfoReportPreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

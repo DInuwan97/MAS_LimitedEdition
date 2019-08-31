@@ -240,6 +240,47 @@ namespace MAS_Sustainability.Controllers
             return RedirectToAction("index");
         }
 
+        public ActionResult UsersInfoReportPreview()
+        {
+
+            DataTable userDetailsDataTable = new DataTable();
+            DataTable userListDataTable = new DataTable();
+            MainModel mainModel = new MainModel();
+
+            List<UserRegistrationModel> List_UserRegistration = new List<UserRegistrationModel>();
+
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String qry_listOfUsers = "SELECT * FROM users";
+                MySqlDataAdapter mySqlData_UserList = new MySqlDataAdapter(qry_listOfUsers, mySqlCon);
+                mySqlData_UserList.Fill(userListDataTable);
+
+            }
+
+            for (int i = 0; i < userListDataTable.Rows.Count; i++)
+            {
+
+
+                List_UserRegistration.Add(new UserRegistrationModel
+                {
+
+                    UserFullName = userListDataTable.Rows[i][1].ToString(),
+                    UserType = userListDataTable.Rows[i][7].ToString(),
+                    UserID = Convert.ToInt32(userListDataTable.Rows[i][0]),
+                    UserEmail = userListDataTable.Rows[i][2].ToString(),
+                    UserMobile = userListDataTable.Rows[i][3].ToString(),
+                    UserDepartment = userListDataTable.Rows[i][6].ToString()
+
+                });
+            }
+                mainModel.ListUserRegistration = List_UserRegistration;
+
+            return View(mainModel);
+        }
+
 
 
     }
