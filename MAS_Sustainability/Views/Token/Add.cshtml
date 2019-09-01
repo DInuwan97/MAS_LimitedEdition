@@ -40,7 +40,7 @@
                         <div class="card-header">
                             <h4 class="card-title">Capture the Problem</h4>
 
-                            @using (Html.BeginForm("Add", "Token", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("Add", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
                             {
                                 @Html.AntiForgeryToken()
 
@@ -50,8 +50,8 @@
                                         <div class="col-md-3">
 
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="input-file input-file-image">
+                                        <div class="col-md-3 form-show-validation">
+                                            <div class="input-file input-file-image form-show-validation">
                                                 <img class="img-upload-preview img-circle" width="150" height="150" src="https://placehold.it/150x150" alt="preview">
                                                 <input type="file" class="form-control form-control-file" id="ImageFile1" name="FirstImageFile" accept="image/*" required="">
                                                 <label for="ImageFile1" class="badge badge-primary">
@@ -63,7 +63,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 form-show-validation">
                                             <div class="input-file input-file-image">
                                                 <img class="img-upload-preview img-circle" width="150" height="150" src="https://placehold.it/150x150" alt="preview">
                                                 <input type="file" class="form-control form-control-file" id="ImageFile2" name="SecondImageFile" accept="image/*">
@@ -88,20 +88,17 @@
                                                 <div class="row">
 
                                                     <div class="col-md-6">
-
-                                                        <div class="form-group">
+                                                        <div class="form-group form-show-validation row">
                                                             <label>Problem Name</label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="ProblemName" name="ProblemName">
+                                                                <input type="text" class="form-control" id="ProblemName" name="ProblemName" required>
                                                             </div>
                                                         </div>
 
-
-
-                                                        <div class="form-group">
+                                                        <div class="form-group form-show-validation row">
                                                             <label>Problem Category</label>
                                                             <div class="input-group">
-                                                                <select id="basic" name="ProblemCategory" class="form-control">
+                                                                <select id="basic" name="ProblemCategory" class="form-control" required>
                                                                     <option value="">&nbsp;</option>
                                                                     <option value="Sustainability">Sustainability</option>
                                                                     <option value="Safety">Safety</option>
@@ -109,21 +106,19 @@
                                                             </div>
                                                         </div>
 
-
-
-                                                        <div class="form-group">
+                                                        <div class="form-group form-show-validation row">
                                                             <label>Location</label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="Location" name="Location">
+                                                                <input type="text" class="form-control" id="Location" name="Location" required>
 
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 form-show-validation">
                                                         <div class="form-group">
                                                             <label for="comment">Problem in Brief</label>
-                                                            <textarea class="form-control" id="comment" rows="10" name="Description"> </textarea>
+                                                            <textarea class="form-control" id="comment" rows="10" name="Description" required></textarea>
                                                         </div>
                                                     </div>
 
@@ -138,12 +133,12 @@
 
                                                     <div class="col-sm-3"></div>
                                                     <div class="col-sm-6">
-                                                        <div class="form-group">
+                                                        <div class="form-group form-show-validation">
                                                             <label>Attention Level</label>
                                                             <input class="slider form-control-static" type="range" min="0" max="100"
                                                                    id="AttentionLevel" name="AttentionLevel" oninput="displayValue(event)"
                                                                    required />
-                                                            <center><span id="val"></span></center>
+                                                            <center><span id="val" name="val"></span></center>
                                                         </div>
                                                     </div>
                                                     <hr />
@@ -153,7 +148,6 @@
                                                 <center>
                                                     <input type="submit" value="Add Token" class="btn btn-info col-sm-4" />
                                                 </center>
-
                                             </div>
                                         </div>
                                     </div>
@@ -416,4 +410,30 @@
                                     span.style.left = `${pos}px`;
                                     span.innerHTML = value + "%";
                                 }
+                            </script>
+
+                            <script>
+                                $("#ImageFile1").on("change", function () {
+                                    $(this).parent('form').validate();
+                                })
+
+                                $("#ImageFile2").on("change", function () {
+                                    $(this).parent('form').validate();
+                                })
+
+                                $("#addForm").validate({
+                                    validClass: "success",
+                                    rules: {
+                                        val: {
+                                            notEqualTo: NaN,
+                                        },
+                                    },
+
+                                    highlight: function (element) {
+                                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                                    },
+                                    success: function (element) {
+                                        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                                    },
+                                });
                             </script>

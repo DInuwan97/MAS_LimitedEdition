@@ -33,10 +33,27 @@
                                                 {
                                                     <tr role="row">
                                                         <td class="sorting_1">@Html.DisplayFor(m => item.ProblemName)</td>
-                                                        <td>@Html.DisplayFor(m => item.AddedDate) </td>
+                                                        <td>@Html.DisplayFor(m => item.AddedDate)</td>
                                                         <td>
-                                                            <i class="btn btn-success btn-sm">@Html.ActionLink("Go to User Survey", "viewSurvey", "Survey", new { Id = item.tokenID }, new { style = "color:white" })</i>
+                                                            <i class="btn btn-success btn-sm">
+                                                                @{
+                                                                    String displayText;
+                                                                }
+                                                                @if (@Html.DisplayTextFor(m => item.commented).ToString() == "False")
+                                                                {
+                                                                    displayText = "Fill Survey";
+                                                                }
+                                                                else
+                                                                {
+                                                                    displayText = "Edit Survey";
+                                                                }
+
+                                                                @Html.ActionLink(displayText, "viewSurvey", "Survey", new { Id = item.tokenID }, new { style = "color:white" })
+
+                                                            </i>
+
                                                         </td>
+
                                                     </tr>
                                                 }
                                             </tbody>

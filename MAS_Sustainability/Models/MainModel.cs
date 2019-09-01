@@ -1,4 +1,5 @@
-﻿using MAS_Sustainability.Models;
+﻿using MAS_Sustainability.Controllers;
+using MAS_Sustainability.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace MAS_Sustainability
         //public UserLogin userLoginViewModel { get; set; }
         // public Token tokenViewModel { get; set; }
 
-        public List<Survey> SurveyList { get; set; }
-        public Survey survey { get; set; }
+        public List<Models.Survey> SurveyList { get; set; }
+        public Models.Survey survey { get; set; }
 
 
         public List<Token> ListToken { get; set; }

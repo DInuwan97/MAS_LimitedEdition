@@ -1,10 +1,12 @@
-﻿@using MAS_Sustainability.Models
+﻿@using MAS_Sustainability.Models;
 @model MainModel
 @{
-    ViewBag.Title = "View Report";
+    ViewBag.Title = "viewSurvey";
     Layout = "~/Views/Home/LayoutBody.cshtml";
-
 }
+
+
+
 <div class="main-panel">
     <div class="content">
         <div class="card">
@@ -72,27 +74,47 @@
                                         <tr>
                                             <div class="form-group" style="margin-left:50px">
                                                 <label class="form-label d-block">Rating</label>
+
                                                 <div class="selectgroup selectgroup-secondary selectgroup-pills">
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked="">
-                                                        <span class="selectgroup-button selectgroup-button-icon">1</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="icon-input" value="2" class="selectgroup-input">
-                                                        <span class="selectgroup-button selectgroup-button-icon">2</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="icon-input" value="3" class="selectgroup-input">
-                                                        <span class="selectgroup-button selectgroup-button-icon">3</span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="icon-input" value="4" class="selectgroup-input">
-                                                        <span class="selectgroup-button selectgroup-button-icon">4</i></span>
-                                                    </label>
-                                                    <label class="selectgroup-item">
-                                                        <input type="radio" name="icon-input" value="5" class="selectgroup-input">
-                                                        <span class="selectgroup-button selectgroup-button-icon">5</span>
-                                                    </label>
+
+                                                    @using (@Html.BeginForm("SubmitSurvey", "Survey", FormMethod.Post, new { id = "myForm" }))
+                                                    {
+                                                        <label class="selectgroup-item">
+                                                            <input type="radio" name="rating" id="Rating1" value="1" class="selectgroup-input"
+                                                                   if (@Html.DisplayFor(m=> m.survey.rating).ToString() == "1") { : checked
+                                                                //rating = 1; }>
+                                                                <span class="selectgroup-button selectgroup-button-icon">1</span>
+                                                            </label>
+
+                                                            <label class="selectgroup-item">
+                                                                <input type="radio" name="rating" id="Rating2" value="2" class="selectgroup-input"
+                                                                       if (@Html.DisplayFor(m=> m.survey.rating).ToString() == "2") { : checked
+                                                                    //rating = 2; }>
+                                                                    <span class="selectgroup-button selectgroup-button-icon">2</span>
+                                                                </label>
+
+                                                                <label class="selectgroup-item">
+                                                                    <input type="radio" name="rating" id="Rating3" value="3" class="selectgroup-input"
+                                                                           if (@Html.DisplayFor(m=> m.survey.rating).ToString() == "3") { : checked
+                                                                        //rating = 3; 
+                                                                    }>
+                                                                        <span class="selectgroup-button selectgroup-button-icon">3</span>
+                                                                    </label>
+
+                                                                    <label class="selectgroup-item">
+                                                                        <input type="radio" name="rating" id="Rating4" value="4" class="selectgroup-input"
+                                                                               if (@Html.DisplayFor(m=> m.survey.rating).ToString() == "4") { : checked
+                                                                            //rating = 4; }>
+                                                                            <span class="selectgroup-button selectgroup-button-icon">4</span>
+                                                                        </label>
+
+                                                                        <label class="selectgroup-item">
+                                                                            <input type="radio" name="rating" id="Rating5" value="5" class="selectgroup-input"
+                                                                                   if (@Html.DisplayFor(m=> m.survey.rating).ToString() == "5") { : checked
+                                                                                //rating = 5; }>
+                                                                                <span class="selectgroup-button selectgroup-button-icon">5</span>
+                                                                            </label>
+                                                                        }
                                                 </div>
                                             </div>
                                         </tr>
@@ -100,9 +122,7 @@
                                             <td>
                                                 <div class="form-group">
                                                     <label for="comment">Comment</label>
-                                                    <textarea class="form-control" id="comment" rows="5" placeholder="@Html.DisplayFor(m => m.survey.comment)">
-
-												    </textarea>
+                                                    <textarea class="form-control" id="Comment" name="comment" rows="5">@Html.DisplayFor(m => m.survey.comment) </textarea>
                                                 </div>
                                             </td>
                                         </tr>
@@ -112,20 +132,20 @@
                                         <tr>
                                             <div class="card-action">
                                                 <form>
+                                                    @*Html.Hidden("UserID", Html.DisplayFor(m => m.LoggedUserID))
+
+                                                        @Html.ActionLink("Submit", "SubmitSurvey", "Survey", new { Rating = rating }, new { Comment = comment }, new { style = "color:white" })*@
                                                     <input type="submit" formaction=@Url.Action("SubmitSurvey") formmethod="post" class="btn btn-success btn-sm" value="Submit" style="font-size:14px" />
                                                     <input type="reset" class="btn btn-danger btn-sm" value="Cancel" style="font-size:14px" />
                                                 </form>
                                             </div>
-
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

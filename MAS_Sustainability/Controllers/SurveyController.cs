@@ -1,19 +1,16 @@
-﻿using MAS_Sustainability.Models;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using MySql.Data.MySqlClient;
+using MAS_Sustainability.Models;
 
 namespace MAS_Sustainability.Controllers
 {
     public class SurveyController : Controller
     {
-        // GET: Survey
         public ActionResult Index()
         {
             DataTable SurveyDataTable = new DataTable();
@@ -25,32 +22,51 @@ namespace MAS_Sustainability.Controllers
                 mySqlCon.Open();
                 String UserDetails = "SELECT UserName,UserType,userid,userimage FROM users WHERE UserEmail = '" + Session["user"] + "'";
 
-                //add the session username in query
-                String listOfSurveys = "select TokenID,ProblemName,AddedDate from tokens, token_audit where tokens.tokenAuditID = token_audit.tokenauditId ";
+
+                String listOfSurveys = "select tokens.TokenID,ProblemName,AddedDate,comment.comment " +
+                    "from comment,feedback,tokens, token_audit " +
+                    "where tokens.tokenAuditID = token_audit.tokenauditId AND " +
+                    "comment.feedbackId = feedback.feedbackId " +
+                    "AND tokens.TokenID = feedback.tokenId AND " +
+                    "AddedUser = '" + Session["user"] + "'";
+
 
                 MySqlDataAdapter mySqlDa1 = new MySqlDataAdapter();
 
                 MySqlCommand UserDetailsComm = new MySqlCommand(UserDetails, mySqlCon);
-                MySqlCommand listOfReportsComm = new MySqlCommand(listOfSurveys, mySqlCon);
+                MySqlCommand listOfSurveysComm = new MySqlCommand(listOfSurveys, mySqlCon);
 
 
                 mySqlDa1.SelectCommand = UserDetailsComm;
                 mySqlDa1.Fill(UserDataDatatable);
 
-                mySqlDa1.SelectCommand = listOfReportsComm;
+                mySqlDa1.SelectCommand = listOfSurveysComm;
                 mySqlDa1.Fill(SurveyDataTable);
             }
 
             var surveyList = new List<Survey>();
+            Boolean temp;
 
             for (int i = 0; i < SurveyDataTable.Rows.Count; i++)
             {
+
+                if (String.IsNullOrWhiteSpace(SurveyDataTable.Rows[i][3].ToString()))
+                {
+                    temp = false;
+                }
+                else
+                {
+                    temp = true;
+                }
+
                 surveyList.Add(new Survey
                 {
                     tokenID = Convert.ToInt32(SurveyDataTable.Rows[i][0]),
                     ProblemName = SurveyDataTable.Rows[i][1].ToString(),
-                    AddedDate = SurveyDataTable.Rows[i][2].ToString()
+                    AddedDate = SurveyDataTable.Rows[i][2].ToString(),
+                    commented = temp
                 });
+
             }
 
             MainModel mainModel = new MainModel();
@@ -69,6 +85,9 @@ namespace MAS_Sustainability.Controllers
             return View(mainModel);
         }
 
+
+
+        // GET: Survey/viewSurvey/?
         public ActionResult viewSurvey(int? Id)
         {
 
@@ -86,16 +105,15 @@ namespace MAS_Sustainability.Controllers
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
             {
                 mySqlCon.Open();
-
-                //AND AddedUser='"+Session["user"]+"'";
                 String listOfsurvey = "select tokens.TokenID,ProblemName,Location,Description,AddedUser,AddedDate,Category,TokenImageID,ImagePath,rating,comment " +
-                                     "from comment,feedback,tokens, token_audit,users,token_image " +
+                                     "from comment,feedback,tokens,token_audit,users,token_image " +
                                      "where users.UserID=feedback.userId AND " +
                                      "tokens.TokenID=feedback.tokenId AND " +
                                      "tokens.tokenAuditID = token_audit.tokenauditId and " +
                                      "tokens.TokenID = '" + (int)Id + "' and " +
                                      "token_image.tokenid=tokens.tokenauditid AND " +
-                                     "comment.feedbackId=feedback.feedbackId;";
+                                     "comment.feedbackId=feedback.feedbackId " +
+                                     "AND AddedUser='" + Session["user"] + "'";
 
                 String UserDetails = "SELECT UserName,UserType,userid,UserImage FROM users WHERE UserEmail = '" + Session["user"] + "'";
                 MySqlDataAdapter mySqlDa2 = new MySqlDataAdapter();
@@ -106,6 +124,7 @@ namespace MAS_Sustainability.Controllers
                 mySqlDa2.SelectCommand = listOfReportsComm;
                 mySqlDa2.Fill(SurveyDataTable);
             }
+
             if (SurveyDataTable.Rows.Count == 0)
             {
                 return RedirectToAction("Index", "Survey");
@@ -145,68 +164,29 @@ namespace MAS_Sustainability.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitSurvey(int? tokenID, int? UserID, int? LikeStatus)
+        public ActionResult SubmitSurvey(int? rating, string comment, int? tokenID)
         {
             DB dbconnection = new DB();
 
             using (MySqlConnection mySqlCon = dbconnection.DBConnection())
             {
                 mySqlCon.Open();
-                if (LikeStatus == 2)
-                {
-                    String Like = "Update feedback set rating = '1' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
-                    MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
-                    mySqlComm.ExecuteNonQuery();
-                }
-                else if (LikeStatus == 0)
-                {
-                    String Like = "Update feedback set rating = '1' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
-                    MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
-                    int rowAffected = mySqlComm.ExecuteNonQuery();
-                    if (rowAffected == 0)
-                    {
-                        String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + UserID + "," + tokenID + ",1)";
-                        MySqlCommand mySqlComm2 = new MySqlCommand(LikeUpdate, mySqlCon);
-                        mySqlComm2.ExecuteNonQuery();
-                    }
-                }
-                else if (LikeStatus == 1)
-                {
-                    String Like = "Update feedback set rating = '0' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
-                    MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
-                    mySqlComm.ExecuteNonQuery();
-                }
+
+                String updateQuery = "UPDATE feedback set rating = '" + rating + "' where tokenId = '" + tokenID + "'";
+                MySqlCommand mySqlComm = new MySqlCommand(updateQuery, mySqlCon);
+                mySqlComm.ExecuteNonQuery();
+
+                /*
+                String Like = "Update feedback set rating = '1' where userid='" +  + "' and tokenid = '" + + "'";
+                MySqlCommand mySqlComm = new MySqlCommand(, mySqlCon);
+                int rowAffected = mySqlComm.ExecuteNonQuery();
+
+                    String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + + "," + + ",1)";
+                    MySqlCommand mySqlComm2 = new MySqlCommand(LikeUpdate, mySqlCon);
+                    mySqlComm2.ExecuteNonQuery();
+                    */
+                return RedirectToAction("Index", "Survey");
             }
-
-            return RedirectToAction("viewReport", "Report", new { id = tokenID });
         }
-
-        /*
-
-        [HttpPost]
-        public ActionResult UpdateComment(int? tokenID, int? UserID,int? rating,string? comment)
-        {
-            DB dbconnection = new DB();
-
-            using (MySqlConnection mySqlCon = dbconnection.DBConnection())
-            {
-                mySqlCon.Open();
-                if ()
-                {
-                    String feedbackUpdate = "UPDATE feedback set rating= "+rating+ " where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
-                    String commentUpdate = "UPDATE comment set comment = "+comment+" where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
-
-                    MySqlCommand mySqlComm = new MySqlCommand(feedbackUpdate, mySqlCon);
-                    mySqlComm.ExecuteNonQuery();
-
-                    MySqlCommand mySqlComm = new MySqlCommand(commentUpdate, mySqlCon);
-                    mySqlComm.ExecuteNonQuery();
-                }
-               
-            }
-
-            return RedirectToAction("viewSurvey", "Survey", new { id = tokenID });
-        }
-        */
     }
 }

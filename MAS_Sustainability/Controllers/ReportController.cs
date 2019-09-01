@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace MAS_Sustainability.Controllers
 {
-
     public class ReportController : Controller
 
     {
@@ -19,7 +18,10 @@ namespace MAS_Sustainability.Controllers
         // GET: Report
         public ActionResult Index()
         {
-            
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "UserLogin");
+            }
 
 
 
@@ -36,7 +38,7 @@ namespace MAS_Sustainability.Controllers
                 MySqlDataAdapter mySqlDa1 = new MySqlDataAdapter();
                 MySqlCommand UserDetailsComm = new MySqlCommand(UserDetails, mySqlCon);
                 MySqlCommand listOfReportsComm = new MySqlCommand(listOfReports, mySqlCon);
-                
+
 
                 mySqlDa1.SelectCommand = UserDetailsComm;
                 mySqlDa1.Fill(UserDataDatatable);
@@ -44,8 +46,8 @@ namespace MAS_Sustainability.Controllers
                 mySqlDa1.SelectCommand = listOfReportsComm;
                 mySqlDa1.Fill(ReportDataTable);
             }
-            
-            
+
+
             var reportList = new List<Report>();
 
 
@@ -69,7 +71,7 @@ namespace MAS_Sustainability.Controllers
 
             mainModel.ReportList = reportList;
 
-            if(UserDataDatatable.Rows.Count == 1)
+            if (UserDataDatatable.Rows.Count == 1)
             {
 
                 mainModel.LoggedUserName = UserDataDatatable.Rows[0][0].ToString();
@@ -85,13 +87,18 @@ namespace MAS_Sustainability.Controllers
 
         public ActionResult viewReport(int? Id)
         {
-            
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "UserLogin");
+            }
+
+
             if (!Id.HasValue)
             {
                 return RedirectToAction("Index", "Report");
             }
 
-            
+
             DataTable UserDataDatatable1 = new DataTable();
             DataTable ReportDataTable1 = new DataTable();
             DataTable RepairDetailsDatatable = new DataTable();
@@ -107,7 +114,7 @@ namespace MAS_Sustainability.Controllers
                 MySqlCommand UserDetailsComm1 = new MySqlCommand(UserDetails1, mySqlCon);
                 MySqlCommand listOfReportsComm1 = new MySqlCommand(listOfReports1, mySqlCon);
                 MySqlCommand RepairDetailsComm = new MySqlCommand(RepairList, mySqlCon);
-            
+
 
                 mySqlDa2.SelectCommand = UserDetailsComm1;
                 mySqlDa2.Fill(UserDataDatatable1);
@@ -125,7 +132,7 @@ namespace MAS_Sustainability.Controllers
             }
             else
             {
-                
+
 
 
 
@@ -162,12 +169,12 @@ namespace MAS_Sustainability.Controllers
                 {
                     mySqlCon2.Open();
                     String ListOfComments = "select commentid,comment,comment.feedbackid,feedback.feedbackId,feedback.userid,feedback.tokenid,feedback.rating,users.userId,users.username,comment.datetime,users.userimage,users.useremail from comment,feedback,users where comment.feedbackId=feedback.feedbackId and users.userId = feedback.userId and feedback.tokenid=" + (int)Id + " order by dateTime desc";
-                    String LikeDislikeCounts = "select count(*) as totalCount, sum(case when rating = '1' then 1 else 0 end) likeCount, sum(case when rating = '2' then 1 else 0 end) DislikeCount from feedback where tokenId = " + (int)Id ;
+                    String LikeDislikeCounts = "select count(*) as totalCount, sum(case when rating = '1' then 1 else 0 end) likeCount, sum(case when rating = '2' then 1 else 0 end) DislikeCount from feedback where tokenId = " + (int)Id;
                     String LikedOrDisliked = "Select userid,tokenid,rating from feedback where tokenid = " + (int)Id + " and userid =" + (int)Convert.ToInt32(UserDataDatatable1.Rows[0][2]);
                     MySqlCommand sqlCommListComment = new MySqlCommand(ListOfComments, mySqlCon2);
                     MySqlCommand sqlCommLikeDislikeCount = new MySqlCommand(LikeDislikeCounts, mySqlCon2);
                     MySqlCommand sqlCommLikedOrDisliked = new MySqlCommand(LikedOrDisliked, mySqlCon2);
-                    MySqlDataAdapter mySqlda3= new MySqlDataAdapter();
+                    MySqlDataAdapter mySqlda3 = new MySqlDataAdapter();
                     mySqlda3.SelectCommand = sqlCommListComment;
                     mySqlda3.Fill(commentsDatatable);
 
@@ -196,7 +203,7 @@ namespace MAS_Sustainability.Controllers
                             userID = Convert.ToInt32(commentsDatatable.Rows[i][4]),
                             userName = commentsDatatable.Rows[i][8].ToString(),
                             UserEmail = commentsDatatable.Rows[i][11].ToString(),
-
+                            commentID = Convert.ToInt32(commentsDatatable.Rows[i][0]),
 
                             userImagePath = commentsDatatable.Rows[i][10].ToString(),
                             tokenID = Convert.ToInt32(commentsDatatable.Rows[i][5]),
@@ -276,83 +283,84 @@ namespace MAS_Sustainability.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult Like(int? tokenID, int? UserID, int? LikeStatus)
+
+        public ActionResult Like(int? TID, int? UID, int? LS)
         {
             DB dbconnection = new DB();
 
             using (MySqlConnection mySqlCon = dbconnection.DBConnection())
             {
                 mySqlCon.Open();
-                if (LikeStatus == 2)
+                if (LS == 2)
                 {
-                    String Like = "Update feedback set rating = '1' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '1' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     mySqlComm.ExecuteNonQuery();
                 }
-                else if (LikeStatus == 0)
+                else if (LS == 0)
                 {
-                    String Like = "Update feedback set rating = '1' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '1' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     int rowAffected = mySqlComm.ExecuteNonQuery();
                     if (rowAffected == 0)
                     {
-                        String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + UserID + "," + tokenID + ",1)";
+                        String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + UID + "," + TID + ",1)";
                         MySqlCommand mySqlComm2 = new MySqlCommand(LikeUpdate, mySqlCon);
                         mySqlComm2.ExecuteNonQuery();
                     }
                 }
-                else if (LikeStatus == 1)
+                else if (LS == 1)
                 {
-                    String Like = "Update feedback set rating = '0' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '0' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     mySqlComm.ExecuteNonQuery();
                 }
             }
 
-            return RedirectToAction("viewReport", "Report", new { id = tokenID });
+            return RedirectToAction("viewReport", "Report", new { id = TID });
         }
 
 
 
-        [HttpPost]
-        public ActionResult DisLike(int? tokenID, int? UserID, int? LikeStatus)
+
+        public ActionResult DisLike(int? TID, int? UID, int? LS)
         {
             DB dbconnection = new DB();
 
             using (MySqlConnection mySqlCon = dbconnection.DBConnection())
             {
                 mySqlCon.Open();
-                if (LikeStatus == 1)
+                if (LS == 1)
                 {
-                    String Like = "Update feedback set rating = '2' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '2' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     mySqlComm.ExecuteNonQuery();
                 }
-                else if (LikeStatus == 0)
+                else if (LS == 0)
                 {
-                    String Like = "Update feedback set rating = '2' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '2' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     int rowAffected = mySqlComm.ExecuteNonQuery();
                     if (rowAffected == 0)
                     {
-                        String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + UserID + "," + tokenID + ",2)";
+                        String LikeUpdate = "Insert into feedback(userid,tokenid,rating) values(" + UID + "," + TID + ",2)";
                         MySqlCommand mySqlComm2 = new MySqlCommand(LikeUpdate, mySqlCon);
                         mySqlComm2.ExecuteNonQuery();
                     }
                 }
-                else if (LikeStatus == 2)
+                else if (LS == 2)
                 {
-                    String Like = "Update feedback set rating = '0' where userid='" + UserID + "' and tokenid = '" + tokenID + "'";
+                    String Like = "Update feedback set rating = '0' where userid='" + UID + "' and tokenid = '" + TID + "'";
                     MySqlCommand mySqlComm = new MySqlCommand(Like, mySqlCon);
                     mySqlComm.ExecuteNonQuery();
                 }
             }
 
-            return RedirectToAction("viewReport", "Report", new { id = tokenID });
+
+            return RedirectToAction("viewReport", "Report", new { id = TID });
         }
 
-        [HttpPost]
+
         public ActionResult Comment(int? UserID, int? tokenID, String Comment)
         {
             DB connection = new DB();
@@ -396,6 +404,37 @@ namespace MAS_Sustainability.Controllers
 
             }
             return RedirectToAction("viewReport", "Report", new { id = tokenID });
+
+        }
+
+        public ActionResult Delete(int? TID, int? UID, int? CID)
+        {
+            DB connection = new DB();
+            DataTable feedbackIDDAtatable = new DataTable();
+            using (MySqlConnection mySqlCon = connection.DBConnection())
+            {
+                mySqlCon.Open();
+                String getFeedbackID = "Select feedbackID from feedback where userid = " + UID + " and tokenid = " + TID;
+                MySqlCommand commGetFeedbackID = new MySqlCommand(getFeedbackID, mySqlCon);
+                MySqlDataAdapter mySqlDa = new MySqlDataAdapter();
+                mySqlDa.SelectCommand = commGetFeedbackID;
+                mySqlDa.Fill(feedbackIDDAtatable);
+                if (feedbackIDDAtatable.Rows.Count != 0)
+                {
+                    var feedbackID = Convert.ToInt32(feedbackIDDAtatable.Rows[0][0]);
+                    String deleteComment = "Delete from comment where feedbackid = " + feedbackID + " and commentid = " + CID;
+                    MySqlCommand commDeleteCommand = new MySqlCommand(deleteComment, mySqlCon);
+                    commDeleteCommand.ExecuteNonQuery();
+                }
+
+
+            }
+
+
+
+
+
+            return RedirectToAction("viewReport", "Report", new { id = TID });
 
         }
 

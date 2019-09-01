@@ -244,10 +244,10 @@
                                             <div class="avatar-lg"><img src="@Url.Content(Model.UserImagePath)" alt="image profile" class="avatar-img rounded"></div>
                                             <div class="u-text">
 
-                                                                
-                                            	  @Html.DisplayFor(model => model.LoggedUserName)
-                                            
-                                                
+
+                                                @Html.DisplayFor(model => model.LoggedUserName)
+
+
 
 
                                                 <p class="text-muted">dinuwan@gmail.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
@@ -256,7 +256,7 @@
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="@Url.Action("Edit", "UserManagement", new { @id = @Html.DisplayFor(model => model.LoggedUserID) })">Edit Profile</a>
+                                        <a class="dropdown-item" href="@Url.Action(" Edit", "UserManagement" , new { @id=@Html.DisplayFor(model => model.LoggedUserID) })">Edit Profile</a>
                                         <a class="dropdown-item" href="#">My Balance</a>
                                         <a class="dropdown-item" href="#">Inbox</a>
                                         <div class="dropdown-divider"></div>
@@ -292,11 +292,11 @@
                                 <span>
 
 
-                             	@Html.DisplayFor(model => model.LoggedUserName)
-                                <span class="caret"></span>
+                                    @Html.DisplayFor(model => model.LoggedUserName)
+                                    <span class="caret"></span>
 
                                     <span class="user-level">@Html.DisplayFor(model => model.LoggedUserType)</span>
-                                    
+
                                 </span>
                             </a>
                             <div class="clearfix"></div>
@@ -305,7 +305,7 @@
                                 <ul class="nav">
                                     <li>
                                         <a href="#profile">
-                                            <span class="link-collapse"><a href="@Url.Action("Edit", "UserManagement", new { @id = @Html.DisplayFor(model => model.LoggedUserID) })"><strong>Edit Profile</strong></a></span>
+                                            <span class="link-collapse"><a href="@Url.Action(" Edit", "UserManagement" , new { @id=@Html.DisplayFor(model => model.LoggedUserID) })"><strong>Edit Profile</strong></a></span>
                                         </a>
                                     </li>
                                     <li>
@@ -315,26 +315,29 @@
                                     </li>
                                     <li>
                                         <a href="#settings">
-                                            <span class="link-collapse">Settings</span>
+                                            <span class="link-collapse">@Html.ActionLink("Logout", "Logout", "UserLogin", null, new { @class = "dropdown-item" })</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+
                     <ul class="nav nav-primary">
                         <li class="nav-item active">
-                            <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-                                <i class="fas fa-home"></i>
-                                <p>Dashboard</p>
-                                <span class="caret"></span>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Dashbord")">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Dashbord</p>
+
                             </a>
+                        </li>
 
                         </li>
 
                         <li class="nav-item">
                             <a href="@Url.Action("Add","Token")">
-                                <i class="fas fa-external-link-square-alt"></i>
+                                <i class="fas fa-plus-circle"></i>
                                 <p>Add New Token</p>
 
                             </a>
@@ -342,19 +345,24 @@
 
                         <li class="nav-item">
                             <a href="@Url.Action("MyTokens","Token")">
-                                <i class="fas fa-external-link-square-alt"></i>
+                                <i class="fas fa-stream"></i>
                                 <p>My Tokens</p>
+                                <span class="badge badge-info">3</span>
 
                             </a>
                         </li>
 
+                        @if (Model.LoggedUserType == ("Administrator") || (Model.LoggedUserType == ("Token Manager")))
+                        {
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fab fa-searchengin"></i>
                                 <p>View Tokens</p>
+                                <span class="badge badge-success">2</span>
 
                             </a>
                         </li>
+                        }
 
 
                         @if (Model.LoggedUserType == ("Administrator"))
@@ -369,7 +377,7 @@
 
                         <li class="nav-item">
                             <a href="@Url.Action("RepairationList","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-wrench"></i>
                                 <p>Repairations</p>
 
                             </a>
@@ -380,8 +388,17 @@
 
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Report")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-book-open"></i>
                                 <p>Reports</p>
+
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Survey")">
+                                <i class="fas fa-ruler-combined"></i>
+                                <p>User Survay</p>
 
                             </a>
                         </li>
@@ -393,7 +410,7 @@
                         {
                         <li class="nav-item">
                             <a href="@Url.Action("RepairationList","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-ruler-combined"></i>
                                 <p>Repairations</p>
 
                             </a>
