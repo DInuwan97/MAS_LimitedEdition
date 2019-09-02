@@ -15,5 +15,15 @@ namespace MAS_Sustainability.Models
         public String Password { get; set; }
         public String ConfirmPassword { get; set; }
         public String UserType { get; set; }
+
+   
+
+        public HttpPostedFileBase UserImage { get; set; }
+
+        public string UserImagePath { get; set; }
+
+
+
+        public int SecretKey { get; set; }
     }
 }

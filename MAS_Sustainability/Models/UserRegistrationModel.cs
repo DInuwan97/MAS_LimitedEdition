@@ -21,7 +21,7 @@ namespace MAS_Sustainability
 
         public String Password { get; set; }
 
-        public String ConfirmPassword { get; set;}
+        public String ConfirmPassword { get; set; }
 
         public String UserType { get; set; }
 
@@ -29,17 +29,17 @@ namespace MAS_Sustainability
 
         public string UserImagePath { get; set; }
 
-  
+
 
         public int SecretKey { get; set; }
 
 
-        public IEnumerable <SelectListItem> TypeList
+        public IEnumerable<SelectListItem> TypeList
         {
             get
             {
 
-                return new List <SelectListItem>
+                return new List<SelectListItem>
 
         {
             new SelectListItem { Text = "Factory Engineering", Value = "Factory Engineering"},

@@ -315,7 +315,7 @@
                                     </li>
                                     <li>
                                         <a href="#settings">
-                                            <span class="link-collapse">@Html.ActionLink("Logout", "Logout", "UserLogin", null, new { @class = "dropdown-item" })</span>
+                                            <span class="link-collapse">Settings</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -352,7 +352,7 @@
                             </a>
                         </li>
 
-                        @if (Model.LoggedUserType == ("Administrator") || (Model.LoggedUserType == ("Token Manager")))
+                        @if (Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Department Leader"))
                         {
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Token")">
@@ -363,7 +363,6 @@
                             </a>
                         </li>
                         }
-
 
                         @if (Model.LoggedUserType == ("Administrator"))
                         {
@@ -396,7 +395,7 @@
 
 
                         <li class="nav-item">
-                            <a href="@Url.Action("Index","Survey")">
+                            <a href="@Url.Action("Index","Report")">
                                 <i class="fas fa-ruler-combined"></i>
                                 <p>User Survay</p>
 
@@ -410,7 +409,7 @@
                         {
                         <li class="nav-item">
                             <a href="@Url.Action("RepairationList","Token")">
-                                <i class="fas fa-ruler-combined"></i>
+                                <i class="fas fa-wrench"></i>
                                 <p>Repairations</p>
 
                             </a>

@@ -46,7 +46,7 @@ namespace MAS_Sustainability.Controllers
                 String qry = "INSERT INTO users(UserName,UserEmail,UserMobile,Password,ConfirmPassword,UserDepartment,UserType,SecretKey,Validation,UserImage) VALUES(@UserName,@UserEmail,@UserMobile,@Password,@ConfirmPassword,@UserDepartment,@UserType,@SecretKey,@Validation,@UserImage)";
                 MySqlCommand mySqlcmd = new MySqlCommand(qry, mySqlCon);
 
-             
+
 
                 mySqlcmd.Parameters.AddWithValue("@UserName", userRegistrationModel.UserFullName);
                 mySqlcmd.Parameters.AddWithValue("@UserEmail", userRegistrationModel.UserEmail);
@@ -68,8 +68,8 @@ namespace MAS_Sustainability.Controllers
 
                 string UserName = "0766061689"; //acount username
                 string Password = "4873"; //account password
-                string PhoneNo =  "94"+userRegistrationModel.UserMobile.ToString();
-                string Message = "Hello " +userRegistrationModel.UserFullName+". Welcome to MAS IMS.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
+                string PhoneNo = "94" + userRegistrationModel.UserMobile.ToString();
+                string Message = "Hello " + userRegistrationModel.UserFullName + ". Welcome to MAS IMS.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
 
                 string url = @"http://api.liyanagegroup.com/sms_api.php?sms=" + @Message + "&to=" + @PhoneNo + "&usr=" + @UserName + "&pw=" + @Password;
                 WebRequest request = HttpWebRequest.Create(url);
@@ -90,12 +90,12 @@ namespace MAS_Sustainability.Controllers
                 mySqlcmd.ExecuteNonQuery();
 
 
-               
+
 
 
             }
 
-            return RedirectToAction("SecureCode","UserRegistration");
+            return RedirectToAction("SecureCode", "UserRegistration");
         }
 
         // GET: UserRegistration/Edit/5
@@ -172,9 +172,9 @@ namespace MAS_Sustainability.Controllers
                 MySqlCommand mySqlCmd = mySqlCon.CreateCommand();
                 mySqlCmd.CommandType = System.Data.CommandType.Text;
 
-                mySqlCmd.CommandText = "SELECT UserID,UserEmail,UserMobile FROM users WHERE UserEmail = '"+userEmail+"'";
+                mySqlCmd.CommandText = "SELECT UserID,UserEmail,UserMobile FROM users WHERE UserEmail = '" + userEmail + "'";
                 mySqlCmd.ExecuteNonQuery();
-               
+
                 MySqlDataAdapter mySqlDA = new MySqlDataAdapter(mySqlCmd);
                 mySqlDA.Fill(dt);
 
@@ -186,7 +186,7 @@ namespace MAS_Sustainability.Controllers
                 }
 
             }
-        
+
 
             return View();
         }
@@ -199,7 +199,7 @@ namespace MAS_Sustainability.Controllers
             MainModel mainModel = new MainModel();
             DataTable dt = new DataTable();
 
-            String userEmail,userMobile;
+            String userEmail, userMobile;
 
             List<UserRegistrationModel> ForgotDetails = new List<UserRegistrationModel>();
 
@@ -209,7 +209,7 @@ namespace MAS_Sustainability.Controllers
 
                 userEmail = userRegistrationModel.UserEmail;
 
-                String qry = "SELECT UserID,UserMobile FROM users WHERE UserEmail = '"+ Session["forgotEmail"] + "'";
+                String qry = "SELECT UserID,UserMobile FROM users WHERE UserEmail = '" + Session["forgotEmail"] + "'";
                 MySqlDataAdapter mySqlData_UserList = new MySqlDataAdapter(qry, mySqlCon);
                 mySqlData_UserList.Fill(dt);
 
@@ -238,7 +238,7 @@ namespace MAS_Sustainability.Controllers
         {
             DB dbConn = new DB();
             MainModel mainModel = new MainModel();
-           
+
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
             {
@@ -250,17 +250,17 @@ namespace MAS_Sustainability.Controllers
                 mySqlCon.Open();
                 MySqlCommand mySqlCmd = mySqlCon.CreateCommand();
                 mySqlCmd.CommandType = System.Data.CommandType.Text;
-                mySqlCmd.CommandText = "SELECT UserID,SecretKey,UserMobile FROM users WHERE SecretKey = '"+SecretKey+"' and UserID = '"+UserID+"'";
+                mySqlCmd.CommandText = "SELECT UserID,SecretKey,UserMobile FROM users WHERE SecretKey = '" + SecretKey + "' and UserID = '" + UserID + "'";
                 mySqlCmd.ExecuteNonQuery();
                 DataTable dtblToken = new DataTable();
                 MySqlDataAdapter mySqlDa = new MySqlDataAdapter(mySqlCmd);
                 mySqlDa.Fill(dtblToken);
 
-            
 
-                foreach(DataRow dr in dtblToken.Rows)
+
+                foreach (DataRow dr in dtblToken.Rows)
                 {
-                    if(dtblToken.Rows[0][1].Equals(userRegistrationModel.SecretKey))
+                    if (dtblToken.Rows[0][1].Equals(userRegistrationModel.SecretKey))
                     {
                         String qry_update_validation = "UPDATE users SET Validation = 'true' WHERE UserID = @UserID";
                         MySqlCommand mySqlCommand_update_validity = new MySqlCommand(qry_update_validation, mySqlCon);
@@ -278,7 +278,7 @@ namespace MAS_Sustainability.Controllers
                     }
                 }//invalid email
             }
-            return View();    
+            return View();
         }
 
 
