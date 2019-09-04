@@ -182,7 +182,7 @@ namespace MAS_Sustainability.Controllers
             if (userDetailsDataTable.Rows.Count == 1)
             {
 
-                mainModel.UserImagePath = userDetailsDataTable.Rows[0][8].ToString();
+                mainModel.UserProfileImagePath = userDetailsDataTable.Rows[0][8].ToString();
 
                 List_UserDetails.Add(
                     new UserRegistrationModel {
@@ -192,7 +192,8 @@ namespace MAS_Sustainability.Controllers
                         UserEmail = userDetailsDataTable.Rows[0][2].ToString(),
                         UserMobile = userDetailsDataTable.Rows[0][3].ToString(),
                         UserDepartment = userDetailsDataTable.Rows[0][6].ToString()
-                        
+                       
+
                     }    
                 );
 

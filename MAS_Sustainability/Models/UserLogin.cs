@@ -16,6 +16,8 @@ namespace MAS_Sustainability
 
         public String LoggedUserNameSide { set; get; }
 
+        public String LoggedUserType { get; set; }
+
 
     }
 }

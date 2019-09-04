@@ -1,0 +1,162 @@
+﻿@using MAS_Sustainability.Models;
+@model MainModel
+@{
+    ViewBag.Title = "UsersInfoReportPreview";
+}
+
+<h2>UsersInfoReportPreview</h2>
+
+<div class="content">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-9">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h6 class="page-pretitle">
+                            Payments
+                        </h6>
+                        <h4 class="page-title">Invoice #FDS9876KD</h4>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#" class="btn btn-light btn-border">
+                            Download
+                        </a>
+                        <a href="#" class="btn btn-primary ml-2">
+                            Pay
+                        </a>
+                    </div>
+                </div>
+                <div class="page-divider"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-invoice">
+                            <div class="card-header">
+                                <div class="invoice-header">
+                                    <h3 class="invoice-title">
+                                        Invoice
+                                    </h3>
+                                    <div class="invoice-logo">
+                                        <img src="../assets/img/examples/logoinvoice.svg" alt="company logo">
+                                    </div>
+                                </div>
+                                <div class="invoice-desc">
+                                    Bandung, West Java, Indonesia<br />
+                                    Fax 621113
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="separator-solid"></div>
+                                <div class="row">
+                                    <div class="col-md-4 info-invoice">
+                                        <h5 class="sub">Date</h5>
+                                        <p>Dec 21, 2017</p>
+                                    </div>
+                                    <div class="col-md-4 info-invoice">
+                                        <h5 class="sub">Invoice ID</h5>
+                                        <p>#FDS9876KD</p>
+                                    </div>
+                                    <div class="col-md-4 info-invoice">
+                                        <h5 class="sub">Invoice To</h5>
+                                        <p>
+                                            Jane Smith, 1234 Main, Apt. 4B<br />Springfield, ST 54321
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="invoice-detail">
+                                            <div class="invoice-top">
+                                                <h3 class="title"><strong>Order summary</strong></h3>
+                                            </div>
+                                            <div class="invoice-item">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <td class=""><strong>Name</strong></td>
+                                                                <td class=""><strong>Department</strong></td>
+                                                                <td class="text-right"><strong>Email</strong></td>
+                                                                <td class=""><strong>Mobile</strong></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @foreach (var userDetailList in Model.ListUserRegistration)
+                                                            {
+                                                                if (@userDetailList.UserType == ("Employee"))
+                                                                {
+
+
+
+                                                                <tr>
+                                                                    <td class="">@userDetailList.UserFullName</td>
+                                                                    <td class="">@userDetailList.UserDepartment</td>
+                                                                    <td class="text-right">@userDetailList.UserEmail</td>
+                                                                    <td class="">@userDetailList.UserMobile</td>
+                                                                </tr>
+                                                                }
+
+                                                            }
+
+
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="separator-solid  mb-3"></div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-sm-7 col-md-5 mb-3 mb-md-0 transfer-to">
+                                        <h5 class="sub">Bank Transfer</h5>
+                                        <div class="account-transfer">
+                                            <div><span>Account Name:</span><span>Syamsuddin</span></div>
+                                            <div><span>Account Number:</span><span>1234567890934</span></div>
+                                            <div><span>Code:</span><span>BARC0032UK</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 col-md-7 transfer-total">
+                                        <h5 class="sub">Total Amount</h5>
+                                        <div class="price">$685.99</div>
+                                        <span>Taxes Included</span>
+                                    </div>
+                                </div>
+                                <div class="separator-solid"></div>
+                                <h6 class="text-uppercase mt-4 mb-3 fw-bold">
+                                    Notes
+                                </h6>
+                                <p class="text-muted mb-0">
+                                    We really appreciate your business and if there's anything else we can do, please let us know! Also, should you need us to add VAT or anything else to this order, it's super easy since this is a template, so just ask!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<!-- jQuery UI -->
+<script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<!-- Bootstrap Toggle -->
+<script src="../assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<!-- Atlantis JS -->
+<script src="../assets/js/atlantis.min.js"></script>
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="../assets/js/setting-demo.js"></script>

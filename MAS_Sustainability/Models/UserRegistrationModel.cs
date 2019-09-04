@@ -33,6 +33,8 @@ namespace MAS_Sustainability
 
         public int SecretKey { get; set; }
 
+       
+
 
         public IEnumerable<SelectListItem> TypeList
         {

@@ -15,6 +15,9 @@ namespace MAS_Sustainability
         public List<Models.Survey> SurveyList { get; set; }
         public Models.Survey survey { get; set; }
 
+        public List<ReparationModel> SingleTokenReparatiDetailsList { get; set; }
+        public List<ReparationModel> SideBarTokenReparationDetails { get; set; }
+
 
         public List<Token> ListToken { get; set; }
         public List<UserLogin> ListUserLogin { get; set; }
@@ -67,6 +70,7 @@ namespace MAS_Sustainability
 
         //for UserManagement Controller's UserProfile View
         public String UserImagePath { get; set; }
+        public String UserProfileImagePath { get; set; }
         public String[] ArrUserImagePath { get; set; }
         //for UserManagement Controller's UserProfile View
 

@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.IO;
+using MAS_Sustainability.Models;
 
 namespace MAS_Sustainability.Controllers
 {
     public class TokenController : Controller
     {
-
         
 
         [HttpGet]
@@ -633,7 +633,7 @@ namespace MAS_Sustainability.Controllers
         }
 
 
-        //token Repairation
+        //token Repairation//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public ActionResult RepairationList()
         {
             MainModel mainModel = new MainModel();
@@ -641,6 +641,7 @@ namespace MAS_Sustainability.Controllers
             Token tokenModel = new Token();
 
             List<UserLogin> List_UserLogin = new List<UserLogin>();
+
             List<Token> List_Token = new List<Token>();
             List<Token> Token_List = new List<Token>();
 
@@ -669,15 +670,20 @@ namespace MAS_Sustainability.Controllers
                 mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
                 mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
                 mainModel.LoggedUserDepartment = userDetailsDataTable.Rows[0][5].ToString();
+
+                List_UserLogin.Add(new UserLogin
+                {
+                    LoggedUserType = userDetailsDataTable.Rows[0][1].ToString()
+                }
+                );
+
             }
 
             for (int i = 0; i < dtblRepair.Rows.Count; i++)
             {
-
-
                 if (mainModel.LoggedUserDepartment == dtblRepair.Rows[i][7].ToString()) {
 
-                    if (mainModel.LoggedUserType == "Department Leader" || mainModel.LoggedUserType == "Administrator") {
+                    if (mainModel.LoggedUserType == "Department Leader") {
 
                         List_Token.Add(new Token
                         {
@@ -694,15 +700,29 @@ namespace MAS_Sustainability.Controllers
                         );
                     }//user type
                 }//user dept
+
+                if (mainModel.LoggedUserType == "Administrator")
+                {
+                    List_Token.Add(new Token
+                    {
+                        ProblemName = dtblRepair.Rows[i][0].ToString(),
+                        Location = dtblRepair.Rows[i][1].ToString(),
+                        AttentionLevel = Convert.ToInt32(dtblRepair.Rows[i][2]),
+                        AddedUserName = dtblRepair.Rows[i][3].ToString(),
+                        SentDate = dtblRepair.Rows[i][4].ToString(),
+                        RecievedStatus = dtblRepair.Rows[i][5].ToString(),
+                        TokenAuditID = Convert.ToInt32(dtblRepair.Rows[i][6]),
+                        TokenManagerStatus = dtblRepair.Rows[i][7].ToString()
+
+                    }
+                    );
+                }
             }
 
             mainModel.ListToken = List_Token;
             mainModel.ListUserLogin = List_UserLogin;
             mainModel.TokenList = Token_List;
-
-
-
-
+            ViewBag.LoggedUserVariable = mainModel;
 
             return View(mainModel);
         }
@@ -711,8 +731,110 @@ namespace MAS_Sustainability.Controllers
         ///
         public ActionResult ViewRepairation(int id)
         {
+            DB dbConn = new DB();
             MainModel mainModel = new MainModel();
 
+            DataTable userDetailsDataTable = new DataTable();
+            DataTable singleTokenDetailsDataTable = new DataTable();
+            DataTable multiTokenDetailsDataTable = new DataTable();
+
+            List<UserLogin> List_UserLogin = new List<UserLogin>();
+
+            List<Token> List_Token = new List<Token>();
+            List<Token> Token_List = new List<Token>();
+
+            List<ReparationModel> TokenRepair_List = new List<ReparationModel>();
+            List<ReparationModel> SideBarTokenRepair_List = new List<ReparationModel>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                String qry_listOfUserDetails = "SELECT UserName,UserType,UserID,UserEmail,UserImage,UserDepartment FROM users WHERE UserEmail = '" + Session["user"] + "'";
+                MySqlDataAdapter mySqlDa = new MySqlDataAdapter(qry_listOfUserDetails, mySqlCon);
+                mySqlDa.Fill(userDetailsDataTable);
+
+
+                String qry_SingleTokenDetails = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tk.Description,tkimg.ImagePath,tkr.RepairDepartment,tkr.SentDate,tkr.SentUser,usr.UserImage,usr.UserID FROM token_audit tka,tokens tk,token_image tkimg,token_review tkr,users usr WHERE tka.TokenAuditID = tk.TokenAuditID AND tk.TokenAuditID = tkimg.TokenID AND tkimg.TokenID = tkr.TokenAuditID AND usr.UserEmail = tka.AddedUser AND tka.TokenAuditID = @TokenAuditID";
+
+                MySqlDataAdapter mySqlDa_SingleTokenDetails = new MySqlDataAdapter(qry_SingleTokenDetails,mySqlCon);
+                mySqlDa_SingleTokenDetails.SelectCommand.Parameters.AddWithValue("@TokenAuditID", id);
+                mySqlDa_SingleTokenDetails.Fill(singleTokenDetailsDataTable);
+
+                String qry_MultiTokenDetails = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tk.Description,tkimg.ImagePath,tkr.RepairDepartment,tkr.SentDate,tkr.SentUser,usr.UserImage,usr.UserID FROM token_audit tka,tokens tk,token_image tkimg,token_review tkr,users usr WHERE tka.TokenAuditID = tk.TokenAuditID AND tk.TokenAuditID = tkimg.TokenID AND tkimg.TokenID = tkr.TokenAuditID AND usr.UserEmail = tka.AddedUser  ORDER BY tka.AddedDate DESC limit 10";
+                MySqlDataAdapter mySqlDa_MultiTokenDetails = new MySqlDataAdapter(qry_MultiTokenDetails, mySqlCon);
+                mySqlDa_MultiTokenDetails.Fill(multiTokenDetailsDataTable);
+
+            }
+
+            if (userDetailsDataTable.Rows.Count == 1)
+            {
+                mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
+                mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
+                mainModel.LoggedUserID = Convert.ToInt32(userDetailsDataTable.Rows[0][2]);
+                mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
+                mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
+                mainModel.LoggedUserDepartment = userDetailsDataTable.Rows[0][5].ToString();
+
+                List_UserLogin.Add(new UserLogin
+                {
+                    LoggedUserType = userDetailsDataTable.Rows[0][1].ToString()
+                }
+                );
+
+            }
+
+            if (singleTokenDetailsDataTable.Rows.Count == 2)
+            {
+                TokenRepair_List.Add(new ReparationModel
+                {
+                    TokenAuditID = Convert.ToInt32(singleTokenDetailsDataTable.Rows[0][0].ToString()),
+                    ProblemCategory = singleTokenDetailsDataTable.Rows[0][1].ToString(),
+                    ProblemAddedUser = singleTokenDetailsDataTable.Rows[0][2].ToString(),
+                    ProblemAddedDate = singleTokenDetailsDataTable.Rows[0][3].ToString(),
+                    ProblemName = singleTokenDetailsDataTable.Rows[0][4].ToString(),
+                    ProblemLocation = singleTokenDetailsDataTable.Rows[0][5].ToString(),
+                    AttentionLevel = Convert.ToInt32(singleTokenDetailsDataTable.Rows[0][6].ToString()),
+                    ProblemDescription = singleTokenDetailsDataTable.Rows[0][7].ToString(),
+                    ProblemFirstImagePath = singleTokenDetailsDataTable.Rows[0][8].ToString(),
+                    ProblemSecondImagePath = singleTokenDetailsDataTable.Rows[1][8].ToString(),
+                    ReparationDepartment = singleTokenDetailsDataTable.Rows[0][9].ToString(),
+                    ProblemReviewedDate = singleTokenDetailsDataTable.Rows[0][10].ToString(),
+                    SentUserEmail = singleTokenDetailsDataTable.Rows[0][11].ToString(),
+                    ProblemAddedUserImagePath = singleTokenDetailsDataTable.Rows[0][12].ToString(),
+                    UserID = Convert.ToInt32(singleTokenDetailsDataTable.Rows[0][13].ToString())
+                   
+                }
+                );
+            }
+
+
+            for(int i = 0; i < multiTokenDetailsDataTable.Rows.Count; i = i + 2)
+            {
+                SideBarTokenRepair_List.Add(new ReparationModel
+                {
+                   
+
+                    SideBarTokenAuditID = Convert.ToInt32(multiTokenDetailsDataTable.Rows[i][0].ToString()),
+                    SideBarProblemCategory = multiTokenDetailsDataTable.Rows[i][1].ToString(),
+                   // ProblemAddedUser = singleTokenDetailsDataTable.Rows[i][2].ToString(),
+                    SideBarProblemAddedDate = multiTokenDetailsDataTable.Rows[i][3].ToString(),
+                    SideBarProblemName = multiTokenDetailsDataTable.Rows[i][4].ToString(),
+                    SideBarProblemLocation = multiTokenDetailsDataTable.Rows[i][5].ToString(),
+                    SideBarAttentionLevel = Convert.ToInt32(multiTokenDetailsDataTable.Rows[i][6].ToString()),
+                   // ProblemDescription = singleTokenDetailsDataTable.Rows[i][7].ToString(),
+                    SideBarProblemFirstImagePath = multiTokenDetailsDataTable.Rows[i][8].ToString(),
+                   // ProblemSecondImagePath = singleTokenDetailsDataTable.Rows[1][8].ToString(),
+                    SideBarReparationDepartment = multiTokenDetailsDataTable.Rows[i][9].ToString(),
+                    //ProblemReviewedDate = singleTokenDetailsDataTable.Rows[i][10].ToString(),
+                   // SentUserEmail = singleTokenDetailsDataTable.Rows[i][11].ToString(),
+                   // ProblemAddedUserImagePath = singleTokenDetailsDataTable.Rows[i][12].ToString(),
+                    //UserID = Convert.ToInt32(singleTokenDetailsDataTable.Rows[i][13].ToString())
+                }
+                );
+            }
+
+            mainModel.ListUserLogin = List_UserLogin;
+            mainModel.SingleTokenReparatiDetailsList = TokenRepair_List;
+            mainModel.SideBarTokenReparationDetails = SideBarTokenRepair_List;
             return View(mainModel);
         }
 
