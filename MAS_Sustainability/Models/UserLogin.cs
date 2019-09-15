@@ -18,6 +18,9 @@ namespace MAS_Sustainability
 
         public String LoggedUserType { get; set; }
 
+        public int SuccesMsg { get; set; }
+
+        
 
     }
 }

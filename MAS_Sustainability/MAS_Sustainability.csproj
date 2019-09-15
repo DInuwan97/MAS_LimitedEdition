@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\Reparation.cs" />
+    <Compile Include="Models\ReparationModel.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\StaffRegistrationModel.cs" />
     <Compile Include="Models\Survey.cs" />

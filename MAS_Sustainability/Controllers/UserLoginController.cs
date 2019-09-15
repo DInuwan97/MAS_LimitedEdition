@@ -13,18 +13,22 @@ namespace MAS_Sustainability.Controllers
         // GET: UserLogin
         public ActionResult Login()
         {
+            UserLogin userLogin = new UserLogin();
+            userLogin.SuccesMsg = 0;
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(UserLogin userLogin)
         {
+            userLogin.SuccesMsg = 0;
             DB dbConn = new DB();
             MySqlConnection mySqlCon = dbConn.DBConnection();
 
             using (mySqlCon)
             {
                 mySqlCon.Open();
+               
                 String userEmail = userLogin.LoginUserEmail;
                 String userPassword = userLogin.LoginUserPassword;
                 //  String qry = "SELECT UserEmail,Password FROM users WHERE UserEmail = '"+userEmail+"' AND Password = '"+userPassword+"' ";
@@ -33,21 +37,25 @@ namespace MAS_Sustainability.Controllers
                 mySqlCmd.CommandText = "SELECT UserEmail,Password FROM users WHERE UserEmail = '" + userEmail + "' AND Password = '" + userPassword + "' and Validation = 'true' ";
                 mySqlCmd.ExecuteNonQuery();
                 DataTable dt = new DataTable();
+                
                 MySqlDataAdapter mySqlDA = new MySqlDataAdapter(mySqlCmd);
                 mySqlDA.Fill(dt);
 
 
                 foreach (DataRow dr in dt.Rows)
                 {
+                    userLogin.SuccesMsg = 1;
                     //Session["user"] = new UserLogin() { Login = userLogin.LoginUserEmail, LoginUserEmail = userLogin.LoginUserEmail };
                     Session["user"] = userLogin.LoginUserEmail;
                     return RedirectToAction("Index", "Dashbord");
                 }
+
+                //if(userLogin.SuccesMsg)
             }
 
 
 
-            return View();
+            return View(userLogin);
         }
 
         public ActionResult Logout()

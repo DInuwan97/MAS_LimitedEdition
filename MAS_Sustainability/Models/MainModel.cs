@@ -29,10 +29,6 @@ namespace MAS_Sustainability
 
         public List<UserRegistrationModel> ForgottenDetails { get; set; }
 
-        
-
-
-
         public int[] ArrTokenAuditID { get; set; }
         public int[] ArrAttentionLevel { get; set; }
         public String[] ArrFirstImagePath { get; set; }
@@ -73,6 +69,10 @@ namespace MAS_Sustainability
         public String UserProfileImagePath { get; set; }
         public String[] ArrUserImagePath { get; set; }
         //for UserManagement Controller's UserProfile View
+
+
+
+        public int SuccesMsg { get; set; }
 
 
 
