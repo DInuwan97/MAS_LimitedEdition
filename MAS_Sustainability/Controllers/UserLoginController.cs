@@ -28,7 +28,7 @@ namespace MAS_Sustainability.Controllers
             using (mySqlCon)
             {
                 mySqlCon.Open();
-               
+                userLogin.SuccesMsg = 0;
                 String userEmail = userLogin.LoginUserEmail;
                 String userPassword = userLogin.LoginUserPassword;
                 //  String qry = "SELECT UserEmail,Password FROM users WHERE UserEmail = '"+userEmail+"' AND Password = '"+userPassword+"' ";
@@ -60,8 +60,10 @@ namespace MAS_Sustainability.Controllers
 
         public ActionResult Logout()
         {
+            UserLogin userLogin = new UserLogin();
             // Session.Clear();
             Session["user"] = null;
+            userLogin.SuccesMsg = 0;
             return RedirectToAction("Login", "UserLogin");
         }
     }

@@ -268,7 +268,7 @@ namespace MAS_Sustainability.Controllers
                 mySqlDa.Fill(dtblToken);
 
 
-                String qry_side_token_list = "SELECT tka.TokenAuditID,tk.ProblemName,tk.Location,tk.AttentionLevel,tki.ImagePath FROM tokens tk, token_audit tka,token_image tki WHERE tk.TokenAuditID = tka.TokenAuditID  AND tk.TokenAuditID = tki.TokenID";
+                String qry_side_token_list = "SELECT tka.TokenAuditID,tk.ProblemName,tk.Location,tk.AttentionLevel,tki.ImagePath FROM tokens tk, token_audit tka,token_image tki,token_flow tkf WHERE tk.TokenAuditID = tka.TokenAuditID  AND tk.TokenAuditID = tki.TokenID AND tkf.TokenAuditID = tk.TokenAuditID  AND tkf.TokenManagerStatus = 'Pending'";
                 MySqlDataAdapter mySqlDa_sideList = new MySqlDataAdapter(qry_side_token_list, mySqlCon);
                 mySqlDa_sideList.Fill(dtblSideList);
 

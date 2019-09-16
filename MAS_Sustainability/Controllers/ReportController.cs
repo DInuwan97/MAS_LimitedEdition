@@ -61,7 +61,8 @@ namespace MAS_Sustainability.Controllers
                     Description = ReportDataTable.Rows[i][5].ToString(),
                     Category = ReportDataTable.Rows[i][8].ToString(),
                     tokenID = Convert.ToInt32(ReportDataTable.Rows[i][0]),
-                    AddedDate = ReportDataTable.Rows[i][9].ToString()
+                    AddedDate = ReportDataTable.Rows[i][9].ToString(),
+                    AttentionLevel = Convert.ToInt32(ReportDataTable.Rows[i][4])
                 });
             }
 

@@ -250,7 +250,7 @@
 
 
 
-                                                <p class="text-muted">dinuwan@gmail.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                                <p class="text-muted">@Session["user"]</p>
                                             </div>
                                         </div>
                                     </li>
@@ -305,7 +305,7 @@
                                 <ul class="nav">
                                     <li>
                                         <a href="#profile">
-                                            <span class="link-collapse"><a href="@Url.Action(" Edit", "UserManagement" , new { @id=@Html.DisplayFor(model => model.LoggedUserID) })"><strong>Edit Profile</strong></a></span>
+                                            <span class="link-collapse"><a href="@Url.Action("Edit", "UserManagement" , new { @id=@Html.DisplayFor(model => model.LoggedUserID) })"><strong>Edit Profile</strong></a></span>
                                         </a>
                                     </li>
                                     <li>
@@ -355,7 +355,7 @@
                         @if(controllerName== "Token" && ActionName=="Add")
                         {
                         <li class="nav-item active">
-                            <a href="@Url.Action("Add","Token")">
+                            <a href="@Url.Action(" Add","Token")">
                                 <i class="fas fa-plus-circle"></i>
                                 <p>Add New Token</p>
 
@@ -392,6 +392,7 @@
                         }
                         @if(controllerName== "Token" && ActionName=="Index")
                         {
+                        if( Model.LoggedUserType == ("Administrator")){
                         <li class="nav-item active">
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>
@@ -399,7 +400,9 @@
 
                             </a>
                         </li>
+                        }
                         }else{
+                        if( Model.LoggedUserType == ("Administrator")){
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>
@@ -407,6 +410,7 @@
 
                             </a>
                         </li>
+                        }
                         }
 
                         @{

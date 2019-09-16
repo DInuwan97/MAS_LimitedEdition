@@ -158,7 +158,7 @@ namespace MAS_Sustainability.Controllers
 
             List<UserRegistrationModel> ForgotDetails = new List<UserRegistrationModel>();
 
-            String userEmail, userMobile;
+            String userEmail, userMobile,userFullName;
 
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
@@ -168,11 +168,12 @@ namespace MAS_Sustainability.Controllers
                 userEmail = userRegistrationModel.UserEmail;
                 userMobile = userRegistrationModel.UserMobile;
                 int userID = userRegistrationModel.UserID;
+                userFullName = userRegistrationModel.UserFullName;
 
                 MySqlCommand mySqlCmd = mySqlCon.CreateCommand();
                 mySqlCmd.CommandType = System.Data.CommandType.Text;
 
-                mySqlCmd.CommandText = "SELECT UserID,UserEmail,UserMobile FROM users WHERE UserEmail = '" + userEmail + "'";
+                mySqlCmd.CommandText = "SELECT UserID,UserEmail,UserMobile,UserName FROM users WHERE UserEmail = '" + userEmail + "'";
                 mySqlCmd.ExecuteNonQuery();
 
                 MySqlDataAdapter mySqlDA = new MySqlDataAdapter(mySqlCmd);
@@ -182,6 +183,39 @@ namespace MAS_Sustainability.Controllers
                 {
                     Session["forgotEmail"] = userRegistrationModel.UserEmail;
                     Session["forgotMobile"] = Convert.ToInt32(userRegistrationModel.UserMobile);
+
+
+                   /* string UserName = "0766061689"; //acount username
+                    string Password = "4873"; //account password
+                    string PhoneNo = "94" + userRegistrationModel.UserMobile.ToString();
+                    string Message = "Hello " + userRegistrationModel.UserFullName + ". Welcome to MAS IMS.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
+
+                    string url = @"http://api.liyanagegroup.com/sms_api.php?sms=" + @Message + "&to=" + @PhoneNo + "&usr=" + @UserName + "&pw=" + @Password;
+                    WebRequest request = HttpWebRequest.Create(url);
+                    WebResponse response = request.GetResponse();
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                    string urlText = reader.ReadToEnd(); //it takes the response from your url. now you can use as your need 
+
+                    if (urlText == "OK")
+                    {
+                        Response.Write("SMS Sent..!");
+                    }
+                    else
+                    {
+                        Response.Write("SMS Sent Fail.!");
+                    }
+                    */
+
+
+
+
+
+
+
+
+
+
                     return RedirectToAction("SecureCode", "UserRegistration");
                 }
 

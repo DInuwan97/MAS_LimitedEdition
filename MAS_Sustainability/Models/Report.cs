@@ -55,6 +55,7 @@ namespace MAS_Sustainability.Models
         [Display(Name = "Cost")]
         public String amountRepair { get; set; }
 
+        public int AttentionLevel { get; set; }
 
         public List<Report> reportList1 { get; set; }
 

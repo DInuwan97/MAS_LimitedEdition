@@ -1,5 +1,4 @@
-﻿
-@using MAS_Sustainability.Models
+﻿@using MAS_Sustainability.Models
 @model MainModel
 
 @{
@@ -38,8 +37,9 @@
                                                 <tr role="row">
                                                     <th rowspan="1" colspan="1">Name</th>
                                                     <th rowspan="1" colspan="1">Location</th>
-                                                    <th rowspan="1" colspan="1">Description</th>
+
                                                     <th rowspan="1" colspan="1">Category</th>
+                                                    <th rowspan="1" colspan="1">Attention Level</th>
                                                     <th rowspan="1" colspan="1">Added Date</th>
                                                     <th rowspan="1" colspan="1">Actions</th>
                                                 </tr>
@@ -49,8 +49,9 @@
                                                 <tr>
                                                     <th rowspan="1" colspan="1">Name</th>
                                                     <th rowspan="1" colspan="1">Location</th>
-                                                    <th rowspan="1" colspan="1">Description</th>
+
                                                     <th rowspan="1" colspan="1">Category</th>
+                                                    <th rowspan="1" colspan="1">Attention Level</th>
                                                     <th rowspan="1" colspan="1">Added Date</th>
                                                     <th rowspan="1" colspan="1">Actions</th>
                                                 </tr>
@@ -62,9 +63,58 @@
                                                     <tr role="row">
                                                         <td class="sorting_1">@Html.DisplayFor(m => item.ProblemName)</td>
                                                         <td>@Html.DisplayFor(m => item.Location)</td>
-                                                        <td>@Html.DisplayFor(m => item.Description)</td>
+
                                                         <td>@Html.DisplayFor(m => item.Category)</td>
-                                                        
+                                                        <td>
+
+                                                            @if (item.AttentionLevel <= 20)
+                                                            {
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            }
+                                                            else if (item.AttentionLevel <= 40 && item.AttentionLevel > 20)
+                                                            {
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            }
+                                                            else if (item.AttentionLevel <= 60 && item.AttentionLevel > 40)
+                                                            {
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                                            }
+                                                            else if (item.AttentionLevel <= 80 && item.AttentionLevel > 60)
+                                                            {
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                                            }
+                                                            else if (item.AttentionLevel <= 100 && item.AttentionLevel > 80)
+                                                            {
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                                <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            }
+
+                                                            @Html.DisplayFor(m => item.AttentionLevel)
+
+
+                                                        </td>
+
                                                         <td>@Html.DisplayFor(m => item.AddedDate) </td>
                                                         <td>
                                                             <i>@Html.ActionLink("View", "viewReport", "Report", new { Id = item.tokenID }, new { @class = "btn btn-success btn-sm " })</i>

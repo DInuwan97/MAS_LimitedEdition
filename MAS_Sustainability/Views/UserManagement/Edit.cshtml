@@ -29,69 +29,72 @@
                         </div>
 
 
-                        <div class="card-body" id="home">
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-default">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Name" value="@userInformation.UserFullName">
+                        @using (Html.BeginForm("UpdateMyProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="card-body" id="home">
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" name="name" placeholder="Name" value="@userInformation.UserFullName">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-default">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" style="color:balck" disabled name="email" placeholder="Name" value="@userInformation.UserEmail">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-default">
-                                        <label>Birth Date</label>
-                                        <input type="text" class="form-control" id="datepicker" name="datepicker" value="" placeholder="Enter Your Birth Date">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-default">
-                                        <label>Gender</label>
-                                        <select class="form-control" id="gender">
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-default">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" value="@userInformation.UserMobile" name="phone" placeholder="Phone">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="input-file input-file-image">
-                                            <img class="img-upload-preview img-circle" width="120" height="120" src="@Url.Content(userInformation.UserImagePath)" alt="preview">
-                                            <input type="file" class="form-control form-control-file" id="UserImageFile" name="UserImage" accept="userimages/*" required="">
-                                            <label for="UserImageFile" class="badge badge-info">
-                                                <span class="btn-label">
-                                                    <i class="fa fa-file-image"></i>
-                                                </span>
-                                                Add Profile DB
-                                            </label>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" style="color:balck" disabled name="email" placeholder="Name" value="@userInformation.UserEmail">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default">
+                                            <label>Birth Date</label>
+                                            <input type="text" class="form-control" id="datepicker" name="datepicker" value="" placeholder="Enter Your Birth Date">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default">
+                                            <label>Gender</label>
+                                            <select class="form-control" id="gender">
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-default">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" value="@userInformation.UserMobile" name="phone" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
+                                            <div class="input-file input-file-image">
+                                                <img class="img-upload-preview img-circle" width="120" height="120" src="@Url.Content(userInformation.UserImagePath)" alt="preview">
+                                                <input type="file" class="form-control form-control-file" id="UserImageFile" name="UserImage" accept="userimages/*" required="">
+                                                <label for="UserImageFile" class="badge badge-info">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-file-image"></i>
+                                                    </span>
+                                                    Add Profile DB
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-right mt-3 mb-3">
+                                    <button class="btn btn-success">Save</button>
+                                    <button class="btn btn-danger">Reset</button>
+                                </div>
                             </div>
-
-                            <div class="text-right mt-3 mb-3">
-                                <button class="btn btn-success">Save</button>
-                                <button class="btn btn-danger">Reset</button>
-                            </div>
-                        </div>
+                        }
 
 
-  
 
 
                         </div>
