@@ -56,10 +56,12 @@ namespace MAS_Sustainability
         public String RecievedStatus { get; set; }
         public String RepairStatus { get; set; }
         public String AddedUserName { get; set; }
-
         public String TokenManagerStatus { get; set; }
+        public String HoriontalFirstImagePath { get; set;}
+        public String CompleteStatus { get; set; }
+        public String CompleteDate { get; set; }
 
-        
+
 
 
     }

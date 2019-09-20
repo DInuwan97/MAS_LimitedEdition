@@ -123,27 +123,269 @@
 
                                         <div class="d-table-cell align-top pull-right pt-1 pl-5">
 
-                                            <form>
+                                            
 
-                                                <div class="form-group">
-                                                    <label>Add Reparation Deadline</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="datepicker" name="datepicker">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fa fa-calendar-check"></i>
-                                                            </span>
+                                            <div class="form-group">
+
+                                                @if (Model.LoggedUserType == ("Department Leader"))
+                                                {
+
+                                                    if (Model.LoggedUserDepartment != singleProblemRepairDetails.ReparationDepartment)
+                                                    {
+
+                                                        if (singleProblemRepairDetails.ReparationAcceptStatus == ("Accept"))
+                                                        {
+
+                                                            <label>Add Reparation Deadline</label>
+
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="datepicker" name="DeadLine" disabled value="@singleProblemRepairDetails.ReparationDeadline">
+
+                                                            </div>
+
+                                                            <br>
+
+
+                                                            <label style="margin-bottom:10px">Reparation Cost</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">LKR</span>
+                                                                </div>
+
+                                                                <input type="text" name="ReparationCost" value="@singleProblemRepairDetails.ReparationCost" disabled class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">.00</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="input-group">
+                                                                <button disabled class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
+                                                            </div>
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <label>Add Reparation Deadline</label>
+
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="datepicker" name="DeadLine" disabled>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa fa-calendar-check"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <br>
+
+
+                                                            <label style="margin-bottom:10px">Reparation Cost</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">LKR</span>
+                                                                </div>
+
+                                                                <input type="text" name="ReparationCost" disabled class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">.00</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="input-group">
+                                                                <button disabled class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
+                                                            </div>
+
+                                                        }
+
+
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        if (singleProblemRepairDetails.ReparationAcceptStatus == ("Accept"))
+                                                        {
+                                                            <label>Add Reparation Deadline</label>
+
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="datepicker" name="DeadLine" disabled value="@singleProblemRepairDetails.ReparationDeadline">
+
+                                                            </div>
+
+                                                            <br>
+
+
+                                                            <label style="margin-bottom:10px">Reparation Cost</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">LKR</span>
+                                                                </div>
+
+                                                                <input type="text" name="ReparationCost" value="@singleProblemRepairDetails.ReparationCost" disabled class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">.00</span>
+                                                                </div>
+                                                            </div>
+
+                                                            using (Html.BeginForm("CompleteRepairation", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                                                            {
+                                                                <input type="hidden" name="TokenAuditID" value="@singleProblemRepairDetails.TokenAuditID">
+
+                                                                <div class="input-group">
+                                                                    <button class="btn btn-primary btn-sm" style="margin-top:5px">Complete</button>
+                                                                </div>
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            using (Html.BeginForm("UpdateTokenReparation", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                                                            {
+                                                                <label>Add Reparation Deadline</label>
+                                                                <input type="hidden" name="TokenAuditID" value="@singleProblemRepairDetails.TokenAuditID">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" id="datepicker" name="DeadLine">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fa fa-calendar-check"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <br>
+
+
+                                                                <label style="margin-bottom:10px">Reparation Cost</label>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">LKR</span>
+                                                                    </div>
+
+                                                                    <input type="text" name="ReparationCost" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">.00</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <button class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
+                                                                </div>
+
+
+                                                            }
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @if (Model.LoggedUserType == ("Administrator"))
+                                                {
+
+                                                    using (Html.BeginForm("UpdateTokenReparation", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                                                    {
+
+                                                        if (singleProblemRepairDetails.ReparationAcceptStatus == ("Accept"))
+                                                        {
+                                                            <label>Update Reparation Deadline</label>
+                                                            <input type="hidden" name="TokenAuditID" value="@singleProblemRepairDetails.TokenAuditID">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="datepicker" name="DeadLine" value="@singleProblemRepairDetails.ReparationDeadline">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa fa-calendar-check"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <br>
+
+
+                                                            <label style="margin-bottom:10px">Update Reparation Cost</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">LKR</span>
+                                                                </div>
+
+                                                                <input type="text" name="ReparationCost" value="@singleProblemRepairDetails.ReparationCost" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">.00</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="input-group">
+                                                                <button class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
+                                                            </div>
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <label>Add Reparation Deadline</label>
+                                                            <input type="hidden" name="TokenAuditID" value="@singleProblemRepairDetails.TokenAuditID">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="datepicker" name="DeadLine">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa fa-calendar-check"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <br>
+
+
+                                                            <label style="margin-bottom:10px">Add Reparation Cost</label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">LKR</span>
+                                                                </div>
+
+                                                                <input type="text" name="ReparationCost" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">.00</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="input-group">
+                                                                <button class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
+                                                            </div>
+                                                        }
+
+                                                    }
+
+
+                                                    if (singleProblemRepairDetails.ReparationAcceptStatus == ("Accept"))
+                                                    {
+
+
+                                                        using (Html.BeginForm("CompleteRepairation", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                                                        {
+                                                        <input type="hidden" name="TokenAuditID" value="@singleProblemRepairDetails.TokenAuditID">
+
+                                                        <div class="input-group">
+                                                            <button class="btn btn-primary btn-sm" style="margin-top:5px">Complete</button>
                                                         </div>
-                                                    </div>
+                                                        }
 
-                                                    <div class="input-group">
-                                                        <button class="btn btn-success btn-sm" style="margin-top:5px">Confirm Deadline</button>
-                                                    </div>
-
-                                                 </div>
+                                                    }
 
 
-                                            </form>
+
+                                                }
+
+
+                                            </div>
+                                                    
+                                                
+
+
 
                                         </div>
                                     </div>
@@ -157,78 +399,80 @@
                     </div>
 
                     <div id="products" class="row row-cardProduct owl-carousel owl-theme">
+
+
+                     @foreach (var no_of_tokens in Model.ListToken){
+                        if (@no_of_tokens.RecievedStatus.Equals("null"))
+                        {
+
+
                         <div class="col-cardProduct">
                             <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
+                            <div>
+                                <img src="@Url.Content(no_of_tokens.HoriontalFirstImagePath)" class="img-fluid" style="width:100%;height:120px">
+                            </div>
                                 <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
+                                    <h5 class="fw-bold"><a href="@Url.Action("ViewRepairation", "Token", new { @id = @no_of_tokens.TokenAuditID })"><strong>@no_of_tokens.ProblemName</strong></a></h5>
+
+                                     <h6 style="font-size:8px;">
+
+                                     @if (Convert.ToDouble(no_of_tokens.AttentionLevel) <= 20)
+                                                        {
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                        }
+                                                        else if (Convert.ToDouble(no_of_tokens.AttentionLevel) <= 40 && Convert.ToDouble(no_of_tokens.AttentionLevel) > 20)
+                                                        {
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                        }
+                                                        else if (Convert.ToDouble(no_of_tokens.AttentionLevel) <= 60 && Convert.ToDouble(no_of_tokens.AttentionLevel) > 40)
+                                                        {
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                                        }
+                                                        else if (Convert.ToDouble(no_of_tokens.AttentionLevel) <= 80 && Convert.ToDouble(no_of_tokens.AttentionLevel) > 60)
+                                                        {
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                                        }
+                                                        else if (Convert.ToDouble(no_of_tokens.AttentionLevel) <= 100 && Convert.ToDouble(no_of_tokens.AttentionLevel) > 80)
+                                                        {
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                                        }
+                                    
+                                    
+                                    </h6>
+
                                     <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
+                                        <h6 class="fw-bold text-success mb-0 mr-2" style="font-size:12px">@no_of_tokens.Location</h6>
+                                  
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-cardProduct">
-                            <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
-                                <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-cardProduct">
-                            <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
-                                <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-cardProduct">
-                            <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
-                                <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-cardProduct">
-                            <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
-                                <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-cardProduct">
-                            <div class="card-product">
-                                <img src="https://via.placeholder.com/250x200" class="img-fluid">
-                                <div class="product-summary">
-                                    <h5 class="fw-bold">iPhone 6 Plus</h5>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="fw-bold text-success mb-0 mr-2">$999</h3>
-                                        <h6 class="text-muted op-9 mb-0"><s>$1,290</s></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                                    }
+                                }
+                       
                     </div>
 
 
@@ -259,7 +503,7 @@
                             
                             @foreach (var sideBarProblemRepairDetails in Model.SideBarTokenReparationDetails)
                             {
-
+                                <a href="@Url.Action("ViewRepairation", "Token", new { @id = @sideBarProblemRepairDetails.SideBarTokenAuditID })">
                                 <div class="list-group list-group-file-item list-group-reflow list-group-flush list-group-divider mt-3">
 
 
@@ -269,7 +513,12 @@
                                        
                                         <div class="card-body curves-shadow">
 
-                                            <h2 class="py-4 mb-0">@sideBarProblemRepairDetails.SideBarProblemName</h2>
+                                            <h2 class="py-4 mb-0">
+                                                <a href="@Url.Action("ViewRepairation", "Token", new { @id = @sideBarProblemRepairDetails.SideBarTokenAuditID })"><strong>@sideBarProblemRepairDetails.SideBarProblemName</strong></a>
+                                            </h2>
+
+
+
                                             <div class="row">
                                                 <div class="col-8 pr-0">
                                                     <h3 class="fw-bold mb-1">@sideBarProblemRepairDetails.SideBarProblemCategory</h3>
@@ -329,16 +578,24 @@
                                                 </div>
                                             </div>
                                         </div>
+                            
+
+
+
                                     </div>
 
                                 </div>
-
+                                </a>
                             }
 
 
 
                         </div>
                     </div>
+
+
+
+                    
                 </div>
             </div>
         </div>

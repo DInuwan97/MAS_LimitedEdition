@@ -256,7 +256,7 @@
                                                         <tbody>
                                                             @foreach (var no_of_tokens in Model.ListToken)
                                                             {
-                                                            if (@no_of_tokens.TokenStatus != ("Pending"))
+                                                            if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Completed"))
                                                             {
 
 
@@ -315,7 +315,7 @@
 
                                                                 <td style="width:50px">@no_of_tokens.ProblemCategory</td>
                                                                 <td>@no_of_tokens.TokenStatus</td>
-                                                                <td>DeadLine</td>
+                                                                <td>@no_of_tokens.DeadLine</td>
 
                                                             </tr>
 
@@ -360,9 +360,9 @@
                                                                 <th>Problem Name1</th>
                                                                 <th>Location</th>
                                                                 <th>Attention Level</th>
-                                                                <th style="width:50px">Category</th>
                                                                 <th>Reparation</th>
-                                                                <th>Deadline</th>
+                                                                <th>Completed Date</th>
+                                                                <th>Actions</th>
                                                             </tr>
                                                         </thead>
 
@@ -371,7 +371,7 @@
                                                         <tbody>
                                                             @foreach (var no_of_tokens in Model.ListToken)
                                                             {
-                                                            if (@no_of_tokens.TokenStatus != ("Pending"))
+                                                            if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Pending"))
                                                             {
 
 
@@ -428,9 +428,14 @@
 
                                                                 </td>
 
-                                                                <td style="width:50px">@no_of_tokens.ProblemCategory</td>
+                                             
                                                                 <td>@no_of_tokens.TokenStatus</td>
-                                                                <td>DeadLine</td>
+                                                                <td>@no_of_tokens.CompleteDate</td>
+
+                                                                <td>
+                                                                    <span class="badge badge-success"><a href="@Url.Action("ViewCompleteToken", "Token" , new { @id=@no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
+                                                                </td>
+
                                                             </tr>
 
                                                             }

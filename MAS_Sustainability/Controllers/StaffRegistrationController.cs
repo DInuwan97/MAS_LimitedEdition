@@ -52,7 +52,7 @@ namespace MAS_Sustainability.Controllers
                 mySqlcmd.Parameters.AddWithValue("@Password", userRegistrationModel.Password);
                 mySqlcmd.Parameters.AddWithValue("@ConfirmPassword", userRegistrationModel.ConfirmPassword);
                 mySqlcmd.Parameters.AddWithValue("@UserDepartment", userRegistrationModel.UserDepartment);
-                mySqlcmd.Parameters.AddWithValue("@UserType", "Employee");
+                mySqlcmd.Parameters.AddWithValue("@UserType",userRegistrationModel.UserType);
                 mySqlcmd.Parameters.AddWithValue("@UserImage", "NULL");
 
                 Session["forgotEmail"] = userRegistrationModel.UserEmail;
@@ -64,8 +64,8 @@ namespace MAS_Sustainability.Controllers
                 mySqlcmd.Parameters.AddWithValue("@SecretKey", userRegistrationModel.SecretKey);
                 mySqlcmd.Parameters.AddWithValue("@Validation", "false");
 
-                string UserName = "0712917257"; //acount username
-                string Password = "199806"; //account password
+                string UserName = "0766061689"; //acount username
+                string Password = "4873"; //account password
                 string PhoneNo = "94" + userRegistrationModel.UserMobile.ToString();
                 string Message = "Hello " + userRegistrationModel.UserFullName + ". Welcome to MAS IMS.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
 
@@ -88,11 +88,19 @@ namespace MAS_Sustainability.Controllers
                 mySqlcmd.ExecuteNonQuery();
 
 
+
+
+
             }
 
             return RedirectToAction("SecureCode", "UserRegistration");
 
+
         }
+
+    
+
+        
 
         // GET: StaffRegistration/Edit/5
         public ActionResult Edit(int id)

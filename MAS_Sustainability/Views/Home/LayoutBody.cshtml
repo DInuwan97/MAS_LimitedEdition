@@ -355,7 +355,7 @@
                         @if(controllerName== "Token" && ActionName=="Add")
                         {
                         <li class="nav-item active">
-                            <a href="@Url.Action(" Add","Token")">
+                            <a href="@Url.Action("Add","Token")">
                                 <i class="fas fa-plus-circle"></i>
                                 <p>Add New Token</p>
 
@@ -414,7 +414,7 @@
                         }
 
                         @{
-                        if( Model.LoggedUserType == ("Administrator")){
+                        if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Department Leader")){
                         if(controllerName== "UserManagement")
                         {
                         <li class="nav-item active">
@@ -438,7 +438,7 @@
                         {
 
                         <li class="nav-item active">
-                            <a href="@Url.Action("RepairationList","Token")">
+                            <a href="@Url.Action(" RepairationList","Token")">
                                 <i class="fas fa-list"></i>
                                 <p>Repairations</p>
 

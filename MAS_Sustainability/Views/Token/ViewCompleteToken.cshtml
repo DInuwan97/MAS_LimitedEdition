@@ -1,0 +1,607 @@
+﻿@using MAS_Sustainability.Models;
+@model MainModel
+@{
+    ViewBag.Title = "ViewCompleteToken";
+}
+
+@{
+    Layout = "~/Views/Home/LayoutBody.cshtml";
+}
+
+
+<h2>ViewCompleteToken</h2>
+
+
+
+
+
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+
+                <h4 class="page-title">Verify the Reparation</h4>
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Problem in Detail</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Big Screen</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Overview</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Recovered Path</a>
+                                </li>
+                            </ul>
+
+                            @foreach (var completed_token_details in Model.CompletedTokenList)
+                            {
+                                <h2 class="fw-bold text-success mb-0 mr-2">@completed_token_details.ProblemName</h2>
+                                <h6 class="fw-bold text-success mb-0 mr-2" style="font-size:12px">@completed_token_details.ProblemLocation</h6>
+                                <h6 style="font-size:10px;">
+
+                                    @if (Convert.ToDouble(completed_token_details.AttentionLevel) <= 20)
+                                    {
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                    }
+                                    else if (Convert.ToDouble(completed_token_details.AttentionLevel) <= 40 && Convert.ToDouble(completed_token_details.AttentionLevel) > 20)
+                                    {
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                    }
+                                    else if (Convert.ToDouble(completed_token_details.AttentionLevel) <= 60 && Convert.ToDouble(completed_token_details.AttentionLevel) > 40)
+                                    {
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                    }
+                                    else if (Convert.ToDouble(completed_token_details.AttentionLevel) <= 80 && Convert.ToDouble(completed_token_details.AttentionLevel) > 60)
+                                    {
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
+
+                                    }
+                                    else if (Convert.ToDouble(completed_token_details.AttentionLevel) <= 100 && Convert.ToDouble(completed_token_details.AttentionLevel) > 80)
+                                    {
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                        <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
+                                    }
+
+                                    <lable style="font-size:12px;font-style:bold"> @completed_token_details.AttentionLevel %  <lable>
+                                </h6>
+
+
+
+
+
+
+
+
+                            }
+                            <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+
+
+                                    <div id="products" class="row row-cardProduct owl-carousel owl-theme">
+
+
+                                        @foreach (var completed_token_details in Model.CompletedTokenList)
+                                        {
+
+                                            <div class="col-cardProduct">
+                                                <div class="card-product">
+
+                                                    <div>
+                                                        <img src="@Url.Content(completed_token_details.FirstImagePath)" class="img-fluid" style="width:100%;height:120px">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-cardProduct">
+                                                <div class="card-product">
+
+                                                    <div>
+                                                        <img src="@Url.Content(completed_token_details.SecondImagePath)" class="img-fluid" style="width:100%;height:120px">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        }
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                                    @foreach (var completed_token_details in Model.CompletedTokenList)
+                                    {
+                                        <p>
+                                            You had identified a defect called @completed_token_details.ProblemName on @completed_token_details.TokenAddedDate at
+                                            @completed_token_details.ProblemLocation in the Factory premisses.You captured the defect and send it as a defect of
+                                            @completed_token_details.ProblemCategory category.
+                                        </p>
+
+                                        <p>
+                                            After 3 days Later that defect was recovered by Department of @completed_token_details.RepairationDepartment while spending
+                                            LKR 3500.00.
+                                        </p>
+                                    }
+                                </div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                    <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
+
+                                    <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Navigate Instructions</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-7 col-md-8">
+                                    <div class="tab-content" id="v-pills-tabContent">
+
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+
+
+
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmRepairation">
+                                            Confirm Reparation
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="confirmRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <center>
+
+                                                            <div class="col-md-3 form-show-validation">
+                                                                <div class="input-file input-file-image">
+                                                                    <img class="img-upload-preview" width="150" src="https://placehold.it/150x150" alt="preview">
+                                                                    <input type="file" class="form-control form-control-file" id="uploadImg2" name="uploadImg2" accept="image/*" required="">
+                                                                    <label for="uploadImg2" class="badge badge-primary">
+                                                                        <span class="btn-label">
+                                                                            <i class="fa fa-file-image"></i>
+                                                                        </span>
+                                                                        Add New
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                        </center>
+
+
+
+
+                                                        <div class="form-group form-show-validation">
+                                                            <label>Satisfaction Level</label>
+                                                            <input class="slider form-control-static" type="range" min="50" max="100"
+                                                                   id="SatisfactionLevel" name="SatisfactionLevel" oninput="displayValue(event)"
+                                                                   required />
+                                                            <center><span id="val" name="val"></span></center>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">FeedBack</span>
+                                                                </div>
+                                                                <textarea class="form-control" placeholder="Please leave a comment" aria-label="FeedBack"></textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectRepairation">
+                                            Reject
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="rejectRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+
+                                                    
+
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">Reason for Rejecting</span>
+                                                                </div>
+                                                                <textarea class="form-control" placeholder="Please leave a comment" aria-label="Reason for Rejecting"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--   Core JS Files   -->
+<script src="~/Content/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="~/Content/assets/js/core/popper.min.js"></script>
+<script src="~/Content/assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="~/Content/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="~/Content/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="~/Content/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Moment JS -->
+<script src="~/Content/assets/js/plugin/moment/moment.min.js"></script>
+
+<!-- Chart JS -->
+<script src="~/Content/assets/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="~/Content/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="~/Content/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+<!-- Datatables -->
+<script src="~/Content/assets/js/plugin/datatables/datatables.min.js"></script>
+
+<!-- Bootstrap Notify -->
+<script src="~/Content/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Bootstrap Toggle -->
+<script src="~/Content/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- jQuery Vector Maps -->
+<script src="~/Content/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/Content/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+<!-- Google Maps Plugin -->
+<script src="~/Content/assets/js/plugin/gmaps/gmaps.js"></script>
+
+<!-- Dropzone -->
+<script src="~/Content/assets/js/plugin/dropzone/dropzone.min.js"></script>
+
+<!-- Fullcalendar -->
+<script src="~/Content/assets/js/plugin/fullcalendar/fullcalendar.min.js"></script>
+
+<!-- DateTimePicker -->
+<script src="~/Content/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<!-- Bootstrap Tagsinput -->
+<script src="~/Content/assets/js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+
+<!-- Bootstrap Wizard -->
+<script src="~/Content/assets/js/plugin/bootstrap-wizard/bootstrapwizard.js"></script>
+
+<!-- jQuery Validation -->
+<script src="~/Content/assets/js/plugin/jquery.validate/jquery.validate.min.js"></script>
+
+<!-- Summernote -->
+<script src="~/Content/assets/js/plugin/summernote/summernote-bs4.min.js"></script>
+
+<!-- Select2 -->
+<script src="~/Content/assets/js/plugin/select2/select2.full.min.js"></script>
+
+<!-- Sweet Alert -->
+<script src="~/Content/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+<!-- Owl Carousel -->
+<script src="~/Content/assets/js/plugin/owl-carousel/owl.carousel.min.js"></script>
+
+<!-- Magnific Popup -->
+<script src="~/Content/assets/js/plugin/jquery.magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- Atlantis JS -->
+<script src="~/Content/assets/js/atlantis.min.js"></script>
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="~/Content/assets/js/setting-demo.js"></script>
+<script src="~/Content/assets/js/demo.js"></script>
+<script>
+    Circles.create({
+        id: 'circles-1',
+        radius: 45,
+        value: 60,
+        maxValue: 100,
+        width: 7,
+        text: 5,
+        colors: ['#f1f1f1', '#FF9E27'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    Circles.create({
+        id: 'circles-2',
+        radius: 45,
+        value: 70,
+        maxValue: 100,
+        width: 7,
+        text: 36,
+        colors: ['#f1f1f1', '#2BB930'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    Circles.create({
+        id: 'circles-3',
+        radius: 45,
+        value: 40,
+        maxValue: 100,
+        width: 7,
+        text: 12,
+        colors: ['#f1f1f1', '#F25961'],
+        duration: 400,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+    var mytotalIncomeChart = new Chart(totalIncomeChart, {
+        type: 'bar',
+        data: {
+            labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+            datasets: [{
+                label: "Total Income",
+                backgroundColor: '#ff9e27',
+                borderColor: 'rgb(23, 125, 255)',
+                data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        display: false //this will remove only the label
+                    },
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }]
+            },
+        }
+    });
+
+    $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: '#ffa534',
+        fillColor: 'rgba(255, 165, 52, .14)'
+    });
+</script>
+
+<!-------Slider Styles--------------------------------------------------------->
+<style>
+    input[type=range] {
+        width: 100%;
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 19px;
+            cursor: pointer;
+            box-shadow: 0 4px 4px rgba(0,0,0,0.3) inset;
+            background: linear-gradient(to right, #005fc2, #35A834 40%, #ffd400 65%, #FF6400);
+            opacity: 50;
+            border-radius: 0;
+            border: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            border: 1px solid white;
+            height: 20px;
+            width: 20px;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -1px;
+        }
+
+    #slide:before {
+        content: attr(min);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: black;
+        font-size: 1rem;
+    }
+
+    #slide:after {
+        content: attr(max);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: black;
+        font-size: 1rem;
+    }
+
+    #val {
+        font-size: 1.6rem;
+        position: center;
+        left: 0;
+        bottom: 40px;
+        width: 100px;
+    }
+</style>
+
+<script>
+    const min = document.querySelector('#min');
+    const max = document.querySelector('#max');
+    const span = document.querySelector('#val');
+    const slide = document.querySelector('#slide');
+
+    displayValue.call(slide, {});
+
+    function displayValue(e) {
+        const inp = e.target || this;
+        const value = +inp.value;
+        const min = inp.min;
+        const max = inp.max;
+        const width = inp.offsetWidth;
+        const offset = -20;
+        const percent = (value - min) / (max - min);
+        const pos = percent * (width + offset) - 40;
+        span.style.left = `${pos}px`;
+        span.innerHTML = value + "%";
+    }
+</script>
+
+<script>
+    $("#ImageFile1").on("change", function () {
+        $(this).parent('form').validate();
+    })
+
+    $("#ImageFile2").on("change", function () {
+        $(this).parent('form').validate();
+    })
+
+    $("#addForm").validate({
+        validClass: "success",
+        rules: {
+            val: {
+                notEqualTo: NaN,
+            },
+        },
+
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+    });
+</script>

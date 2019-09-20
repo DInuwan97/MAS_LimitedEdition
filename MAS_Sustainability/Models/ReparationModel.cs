@@ -40,6 +40,12 @@ namespace MAS_Sustainability.Models
         ////
         public int UserID { get; set; }
 
+        ///update reparation deadline and cost
+        ///
+        public Double ReparationCost { get; set; }
+        public String DeadLine { get; set; }
+        public int RepairationAuditID { get; set; }
+
 
 
     }

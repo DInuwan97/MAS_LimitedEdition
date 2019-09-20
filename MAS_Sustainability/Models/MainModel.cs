@@ -14,9 +14,10 @@ namespace MAS_Sustainability
 
         public List<Models.Survey> SurveyList { get; set; }
         public Models.Survey survey { get; set; }
-
         public List<ReparationModel> SingleTokenReparatiDetailsList { get; set; }
         public List<ReparationModel> SideBarTokenReparationDetails { get; set; }
+        public List<ReparationModel> ReparationAuditIDList { get; set; }
+        public List<CompletedTokenModel> CompletedTokenList { get; set; }
 
 
         public List<Token> ListToken { get; set; }
