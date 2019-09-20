@@ -97,6 +97,33 @@ INSERT INTO `images` VALUES (1,45,'D:Visual Studio 2017 ProjectsTestLoginTestLog
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rejected_tokens`
+--
+
+DROP TABLE IF EXISTS `rejected_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `rejected_tokens` (
+  `RejectTokenID` int(11) NOT NULL AUTO_INCREMENT,
+  `TokenAuditID` int(11) NOT NULL,
+  `RejectedDate` varchar(45) NOT NULL,
+  `RejectedTime` varchar(45) NOT NULL,
+  `RejectedReason` text,
+  PRIMARY KEY (`RejectTokenID`),
+  UNIQUE KEY `RejectTokenID_UNIQUE` (`RejectTokenID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rejected_tokens`
+--
+
+LOCK TABLES `rejected_tokens` WRITE;
+/*!40000 ALTER TABLE `rejected_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rejected_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `repairation_audit`
 --
 
@@ -212,7 +239,7 @@ CREATE TABLE `token_flow` (
 
 LOCK TABLES `token_flow` WRITE;
 /*!40000 ALTER TABLE `token_flow` DISABLE KEYS */;
-INSERT INTO `token_flow` VALUES (2,37,'Production VSM 04','Pending','Pending','Pending','Pending','Pending'),(3,38,'Production VSM 03','Pending','Pending','Pending','Pending','Pending'),(4,39,'Production Engineering','Pending','Pending','Pending','Pending','Pending'),(5,40,'Factory Engineering','09/19/2019','Pending','Pending','Pending','Pending'),(6,41,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(7,42,'Pending','Pending','Pending','Pending','Pending','Pending'),(8,43,'Quality','Pending','Pending','Pending','Pending','Pending'),(9,44,'HR','09/27/2019','Pending','Pending','Pending','Pending'),(10,45,'Pending','Pending','Pending','Pending','Pending','Pending'),(11,46,'Pending','Pending','Pending','Pending','Pending','Pending'),(12,47,'Cutting','09/26/2019','Pending','Pending','Pending','Pending'),(13,48,'Operation','Pending','Pending','Pending','Pending','Pending'),(14,49,'HR','09/20/2019','Pending','Pending','Pending','Pending'),(15,50,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(16,51,'Production VSM 03','09/21/2019','Pending','Completed','2019-09-20','Pending'),(17,52,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(18,53,'Pending','Pending','Pending','Pending','Pending','Pending'),(19,54,'Cutting','09/20/2019','Pending','Pending','Pending','Pending'),(20,55,'Pending','Pending','Pending','Pending','Pending','Pending'),(21,56,'HR','09/25/2019','Pending','Completed','2019-09-20','Pending');
+INSERT INTO `token_flow` VALUES (2,37,'Production VSM 04','Pending','Pending','Pending','Pending','Pending'),(3,38,'Production VSM 03','Pending','Pending','Pending','Pending','Pending'),(4,39,'Production Engineering','Pending','Pending','Pending','Pending','Pending'),(5,40,'Factory Engineering','09/19/2019','Pending','Pending','Pending','Pending'),(6,41,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(7,42,'Pending','Pending','Pending','Pending','Pending','Pending'),(8,43,'Quality','Pending','Pending','Pending','Pending','Pending'),(9,44,'HR','09/27/2019','Pending','Pending','Pending','Pending'),(10,45,'Pending','Pending','Pending','Pending','Pending','Pending'),(11,46,'Pending','Pending','Pending','Pending','Pending','Pending'),(12,47,'Cutting','09/26/2019','Pending','Pending','Pending','Pending'),(13,48,'Operation','Pending','Pending','Pending','Pending','Pending'),(14,49,'HR','09/20/2019','Pending','Pending','Pending','Pending'),(15,50,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(16,51,'Production VSM 03','09/21/2019','Verified','Completed','2019-09-20','2019-09-20'),(17,52,'Factory Engineering','Pending','Pending','Pending','Pending','Pending'),(18,53,'Pending','Pending','Pending','Pending','Pending','Pending'),(19,54,'Cutting','09/20/2019','Pending','Pending','Pending','Pending'),(20,55,'Pending','Pending','Pending','Pending','Pending','Pending'),(21,56,'HR','09/25/2019','Pending','Completed','2019-09-20','Pending');
 /*!40000 ALTER TABLE `token_flow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,6 +359,36 @@ LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'Dinuwan Kalubowila','dinuwan@gmail.com',712184518,'asdf','asdf','MOS','Token Manager','~/userimages/Portret-Rutger-for-Bregtje192056133.jpg',0,'true'),(2,'Dinuwan Klaubowila','kalubowila@gmail.com',712184518,'123','123','RM','Employee','~/userimages/dinuwan Git hub190953090.jpg',0,'true'),(3,'Hilary Kalubowila','hkkalubowila@live.com',777610400,'123','123','RM','Employee','~/userimages/dckalu193318498.jpg',0,'true'),(4,'Samitha Perera','kalubowila@live.com',712184518,'123','123','Cutting','Employee','~/userimages/IMG-20170820-WA0010[78]193325512.jpg',0,'true'),(5,'Buddhi Kalubowila','buddhi@yahoo.com',712187042,'123','123','Cutting','Department Leader','~/userimages/alevy_avatar_1450133221190650508.jpg',0,'true'),(6,'හිටන් හුටන් සිරිසේන','ashan@gmail.com',712184518,'123','123','Factory Engineering','Department Leader','~/userimages/Maithripala-Sirisena6194615201.jpg',0,'true'),(7,'Damith Perera','damith@gmail.com',712184518,'123','123','Autonomation','Factory Management','~/userimages/Screenshot_2018-03-03-22-15-28191255753.png',0,'true'),(8,'Jayan Perera','jayan@gmail.com',712184518,'456','456','FG','Token Manager','~/userimages/bibi_persona192111013.png',0,'true'),(9,'Hiranya Buddhi','budhdhika@maholdings.com',712987042,'123','123','Factory Engineering','Administrator','~/userimages/ben-knapen-906550_960_720190730908.jpg',0,'true'),(10,'Saman Wikramarathne','saman@yahoo.com',712184778,'1234','1234','Production Engineering','Admin','NULL',0,'true'),(11,'Vibhavi Jayamanne','vibhawi@gmail.com',778370323,'1234','1234','Pre-Sewing','Employee','NULL',195844278,'false'),(12,'Ranjitha Wickrama','ranjith@gmail.com',777610400,'1234','1234','Factory Engineering','Employee','NULL',190016306,'false'),(13,'Bhathiya Perera','bhathiya@gmail.com',718208981,'1234','1234','Factory Engineering','Employee','~/userimages/persona12195241490.jpg',194266895,'false'),(14,'Lalith Perera','lalith@gmail.com',719568521,'1234','1234','Autonomation','Employee','NULL',190265993,'true'),(15,'Gothabaya Rajapakse','gota@gov.lk',778370323,'1234','1234','Quality','Employee','~/userimages/cKdP9nVZ_400x400192706881.jpg',192515641,'true'),(16,'Sajith Premadasa','sajithunp@gmail.com',772987042,'1234','1234','FG','Employee','NULL',193223765,'true'),(18,'Karu Jayasuriya','karu@gmail.com',718208981,'1234','1234','Quality','Employee','NULL',195936827,'true'),(21,'Sarath Fonseka','sarathfonseka@gmail.com',718208981,'1234','1234','Production Engineering','Employee','NULL',195913137,'true'),(26,'Samantha Jayasuriya','samantha@me.com',718208981,'1234','1234','Production VSM 03','Employee','~/userimages/39261449_598339783901398_2398142384685711360_o195020005.jpg',194762435,'true'),(28,'Sumith Peries','sumith@live.com',718208981,'123456789','123456789','Autonomation','Employee','NULL',193635470,'false'),(29,'pawan piumal','pawan@gmail.com',712917257,'1234','1234','Autonomation','Employee','NULL',192837714,'true'),(46,'Sumith Peries1','sumith1@live.com',763268576,'1234','1234','Production Engineering','Employee','~/userimages/ben-knapen-906550_960_720191405613.jpg',194657421,'false'),(47,'Samantha Jayasuriya','sumith2@live.com',763268576,'1234','1234','Production Engineering','Employee','NULL',190915941,'true'),(48,'Pawan Ariyathilske','pawana@gmail.com',712917257,'1234','1234','Autonomation','Employee','NULL',194162982,'true'),(49,'Dinuka Perera','dinuka@gmail.com',775356977,'1234','1234','MOS','Employee','NULL',192128364,'false'),(50,'Dinuth Mannapperuma','dinuth@live.com',718208981,'1234','1234','HR','Department Leader','NULL',191329434,'true');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `verified_tokens`
+--
+
+DROP TABLE IF EXISTS `verified_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `verified_tokens` (
+  `VerifiedTokenID` int(11) NOT NULL AUTO_INCREMENT,
+  `TokenAuditID` int(11) NOT NULL,
+  `VerifiedDate` varchar(45) NOT NULL,
+  `VerifiedTime` varchar(45) NOT NULL,
+  `Image` text,
+  `SatisfactionLevel` int(11) NOT NULL,
+  PRIMARY KEY (`VerifiedTokenID`),
+  UNIQUE KEY `VerifiedTokenID_UNIQUE` (`VerifiedTokenID`),
+  UNIQUE KEY `TokenAuditID_UNIQUE` (`TokenAuditID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `verified_tokens`
+--
+
+LOCK TABLES `verified_tokens` WRITE;
+/*!40000 ALTER TABLE `verified_tokens` DISABLE KEYS */;
+INSERT INTO `verified_tokens` VALUES (1,51,'2019-09-20','15:11:08','~/completedImages/2018-03-30 (3)191108627.png',90);
+/*!40000 ALTER TABLE `verified_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -486,4 +543,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-20  6:26:03
+-- Dump completed on 2019-09-20 16:38:27

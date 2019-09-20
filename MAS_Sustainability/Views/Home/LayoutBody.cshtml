@@ -392,7 +392,7 @@
                         }
                         @if(controllerName== "Token" && ActionName=="Index")
                         {
-                        if( Model.LoggedUserType == ("Administrator")){
+                        if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Token Manager")){
                         <li class="nav-item active">
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>
@@ -402,7 +402,7 @@
                         </li>
                         }
                         }else{
-                        if( Model.LoggedUserType == ("Administrator")){
+                        if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Token Manager")){
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>

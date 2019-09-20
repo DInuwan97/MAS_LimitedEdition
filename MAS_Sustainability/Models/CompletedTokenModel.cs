@@ -27,7 +27,14 @@ namespace MAS_Sustainability.Models
         public String RepairationDepartment { get; set; }
         public String CompleteStatus { get; set; }
         public String FinalVerification { get; set; }
-        
+
+        public HttpPostedFileBase CompletedImageFile { get; set; }
+
+        public String CompletedImagePath { get; set; }
+
+        public int SatisfactionLevel { get; set; }
+
+
 
     }
 }

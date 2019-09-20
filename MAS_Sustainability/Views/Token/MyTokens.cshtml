@@ -50,7 +50,7 @@
                         <!-- panel 3 button -->
 
                         <li class="nav-item" style="width:30%; display: inline; border-radius: 10px;">
-                            <a class="nav-link" id="pills-verify-tab-icon" data-toggle="pill" href="#pills-verify-icon" role="tab" aria-controls="pills-verify-icon" aria-selected="false">
+                            <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
                                 To be Verified
                             </a>
                         </li>
@@ -336,7 +336,7 @@
                             </p>
                         </div>
 
-                        <div class="tab-pane fade" id="pills-verify-icon" role="tabpanel" aria-labelledby="pills-verify-tab-icon">
+                        <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
                             <p>
 
 
@@ -371,7 +371,7 @@
                                                         <tbody>
                                                             @foreach (var no_of_tokens in Model.ListToken)
                                                             {
-                                                            if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Pending"))
+                                                            if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Pending") && @no_of_tokens.FinalVerificationStatus != ("Verified"))
                                                             {
 
 
@@ -428,7 +428,7 @@
 
                                                                 </td>
 
-                                             
+
                                                                 <td>@no_of_tokens.TokenStatus</td>
                                                                 <td>@no_of_tokens.CompleteDate</td>
 

@@ -194,119 +194,131 @@
                                             Confirm Reparation
                                         </button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="confirmRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
 
-                                                        <center>
+                                        @foreach (var completed_token_details in Model.CompletedTokenList)
+                                        {
 
-                                                            <div class="col-md-3 form-show-validation">
-                                                                <div class="input-file input-file-image">
-                                                                    <img class="img-upload-preview" width="150" src="https://placehold.it/150x150" alt="preview">
-                                                                    <input type="file" class="form-control form-control-file" id="uploadImg2" name="uploadImg2" accept="image/*" required="">
-                                                                    <label for="uploadImg2" class="badge badge-primary">
-                                                                        <span class="btn-label">
-                                                                            <i class="fa fa-file-image"></i>
-                                                                        </span>
-                                                                        Add New
-                                                                    </label>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        @using (Html.BeginForm("VerifyRepairation", "Token", FormMethod.Post, new { enctype = "multipart/form-data", id = "addForm" }))
+                                                        {
+                                                            <div class="modal-body">
+
+                                                                <center>
+                                                                    <input type="text" name="TokenAuditID" value="@completed_token_details.TokenAuditID">
+                                                                    <div class="col-md-3 form-show-validation">
+                                                                        <div class="input-file input-file-image">
+                                                                            <img class="img-upload-preview" width="150" src="https://placehold.it/150x150" alt="preview">
+                                                                            <input type="file" class="form-control form-control-file" id="uploadImg2" name="CompletedImageFile" accept="image/*" required="">
+                                                                            <label for="uploadImg2" class="badge badge-primary">
+                                                                                <span class="btn-label">
+                                                                                    <i class="fa fa-file-image"></i>
+                                                                                </span>
+                                                                                Add New
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </center>
+
+
+                                                                <div class="form-group form-show-validation">
+                                                                    <label>Satisfaction Level</label>
+                                                                    <input class="slider form-control-static" type="range" min="50" max="100"
+                                                                           id="SatisfactionLevel" name="SatisfactionLevel" oninput="displayValue(event)"
+                                                                           required />
+                                                                    <center><span id="val" name="val"></span></center>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text">FeedBack</span>
+                                                                        </div>
+                                                                        <textarea class="form-control" placeholder="Please leave a comment" aria-label="FeedBack"></textarea>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button  class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        }
+
+
+
+
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                        }
+
+
+
+
+
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectRepairation">
+                                                Reject
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="rejectRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+
+
+
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">Reason for Rejecting</span>
+                                                                    </div>
+                                                                    <textarea class="form-control" placeholder="Please leave a comment" aria-label="Reason for Rejecting"></textarea>
                                                                 </div>
                                                             </div>
 
-                                                        </center>
-
-
-
-
-                                                        <div class="form-group form-show-validation">
-                                                            <label>Satisfaction Level</label>
-                                                            <input class="slider form-control-static" type="range" min="50" max="100"
-                                                                   id="SatisfactionLevel" name="SatisfactionLevel" oninput="displayValue(event)"
-                                                                   required />
-                                                            <center><span id="val" name="val"></span></center>
                                                         </div>
-
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">FeedBack</span>
-                                                                </div>
-                                                                <textarea class="form-control" placeholder="Please leave a comment" aria-label="FeedBack"></textarea>
-                                                            </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
                                                         </div>
-
-
-                                                
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
+
+
+
+
+
+
+
+
                                         </div>
-
-
-
-
-
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectRepairation">
-                                            Reject
-                                        </button>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="rejectRepairation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-
-
-                                                    
-
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">Reason for Rejecting</span>
-                                                                </div>
-                                                                <textarea class="form-control" placeholder="Please leave a comment" aria-label="Reason for Rejecting"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-
-
-
-
-
-                                    </div>
                                 </div>
                             </div>
                         </div>

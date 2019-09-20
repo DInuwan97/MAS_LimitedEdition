@@ -61,6 +61,8 @@ namespace MAS_Sustainability
         public String CompleteStatus { get; set; }
         public String CompleteDate { get; set; }
 
+        public String FinalVerificationStatus { get; set; }
+
 
 
 

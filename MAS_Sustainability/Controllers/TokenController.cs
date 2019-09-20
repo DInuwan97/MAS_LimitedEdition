@@ -327,7 +327,7 @@ namespace MAS_Sustainability.Controllers
             }
             else
             {
-                return View("Index");
+                return View("MyTokens");
             }
 
 
@@ -455,7 +455,7 @@ namespace MAS_Sustainability.Controllers
             {
 
                 mySqlCon.Open();
-                String qry_myTokens = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tkf.TokenManagerStatus,tkf.DeptLeaderStatus,tkf.CompleteStatus,tkf.CompleteDate FROM mas_isscs.token_audit tka,mas_isscs.tokens tk,mas_isscs.token_flow tkf,mas_isscs.users usr WHERE tka.TokenAuditID = tk.TokenAuditID  and tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = '" + Session["user"] + "' and tka.AddedUser = usr.UserEmail";
+                String qry_myTokens = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tkf.TokenManagerStatus,tkf.DeptLeaderStatus,tkf.CompleteStatus,tkf.CompleteDate,tkf.FinalVerification FROM mas_isscs.token_audit tka,mas_isscs.tokens tk,mas_isscs.token_flow tkf,mas_isscs.users usr WHERE tka.TokenAuditID = tk.TokenAuditID  and tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = '" + Session["user"] + "' and tka.AddedUser = usr.UserEmail";
 
                 MySqlDataAdapter mySqlDA = new MySqlDataAdapter(qry_myTokens, mySqlCon);
                 mySqlDA.Fill(dtblTokens);
@@ -491,7 +491,8 @@ namespace MAS_Sustainability.Controllers
                     AddedDate = dtblTokens.Rows[i][3].ToString(),
                     DeadLine = dtblTokens.Rows[i][8].ToString(),
                     CompleteStatus = dtblTokens.Rows[i][9].ToString(),
-                    CompleteDate = dtblTokens.Rows[i][10].ToString()
+                    CompleteDate = dtblTokens.Rows[i][10].ToString(),
+                    FinalVerificationStatus = dtblTokens.Rows[i][11].ToString()
 
                     //SentUser = dtblTokens.Rows[i][6].ToString()
                 }
@@ -1066,6 +1067,45 @@ namespace MAS_Sustainability.Controllers
             return View(mainModel);
 
 
+        }
+
+        public ActionResult VerifyRepairation(CompletedTokenModel completedTokenModel)
+        {
+            DB dbConn = new DB();
+            MainModel mainModel = new MainModel();
+
+            string name_of_file = Path.GetFileNameWithoutExtension(completedTokenModel.CompletedImageFile.FileName);
+            string extension1 = Path.GetExtension(completedTokenModel.CompletedImageFile.FileName);
+            name_of_file = name_of_file + DateTime.Now.ToString("yymmssfff") + extension1;
+            completedTokenModel.CompletedImagePath = "~/completedImages/" + name_of_file;
+            name_of_file = Path.Combine(Server.MapPath("~/completedImages/"), name_of_file);
+            completedTokenModel.CompletedImageFile.SaveAs(name_of_file);
+
+            String imgPath = completedTokenModel.CompletedImagePath;
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String qry_add_verifited_list = "INSERT INTO verified_tokens(TokenAuditID,VerifiedDate,VerifiedTime,Image,SatisfactionLevel)VALUES(@TokenAuditID,CURDATE(),CURTIME(),@CompletedimgPath,@SatisfactionLevel)";
+
+                MySqlCommand mySqlCmd_add_verifited_list = new MySqlCommand(qry_add_verifited_list, mySqlCon);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@TokenAuditID", completedTokenModel.TokenAuditID);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@SatisfactionLevel", completedTokenModel.SatisfactionLevel);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@CompletedimgPath", imgPath);
+                mySqlCmd_add_verifited_list.ExecuteNonQuery();
+
+
+                String qry_Complete_Tokens = "UPDATE token_flow SET FinalVerification = 'Verified' , VerifiedDate = CURDATE() WHERE TokenAuditID = @TokenAuditID";
+
+                MySqlCommand mySqlCmd_update_verifited_list = new MySqlCommand(qry_Complete_Tokens, mySqlCon);
+                mySqlCmd_update_verifited_list.Parameters.AddWithValue("@TokenAuditID", completedTokenModel.TokenAuditID);
+                mySqlCmd_update_verifited_list.ExecuteNonQuery();
+
+
+
+            }
+
+            return RedirectToAction("MyTokens");
         }
 
 

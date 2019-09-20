@@ -500,98 +500,49 @@
                                 </div>
                             </div>
 
-                            
+
                             @foreach (var sideBarProblemRepairDetails in Model.SideBarTokenReparationDetails)
                             {
                                 <a href="@Url.Action("ViewRepairation", "Token", new { @id = @sideBarProblemRepairDetails.SideBarTokenAuditID })">
-                                <div class="list-group list-group-file-item list-group-reflow list-group-flush list-group-divider mt-3">
+                                    <div class="list-group list-group-file-item list-group-reflow list-group-flush list-group-divider mt-3">
 
 
-                                    <div class="card card-dark bg-secondary-gradient">
-
-
+                           
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <h5><b>@sideBarProblemRepairDetails.SideBarProblemName</b></h5>
+                                                                <p class="text-muted">@sideBarProblemRepairDetails.SideBarProblemLocation</p>
+                                                            </div>
+                                                            <h3 class="text-danger fw-bold">15</h3>
+                                                        </div>
+                                                        <div class="progress progress-sm">
+                                                            <div class="progress-bar bg-danger w-50" role="progressbar" aria-valuenow="@sideBarProblemRepairDetails.SideBarAttentionLevel" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between mt-2">
+                                                            <p class="text-muted mb-0">@sideBarProblemRepairDetails.SideBarProblemCategory</p>
+                                                            <p class="text-muted mb-0">@sideBarProblemRepairDetails.SideBarAttentionLevel%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                        
-                                        <div class="card-body curves-shadow">
-
-                                            <h2 class="py-4 mb-0">
-                                                <a href="@Url.Action("ViewRepairation", "Token", new { @id = @sideBarProblemRepairDetails.SideBarTokenAuditID })"><strong>@sideBarProblemRepairDetails.SideBarProblemName</strong></a>
-                                            </h2>
-
-
-
-                                            <div class="row">
-                                                <div class="col-8 pr-0">
-                                                    <h3 class="fw-bold mb-1">@sideBarProblemRepairDetails.SideBarProblemCategory</h3>
-                                                    <div class="text-small text-uppercase fw-bold op-8">@sideBarProblemRepairDetails.SideBarProblemLocation</div>
-                                                </div>
-                                                <div class="col-4 pl-0 text-right">
-                                                    <h6 style="font-size:8px;">
-
-                                                        @if (Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) <= 20)
-                                                        {
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                        }
-                                                        else if (Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) <= 40 && Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) > 20)
-                                                        {
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                        }
-                                                        else if (Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) <= 60 && Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) > 40)
-                                                        {
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-
-                                                        }
-                                                        else if (Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) <= 80 && Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) > 60)
-                                                        {
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" data-index="4" data-html="true"></i>
-
-                                                        }
-                                                        else if (Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) <= 100 && Convert.ToDouble(sideBarProblemRepairDetails.SideBarAttentionLevel) > 80)
-                                                        {
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                            <i class="fas fa-star py-1 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
-                                                        }
-
-
-
-
-                                                    </h6>
-                                                    <div class="text-small text-uppercase fw-bold op-8">@sideBarProblemRepairDetails.SideBarAttentionLevel %</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                            
-
-
+                                        
 
                                     </div>
-
-                                </div>
                                 </a>
                             }
 
+                               
 
 
+
+
+
+
+
+                            </div>
                         </div>
-                    </div>
 
 
 
