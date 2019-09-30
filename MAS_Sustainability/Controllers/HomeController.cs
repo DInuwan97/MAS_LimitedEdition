@@ -11,8 +11,17 @@ namespace MAS_Sustainability.Controllers
 {
     public class HomeController : Controller
     {
+
+        public HomeController()
+        {
+            MainModel mainModel = new MainModel();
+            mainModel.TokenManagerStatusPending = TokenController.TokenManagerPendingSattusCount();
+        }
+
+
+
         public ActionResult Index1()
-         {
+        {
 
             return View();
 
@@ -39,6 +48,7 @@ namespace MAS_Sustainability.Controllers
 
                 mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
                 mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
+                mainModel.TokenManagerStatusPending = 5;
 
                 return mainModel;
             }

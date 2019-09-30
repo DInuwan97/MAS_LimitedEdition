@@ -68,5 +68,18 @@ namespace MAS_Sustainability
         }
 
 
+        public String LastLoggedDate { get; set; }
+        public String FirstLoggedDate { get; set; }
+        public String LastLoggedTime { get; set; }
+        public String FirstLoggedTime { get; set; }
+
+
+
+        public int EmployeeCount { get; set; }
+        public int DepartmentLeaderCount { get; set; }
+        public int TokenManagerCount { get; set; }
+        public String FactoryManagementCount { get; set; }
+
+
     }
 }

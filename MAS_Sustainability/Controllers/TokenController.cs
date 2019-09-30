@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.IO;
 using MAS_Sustainability.Models;
+using System.Net;
 
 namespace MAS_Sustainability.Controllers
 {
@@ -28,13 +29,18 @@ namespace MAS_Sustainability.Controllers
             DataTable dtblTokens = new DataTable();
             DataTable userDetailsDataTable = new DataTable();
             DataTable ForwardedTokeDataTable = new DataTable();
-            MainModel mainModel = new MainModel();
 
+            DataTable ManagerStatus_pending_DataTable = new DataTable();
+
+
+            MainModel mainModel = new MainModel();
             Token tokenModel = new Token();
 
             List<UserLogin> List_UserLogin = new List<UserLogin>();
             List<Token> List_Token = new List<Token>();
             List<Token> Token_List = new List<Token>();
+
+            List<Token> TokenManagerPending_List = new List<Token>();
 
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
@@ -60,6 +66,9 @@ namespace MAS_Sustainability.Controllers
                 mySqlDa.Fill(userDetailsDataTable);
                 //DashbordController dashbord = new DashbordController();
                 //finalItem.LoggedUserName = dashbord.setUserDetails().ToString();
+
+
+
 
             }
 
@@ -105,12 +114,56 @@ namespace MAS_Sustainability.Controllers
             }
 
 
+            if (ManagerStatus_pending_DataTable.Rows.Count == 1)
+            {
+                /*TokenManagerPending_List.Add(new Token
+                {
+                   TokenManagerStatusPending = 4/*Convert.ToInt32(ManagerStatus_pending_DataTable.Rows[0][0].ToString())*/
+                //});
+
+                //mainModel.TokenMaagerStatusPendingList = TokenManagerPending_List;
+
+                mainModel.TokenManagerStatusPending = Convert.ToInt32(ManagerStatus_pending_DataTable.Rows[0][0].ToString());
+            }
+            
+
             mainModel.ListToken = List_Token;
             mainModel.ListUserLogin = List_UserLogin;
             mainModel.TokenList = Token_List;
+            mainModel.TokenManagerStatusPending = TokenManagerPendingSattusCount();
+
+
 
             return View(mainModel);
         }
+
+
+        public static int TokenManagerPendingSattusCount()
+        {
+            DataTable ManagerStatus_pending_DataTable = new DataTable();
+            MainModel mainModel = new MainModel();
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                String qry_count_TokenManager_status_Pending = "SELECT COUNT(TokenFlowID) FROM token_flow WHERE TokenManagerStatus = 'Pending'";
+                MySqlDataAdapter mySqlDa_count_TokenManager_status_Pending = new MySqlDataAdapter(qry_count_TokenManager_status_Pending, mySqlCon);
+                mySqlDa_count_TokenManager_status_Pending.Fill(ManagerStatus_pending_DataTable);
+            }
+
+            if (ManagerStatus_pending_DataTable.Rows.Count == 1)
+            {
+                mainModel.TokenManagerStatusPending = Convert.ToInt32(ManagerStatus_pending_DataTable.Rows[0][0].ToString());
+            }
+
+
+
+                return mainModel.TokenManagerStatusPending;
+        }
+
+
+
+
 
         // GET: Token/Details/5
         public ActionResult Details(int id)
@@ -764,9 +817,11 @@ namespace MAS_Sustainability.Controllers
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
             {
-                String qry_listOfUserDetails = "SELECT UserName,UserType,UserID,UserEmail,UserImage,UserDepartment FROM users WHERE UserEmail = '" + Session["user"] + "'";
+                String qry_listOfUserDetails = "SELECT UserName,UserType,UserID,UserEmail,UserImage,UserDepartment,UserMobile FROM users WHERE UserEmail = '" + Session["user"] + "'";
                 MySqlDataAdapter mySqlDa = new MySqlDataAdapter(qry_listOfUserDetails, mySqlCon);
                 mySqlDa.Fill(userDetailsDataTable);
+
+
 
 
                 String qry_SingleTokenDetails = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tk.Description,tkimg.ImagePath,tkr.RepairDepartment,tkr.SentDate,tkr.SentUser,usr.UserImage,usr.UserID,tkr.Status,tkr.Deadline,tkr.Cost FROM token_audit tka,tokens tk,token_image tkimg,token_review tkr,users usr WHERE tka.TokenAuditID = tk.TokenAuditID AND tk.TokenAuditID = tkimg.TokenID AND tkimg.TokenID = tkr.TokenAuditID AND usr.UserEmail = tka.AddedUser AND tka.TokenAuditID = @TokenAuditID";
@@ -798,6 +853,7 @@ namespace MAS_Sustainability.Controllers
                 mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
                 mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
                 mainModel.LoggedUserDepartment = userDetailsDataTable.Rows[0][5].ToString();
+                mainModel.LoggedUserMobile = userDetailsDataTable.Rows[0][6].ToString();
 
                 List_UserLogin.Add(new UserLogin
                 {
@@ -909,6 +965,8 @@ namespace MAS_Sustainability.Controllers
         {
             DB dbConn = new DB();
             DataTable repairationAuditDataTable = new DataTable();
+            UserRegistrationModel userRegistrationModel = new UserRegistrationModel();
+            MainModel mainModel = new MainModel();
 
             List<ReparationModel> TokenRepairationAuditID_List = new List<ReparationModel>();
             //  ReparationModel reparationModel = new ReparationModel();
@@ -958,6 +1016,31 @@ namespace MAS_Sustainability.Controllers
                     mySqlCmd_Reparation_Update_AuditDetails.Parameters.AddWithValue("@ReparationAuditID", reparationModel.RepairationAuditID);
                     mySqlCmd_Reparation_Update_AuditDetails.ExecuteNonQuery();
                 }
+
+                //ReparationModel reparationModel = new ReparationModel();
+
+              /* string UserName = "0766061689"; //acount username
+                string Password = "4873"; //account password
+                string PhoneNo = "94" + mainModel.LoggedUserMobile.ToString();
+                string Message = "Dear " + mainModel.LoggedUserName + ",The defect "+reparationModel.ProblemName+ "that you reported,will be recoverd by " +reparationModel.ReparationDepartment+ "on or before" + reparationModel.DeadLine+ ".Track the defect on ID : " +reparationModel.TokenAuditID+ "." ;
+
+                string url = @"http://api.liyanagegroup.com/sms_api.php?sms=" + @Message + "&to=" + @PhoneNo + "&usr=" + @UserName + "&pw=" + @Password;
+                WebRequest request = HttpWebRequest.Create(url);
+                WebResponse response = request.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                string urlText = reader.ReadToEnd(); //it takes the response from your url. now you can use as your need 
+
+                if (urlText == "OK")
+                {
+                    Response.Write("SMS Sent..!");
+                }
+                else
+                {
+                    Response.Write("SMS Sent Fail.!");
+                }*/
+
+            
 
 
 

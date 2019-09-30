@@ -34,6 +34,9 @@ namespace MAS_Sustainability.Controllers
 
             if (userDetailsDataTable.Rows.Count == 1)
                 {
+
+                mainModel.TokenManagerStatusPending = TokenController.TokenManagerPendingSattusCount();
+
                     mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
                     mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
                     mainModel.LoggedUserID = Convert.ToInt32(userDetailsDataTable.Rows[0][2]);

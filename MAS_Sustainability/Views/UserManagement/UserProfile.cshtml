@@ -33,9 +33,9 @@
 
 
 
-                           @using (Html.BeginForm("UpdateUserProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("UpdateUserProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                                @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
 
 
@@ -65,13 +65,24 @@
 
                                         <tr>
                                             <td style="width:180px">First Logged Date</td>
-                                            <td style="width:180px"></td>
+                                            <td style="width:180px">@userInformation.FirstLoggedDate</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width:180px">First Logged Time</td>
+                                            <td style="width:180px">@userInformation.FirstLoggedTime</td>
                                         </tr>
 
                                         <tr>
                                             <td style="width:180px">Last Logged Date</td>
-                                            <td style="width:180px"></td>
+                                            <td style="width:180px">@userInformation.LastLoggedDate</td>
                                         </tr>
+
+                                        <tr>
+                                            <td style="width:180px">Last Logged Time</td>
+                                            <td style="width:180px">@userInformation.LastLoggedTime</td>
+                                        </tr>
+
                                     </table>
 
                                     <div class="col-md-4">
@@ -79,8 +90,8 @@
                                             <label>Department</label>
                                             <input type="text" class="form-control" value="" name="UserDepartment" placeholder="Department">
                                         </div>
-                              
-                                      
+
+
                                         <div class="form-group form-group-default">
                                             <label>Designation</label>
                                             <input type="text" class="form-control" value="" name="UserType" placeholder="Designation">
@@ -89,45 +100,47 @@
 
                                 </div>
 
-                            
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <div class="input-file input-file-image">
-                                                    <img class="img-upload-preview img-circle" width="120" height="120" src="@Url.Content(Model.UserProfileImagePath)" alt="preview">
-                                                    <input type="file" class="form-control form-control-file" id="UserImageFile" name="UserImage" accept="userimages/*" required="">
-                                                    <label for="UserImageFile" class="badge badge-info">
-                                                        <span class="btn-label">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </span>
-                                                        Add Profile DB
-                                                    </label>
-                                                </div>
+
+
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
+                                            <div class="input-file input-file-image">
+                                                <img class="img-upload-preview img-circle" width="120" height="120" src="@Url.Content(Model.UserProfileImagePath)" alt="preview">
+                                                <input type="file" class="form-control form-control-file" id="UserImageFile" name="UserImage" accept="userimages/*" required="">
+                                                <label for="UserImageFile" class="badge badge-info">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-file-image"></i>
+                                                    </span>
+                                                    Add Profile DB
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <input type="hidden" value="@userInformation.UserID" name="UserID" id="UserID">
-
-                                    <div class="text-right mt-3 mb-3">
-                                        <button class="btn btn-success">Save</button>
-                                        <button class="btn btn-danger">Reset</button>
-                                    </div>
                                 </div>
-                                }
 
+                                <input type="hidden" value="@userInformation.UserID" name="UserID" id="UserID">
 
-
-
-
+                                <div class="text-right mt-3 mb-3">
+                                    <button class="btn btn-success">Save</button>
+                                    <button class="btn btn-danger">Reset</button>
+                                </div>
                             </div>
+                            }
+
+
+
+
+
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card card-profile">
                             <div class="card-header" style="background-image:url('~/Content/images/dinuwan_user.png');">
                                 <div class="profile-picture">
                                     <div class="avatar avatar-xl">
-                                        <img src="@Url.Content(Model.UserProfileImagePath)"  alt="..." class="avatar-img rounded-circle">
+                                        <img src="@Url.Content(Model.UserProfileImagePath)" alt="..." class="avatar-img rounded-circle">
                                     </div>
                                 </div>
                             </div>
@@ -169,10 +182,46 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-4">
+                    </div>
+
+                    <div class="col-md-4">
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                <div class="h1 fw-bold float-right text-primary">+5%</div>
+                                <h2 class="mb-2">17</h2>
+                                <p class="text-muted">Users online</p>
+                                <div class="pull-in sparkline-fix">
+                                    <div id="lineChart"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
-            </div>
+
+
+
+
+
+
+
+
+
+                </div>
         </div>
 
     </div>
@@ -197,9 +246,67 @@
 <script src="~/Content/assets/js/atlantis.min.js"></script>
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <script src="~/Content/assets/js/setting-demo.js"></script>
+
+<script src="~/Content/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 <script>
     $('#datepicker').datetimepicker({
         format: 'MM/DD/YYYY',
+    });
+</script>
+
+<script>
+    $('#lineChart').sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: '#177dff',
+        fillColor: 'rgba(23, 125, 255, 0.14)'
+    });
+
+    $('#lineChart2').sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: '#f3545d',
+        fillColor: 'rgba(243, 84, 93, .14)'
+    });
+
+    $('#lineChart3').sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: '#ffa534',
+        fillColor: 'rgba(255, 165, 52, .14)'
+    });
+
+    $('#lineChart4').sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: 'rgba(255, 255, 255, .5)',
+        fillColor: 'rgba(255, 255, 255, .15)'
+    });
+
+    $('#lineChart5').sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: 'rgba(255, 255, 255, .5)',
+        fillColor: 'rgba(255, 255, 255, .15)'
+    });
+
+    $('#lineChart6').sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: 'line',
+        height: '70',
+        width: '100%',
+        lineWidth: '2',
+        lineColor: 'rgba(255, 255, 255, .5)',
+        fillColor: 'rgba(255, 255, 255, .15)'
     });
 </script>
 

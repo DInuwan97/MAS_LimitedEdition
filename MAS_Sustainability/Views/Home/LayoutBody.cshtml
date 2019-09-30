@@ -335,7 +335,7 @@
                             @if(controllerName== "Dashbord")
                             {
                         <li class="nav-item active">
-                            <a href="@Url.Action("Index","Dashbord")">
+                            <a href="@Url.Action(" Index","Dashbord")">
                                 <i class="fas fa-chart-area"></i>
                                 <p>Dashboard</p>
 
@@ -390,13 +390,17 @@
                             </a>
                         </li>
                         }
-                        @if(controllerName== "Token" && ActionName=="Index")
+                        @if(controllerName == "Token" && ActionName=="Index")
                         {
                         if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Token Manager")){
                         <li class="nav-item active">
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>
                                 <p>View Tokens</p>
+                                @if(Model.TokenManagerStatusPending > 0)
+                                {
+                                <span class="badge badge-danger" style="float:right">@Html.DisplayFor(model => model.TokenManagerStatusPending)</span>
+                                }
 
                             </a>
                         </li>
@@ -407,6 +411,12 @@
                             <a href="@Url.Action("Index","Token")">
                                 <i class="fab fa-searchengin"></i>
                                 <p>View Tokens</p>
+                                @if(Model.TokenManagerStatusPending > 0)
+                                {
+                                <span class="badge badge-success" style="float:right">@Html.DisplayFor(model => model.TokenManagerStatusPending)</span>
+                                }
+
+
 
                             </a>
                         </li>
@@ -438,7 +448,7 @@
                         {
 
                         <li class="nav-item active">
-                            <a href="@Url.Action(" RepairationList","Token")">
+                            <a href="@Url.Action("RepairationList","Token")">
                                 <i class="fas fa-list"></i>
                                 <p>Repairations</p>
 

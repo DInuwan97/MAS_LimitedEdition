@@ -63,6 +63,8 @@ namespace MAS_Sustainability
 
         public String FinalVerificationStatus { get; set; }
 
+        public int TokenManagerStatusPending { get; set; }
+
 
 
 

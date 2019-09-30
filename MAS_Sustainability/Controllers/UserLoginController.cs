@@ -41,12 +41,36 @@ namespace MAS_Sustainability.Controllers
                 MySqlDataAdapter mySqlDA = new MySqlDataAdapter(mySqlCmd);
                 mySqlDA.Fill(dt);
 
+                DataTable loginDetailsDataTable = new DataTable();
+
 
                 foreach (DataRow dr in dt.Rows)
                 {
                     userLogin.SuccesMsg = 1;
                     //Session["user"] = new UserLogin() { Login = userLogin.LoginUserEmail, LoginUserEmail = userLogin.LoginUserEmail };
                     Session["user"] = userLogin.LoginUserEmail;
+
+
+                    String qry_get_login_details = "SELECT * FROM login_details WHERE UserEmail = '" + Session["user"] + "' ";
+                    MySqlDataAdapter mySqlDa = new MySqlDataAdapter(qry_get_login_details, mySqlCon);
+                    mySqlDa.Fill(loginDetailsDataTable);
+
+                    if(loginDetailsDataTable.Rows.Count == 1)
+                    {
+                        String qry_update_login_details = "UPDATE login_details SET LastLoggedDate = CURDATE(),LastLoggedTime = CURTIME()  WHERE UserEmail = '" + Session["user"] + "'";
+                        MySqlCommand mySqlCmd_update_login_details = new MySqlCommand(qry_update_login_details, mySqlCon);
+                        mySqlCmd_update_login_details.ExecuteNonQuery();
+
+                    }
+                    else
+                    {
+                        String qry_insert_login_details = "INSERT INTO login_details(UserEmail,FirstLoggedDate,FirstLoggedtIME,LastLoggedDate,LastLoggedTime)VALUES('" + Session["user"]+ "',CURDATE(),CURTIME(),CURDATE(),CURTIME())";
+                        MySqlCommand mySqlCmd_insert_login_details = new MySqlCommand(qry_insert_login_details, mySqlCon);
+                        mySqlCmd_insert_login_details.ExecuteNonQuery();
+
+                    }
+
+
                     return RedirectToAction("Index", "Dashbord");
                 }
 

@@ -19,6 +19,10 @@ namespace MAS_Sustainability
         public List<ReparationModel> ReparationAuditIDList { get; set; }
         public List<CompletedTokenModel> CompletedTokenList { get; set; }
 
+        public List<UserRegistrationModel> UserContList { get; set; }
+
+        public List<Token> TokenMaagerStatusPendingList { get; set; }
+
 
         public List<Token> ListToken { get; set; }
         public List<UserLogin> ListUserLogin { get; set; }
@@ -61,6 +65,9 @@ namespace MAS_Sustainability
 
         public String LoggedUserEmail { get; set; }
 
+        public String LoggedUserMobile { get; set; }
+
+
         public String LoggedUserDepartment { get; set; }
 
 
@@ -74,6 +81,15 @@ namespace MAS_Sustainability
 
 
         public int SuccesMsg { get; set; }
+
+
+
+
+
+
+        public int TokenManagerStatusPending { get; set; }
+
+
 
 
 
