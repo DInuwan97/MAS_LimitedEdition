@@ -137,6 +137,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\StaffRegistrationController.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Controllers\TokenManagerController.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Views\Survey\viewSurvey.cshtml" />
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\Token\ViewCompleteToken.cshtml" />
+    <Content Include="Views\Summary\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

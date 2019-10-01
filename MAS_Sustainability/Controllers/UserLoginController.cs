@@ -15,7 +15,9 @@ namespace MAS_Sustainability.Controllers
         {
             UserLogin userLogin = new UserLogin();
             userLogin.SuccesMsg = 0;
-            return View();
+
+           // Response.Write("Invalid Credentials");
+            return View(userLogin);
         }
 
         [HttpPost]
@@ -78,7 +80,7 @@ namespace MAS_Sustainability.Controllers
             }
 
 
-
+            Response.Write("Invalid Credentials");
             return View(userLogin);
         }
 
@@ -88,6 +90,7 @@ namespace MAS_Sustainability.Controllers
             // Session.Clear();
             Session["user"] = null;
             userLogin.SuccesMsg = 0;
+           
             return RedirectToAction("Login", "UserLogin");
         }
     }

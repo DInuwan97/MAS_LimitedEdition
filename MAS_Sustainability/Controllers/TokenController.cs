@@ -389,7 +389,7 @@ namespace MAS_Sustainability.Controllers
 
         // POST: Token/Edit/5
         [HttpPost]
-        public ActionResult TokenForward(Token tokenModel)
+        public void TokenForward(Token tokenModel)
         {
             DB dbConn = new DB();
             String ForwardUser = Session["user"].ToString();
@@ -412,7 +412,7 @@ namespace MAS_Sustainability.Controllers
                 mySqlCommand_update_token_status.Parameters.AddWithValue("@ReparationDepartment", tokenModel.ReparationDepartment);
                 mySqlCommand_update_token_status.ExecuteNonQuery();
 
-                return RedirectToAction("index");
+               // return RedirectToAction("index");
 
             }
 

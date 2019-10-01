@@ -90,6 +90,77 @@ namespace MAS_Sustainability
         public int TokenManagerStatusPending { get; set; }
 
 
+        public int DepartmentReparationCount_FacEng { get; set; }
+        public int DepartmentReparationCount_ProdEng { get; set; }
+        public int DepartmentReparationCount_Autonomation { get; set; }
+        /////////////////////////////////////////////////////////////////////////
+
+        public int DepartmentReparationCount_MOS { get; set; }
+        public int DepartmentReparationCount_RM{ get; set; }
+        public int DepartmentReparationCount_Quality { get; set; }
+        ////////////////////////////////////////////////////////////////////////
+        ///
+
+
+        public int DepartmentReparationCount_Technical { get; set; }
+        public int DepartmentReparationCount_Cutting { get; set; }
+        public int DepartmentReparationCount_HR { get; set; }
+        public int DepartmentReparationCount_FG { get; set; }
+
+        public int DepartmentReparationCount_Operation { get; set; }
+
+
+        public int DepartmentReparationCount_VSM1 { get; set; }
+        public int DepartmentReparationCount_VSM2 { get; set; }
+        public int DepartmentReparationCount_VSM3 { get; set; }
+        public int DepartmentReparationCount_VSM4 { get; set; }
+
+
+        public int DepartmentReparationCount_PreSewing { get; set; }
+        public int DepartmentReparationCount_Emblishment { get; set; }
+        public int DepartmentReparationCount_IE { get; set; }
+
+
+
+
+
+
+
+
+
+        public int DepartmentReparationCount_FacEng_SUS { get; set; }
+        public int DepartmentReparationCount_ProdEng_SUS { get; set; }
+        public int DepartmentReparationCount_Autonomation_SUS { get; set; }
+        /////////////////////////////////////////////////////////////////////////
+
+        public int DepartmentReparationCount_MOS_SUS { get; set; }
+        public int DepartmentReparationCount_RM_SUS { get; set; }
+        public int DepartmentReparationCount_Quality_SUS { get; set; }
+        ////////////////////////////////////////////////////////////////////////
+        ///
+
+
+        public int DepartmentReparationCount_Technical_SUS { get; set; }
+        public int DepartmentReparationCount_Cutting_SUS { get; set; }
+        public int DepartmentReparationCount_HR_SUS { get; set; }
+        public int DepartmentReparationCount_FG_SUS { get; set; }
+
+        public int DepartmentReparationCount_Operation_SUS { get; set; }
+
+
+        public int DepartmentReparationCount_VSM1_SUS { get; set; }
+        public int DepartmentReparationCount_VSM2_SUS { get; set; }
+        public int DepartmentReparationCount_VSM3_SUS { get; set; }
+        public int DepartmentReparationCount_VSM4_SUS { get; set; }
+
+
+        public int DepartmentReparationCount_PreSewing_SUS { get; set; }
+        public int DepartmentReparationCount_Emblishment_SUS { get; set; }
+        public int DepartmentReparationCount_IE_SUS { get; set; }
+
+
+
+
 
 
 

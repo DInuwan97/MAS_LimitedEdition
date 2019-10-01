@@ -1,0 +1,467 @@
+﻿@using MAS_Sustainability.Models;
+@model MainModel
+@{
+    Layout = "~/Views/Home/LayoutBody.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+<div class="main-panel">
+    <div class="content content-full">
+        <div class="page-navs bg-white py-3 pr-2">
+            <div class="card-title fw-bold">Boards</div>
+        </div>
+        <div class="page-inner page-inner-fill">
+            <div id="myKanban" class="board">
+
+
+                <div data-id="_todo" class="kanban-board">
+
+                    <header class="kanban-board-header">
+                        <div class="kanban-title-board">Backlogs</div>
+                        <div class="kanban-title-button d-inline-flex">
+                            <button class="mr-2"><i class="fas fa-plus-circle"></i></button>
+                            <div class="dropdown dropdown-kanban">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-options-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Move</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">Trash</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <main class="kanban-drag">
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Briefing</a>
+           
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Requirment/SOP</a>
+             
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Report</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge bg-danger">
+                                    <i class="far fa-clock"></i>
+                                    <span class="badge-text">Oct 8, 2018</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">1/5</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+                <div data-id="_working" class="kanban-board">
+
+                    <header class="kanban-board-header d-flex align-items-center">
+                        <div class="kanban-title-board">Working</div>
+                        <div class="kanban-title-button ml-auto d-inline-flex">
+                            <button class="mr-2"><i class="fas fa-plus-circle"></i></button>
+                            <div class="dropdown dropdown-kanban">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-options-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Move</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">Trash</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <main class="kanban-drag">
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Boards</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">3</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">5/12</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Backend Development</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge bg-danger">
+                                    <i class="far fa-clock"></i>
+                                    <span class="badge-text">Oct 12, 2018</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">6</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">2/4</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Test the Application</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">10</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">0/24</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+
+
+
+                <div data-id="_done" class="kanban-board">
+
+                    <header class="kanban-board-header">
+                        <div class="kanban-title-board">Backlogs</div>
+                        <div class="kanban-title-button d-inline-flex">
+                            <button class="mr-2"><i class="fas fa-plus-circle"></i></button>
+                            <div class="dropdown dropdown-kanban">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-options-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Move</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">Trash</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <main class="kanban-drag">
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Briefing</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="fas fa-paperclip"></i>
+                                    <span class="badge-text">10</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Requirment/SOP</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge bg-success">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">12/12</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Report</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge bg-danger">
+                                    <i class="far fa-clock"></i>
+                                    <span class="badge-text">Oct 8, 2018</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">1/5</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </main>
+
+
+                </div>
+
+
+                <div data-id="_done" class="kanban-board">
+
+                    <header class="kanban-board-header">
+                        <div class="kanban-title-board">Backlogs</div>
+                        <div class="kanban-title-button d-inline-flex">
+                            <button class="mr-2"><i class="fas fa-plus-circle"></i></button>
+                            <div class="dropdown dropdown-kanban">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-options-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Move</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">Trash</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main class="kanban-drag">
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Briefing</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="fas fa-paperclip"></i>
+                                    <span class="badge-text">10</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Requirment/SOP</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge bg-success">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">12/12</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Report</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge bg-danger">
+                                    <i class="far fa-clock"></i>
+                                    <span class="badge-text">Oct 8, 2018</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">1/5</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+
+
+                 <div data-id="_done" class="kanban-board">
+
+                    <header class="kanban-board-header">
+                        <div class="kanban-title-board">Backlogs</div>
+                        <div class="kanban-title-button d-inline-flex">
+                            <button class="mr-2"><i class="fas fa-plus-circle"></i></button>
+                            <div class="dropdown dropdown-kanban">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-options-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Move</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">Trash</a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main class="kanban-drag">
+                        <div class="kanban-item">
+                            <div class="kanban-image">
+                                <img src="https://via.placeholder.com/225x150" class="img-fluid">
+                            </div>
+                            <a href="#" class="kanban-title">Briefing</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="fas fa-paperclip"></i>
+                                    <span class="badge-text">10</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Requirment/SOP</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge">
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="badge-text">2</span>
+                                </div>
+                                <div class="kanban-badge bg-success">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">12/12</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kanban-item">
+                            <a href="#" class="kanban-title">Report</a>
+                            <div class="kanban-badges">
+                                <div class="kanban-badge bg-danger">
+                                    <i class="far fa-clock"></i>
+                                    <span class="badge-text">Oct 8, 2018</span>
+                                </div>
+                                <div class="kanban-badge">
+                                    <i class="far fa-check-square"></i>
+                                    <span class="badge-text">1/5</span>
+                                </div>
+                            </div>
+                            <div class="kanban-edit">
+                                <i class="fa fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--   Core JS Files   -->
+<script src="~/Content/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="~/Content/assets/js/core/popper.min.js"></script>
+<script src="~/Content/assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="~/Content/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="~/Content/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="~/Content/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Moment JS -->
+<script src="~/Content/assets/js/plugin/moment/moment.min.js"></script>
+
+<!-- Chart JS -->
+<script src="~/Content/assets/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="~/Content/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="~/Content/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+<!-- Datatables -->
+<script src="~/Content/assets/js/plugin/datatables/datatables.min.js"></script>
+
+<!-- Bootstrap Notify -->
+<script src="~/Content/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Bootstrap Toggle -->
+<script src="~/Content/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- jQuery Vector Maps -->
+<script src="~/Content/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/Content/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+<!-- Google Maps Plugin -->
+<script src="~/Content/assets/js/plugin/gmaps/gmaps.js"></script>
+
+<!-- Dropzone -->
+<script src="~/Content/assets/js/plugin/dropzone/dropzone.min.js"></script>
+
+<!-- Fullcalendar -->
+<script src="~/Content/assets/js/plugin/fullcalendar/fullcalendar.min.js"></script>
+
+<!-- DateTimePicker -->
+<script src="~/Content/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<!-- Bootstrap Tagsinput -->
+<script src="~/Content/assets/js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+
+<!-- Bootstrap Wizard -->
+<script src="~/Content/assets/js/plugin/bootstrap-wizard/bootstrapwizard.js"></script>
+
+<!-- jQuery Validation -->
+<script src="~/Content/assets/js/plugin/jquery.validate/jquery.validate.min.js"></script>
+
+<!-- Summernote -->
+<script src="~/Content/assets/js/plugin/summernote/summernote-bs4.min.js"></script>
+
+<!-- Select2 -->
+<script src="~/Content/assets/js/plugin/select2/select2.full.min.js"></script>
+
+<!-- Sweet Alert -->
+<script src="~/Content/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+<!-- Owl Carousel -->
+<script src="~/Content/assets/js/plugin/owl-carousel/owl.carousel.min.js"></script>
+
+<!-- Magnific Popup -->
+<script src="~/Content/assets/js/plugin/jquery.magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- Atlantis JS -->
+<script src="~/Content/assets/js/atlantis.min.js"></script>
+
+<!-- Atlantis DEMO methods, don't include it in your project! -->
+<script src="~/Content/assets/js/setting-demo.js"></script>
+<script src="~/Content/assets/js/demo.js"></script>
+
