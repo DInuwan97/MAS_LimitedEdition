@@ -1,0 +1,134 @@
+﻿@using MAS_Sustainability.Models
+@model MainModel
+@{
+    ViewBag.Title = "ExpiredTokens";
+    Layout = "~/Views/Home/LayoutBody.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="main-panel">
+        <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="d-flex align-items-center">
+                                                <h4 class="card-title">Expired Tokens</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+
+
+                                            <div class="table-responsive">
+                                                <table id="add-row" class="display table table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Problem Name</th>
+                                                            <th>Location</th>
+                                                            <th style="width:50px">Category</th>
+                                                            <th>Reparation</th>
+                                                            <th>Deadline</th>
+                                                            <th>Action</th>
+
+                                                        </tr>
+                                                    </thead>
+
+
+
+                                                    <tbody>
+
+                                                        @foreach (var no_of_tokens_expired in Model.ExpiredTokensList)
+                                                        {
+                                                            if (@no_of_tokens_expired.TokenStatus_Expired != ("Pending") && @no_of_tokens_expired.CompleteStatus_Expired != ("Completed"))
+                                                            {
+
+                                                                <tr>
+                                                                    <td style="color:red; font-style:bold"><b>@no_of_tokens_expired.ProblemName_Expired</b></td>
+                                                                    <td style="color:red; font-style:bold"><b>@no_of_tokens_expired.Location_Expired</b></td>
+                                                                    <td style="width:50px;color:red; font-style:bold"><b>@no_of_tokens_expired.ProblemCategory_Expired</b></td>
+                                                                    <td style="color:red; font-style:bold"><b>@no_of_tokens_expired.TokenStatus_Expired</b></td>
+                                                                    <td style="color:red; font-style:bold"><b>@no_of_tokens_expired.DeadLine_Expired</b></td>
+                                                                    <td> <span class="badge badge-success"><a href="@Url.Action("ViewRepairation", "Token", new { @id = no_of_tokens_expired.TokenAuditID_Expired })"><strong>View</strong></a></span></td>
+                                                                </tr>
+
+                                                            }
+
+                                                        }
+
+
+
+                                                    </tbody>
+
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+}
+
+
+
+
+    <script src="~/Content/assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="~/Content/assets/js/core/popper.min.js"></script>
+    <script src="~/Content/assets/js/core/bootstrap.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="~/Content/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Content/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <!-- Bootstrap Toggle -->
+    <script src="~/Content/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <!-- jQuery Scrollbar -->
+    <script src="~/Content/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <!-- Datatables -->
+    <script src="~/Content/assets/js/plugin/datatables/datatables.min.js"></script>
+    <!-- Atlantis JS -->
+    <script src="~/Content/assets/js/atlantis.min.js"></script>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <script src="~/Content/assets/js/setting-demo2.js"></script>
+
+
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#basic-datatables').DataTable({
+
+
+            });
+
+
+
+
+        });
+    </script>
+

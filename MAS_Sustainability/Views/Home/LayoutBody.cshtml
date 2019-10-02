@@ -335,7 +335,7 @@
                             @if(controllerName== "Dashbord")
                             {
                         <li class="nav-item active">
-                            <a href="@Url.Action(" Index","Dashbord")">
+                            <a href="@Url.Action("Index","Dashbord")">
                                 <i class="fas fa-chart-area"></i>
                                 <p>Dashboard</p>
 
@@ -394,7 +394,7 @@
                         {
                         if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Token Manager")){
                         <li class="nav-item active">
-                            <a href="@Url.Action("Index","Token")">
+                            <a href="@Url.Action(" Index","Token")">
                                 <i class="fab fa-searchengin"></i>
                                 <p>View Tokens</p>
                                 @if(Model.TokenManagerStatusPending > 0)
@@ -486,6 +486,30 @@
                         </li>
                         }
 
+
+                        @if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Token Manager")){
+                        if(controllerName== "Token"&& ActionName=="ExpiredTokens")
+                        {
+
+                        <li class="nav-item active">
+                            <a href="@Url.Action("ExpiredTokens","Token")">
+                                <i class="fas fa-list"></i>
+                                <p>ExpiredTokens</p>
+
+                            </a>
+                        </li>}
+                        else{
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("ExpiredTokens","Token")">
+                                <i class="fas fa-list"></i>
+                                <p>ExpiredTokens</p>
+
+                            </a>
+                        </li>
+                        }
+
+                        }
 
 
 

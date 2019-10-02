@@ -29,8 +29,11 @@ namespace MAS_Sustainability
         public List<UserRegistrationModel> ListUserRegistration { get; set; }
         public List<Token> TokenList { get; set; }
 
-         public List<Report> ReportList { get; set; }
+        public List<Report> ReportList { get; set; }
         public Report report { get; set; }
+
+
+        public List <Token> ExpiredTokensList { get;set;}
 
         public List<UserRegistrationModel> ForgottenDetails { get; set; }
 
@@ -158,6 +161,10 @@ namespace MAS_Sustainability
         public int DepartmentReparationCount_Emblishment_SUS { get; set; }
         public int DepartmentReparationCount_IE_SUS { get; set; }
 
+
+
+        public String CurrentDate { get; set; }
+        public String CurrentTime { get; set; }
 
 
 

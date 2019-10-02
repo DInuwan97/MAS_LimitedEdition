@@ -169,8 +169,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -213,11 +218,15 @@
     <Content Include="Views\UserRegistration\SecureCode.cshtml" />
     <Content Include="Views\Token\RepairationList.cshtml" />
     <Content Include="Views\Token\ViewRepairation.cshtml" />
-    <Content Include="Views\UserManagement\UsersInfoReportPreview.cshtml" />
+    <Content Include="Views\UserManagement\EmployeesInfoReportPreview.cshtml" />
     <Content Include="Views\Survey\viewSurvey.cshtml" />
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\Token\ViewCompleteToken.cshtml" />
     <Content Include="Views\Summary\Index.cshtml" />
+    <Content Include="Views\Token\ExpiredTokens.cshtml" />
+    <Content Include="Views\UserManagement\DepartmentLeadersInfoReportPreview.cshtml" />
+    <Content Include="Views\Token\ProcessingTokensPreView.cshtml" />
+    <Content Include="Views\Token\TokenManagerActionsPrviewTokens.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

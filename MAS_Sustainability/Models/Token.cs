@@ -30,15 +30,15 @@ namespace MAS_Sustainability
 
         public String TokenStatus { get; set; }
 
-        public int ArrTokenAuditID{get; set;}
+        public int ArrTokenAuditID { get; set; }
         public int ArrAttentionLevel { get; set; }
         public String ArrFirstImagePath { get; set; }
         public String ArrProblemName { get; set; }
         public String ArrLocation { get; set; }
 
-        public String ArrUserName{ get; set; }
+        public String ArrUserName { get; set; }
 
-        public int no_of_rows_side_bar { get;set; }
+        public int no_of_rows_side_bar { get; set; }
 
         public int no_of_tokens { get; set; }
 
@@ -57,13 +57,29 @@ namespace MAS_Sustainability
         public String RepairStatus { get; set; }
         public String AddedUserName { get; set; }
         public String TokenManagerStatus { get; set; }
-        public String HoriontalFirstImagePath { get; set;}
+        public String HoriontalFirstImagePath { get; set; }
         public String CompleteStatus { get; set; }
         public String CompleteDate { get; set; }
 
         public String FinalVerificationStatus { get; set; }
 
         public int TokenManagerStatusPending { get; set; }
+
+        public String CurrentDate { get; set; }
+
+
+                    public String ProblemName_Expired {get;set;}
+                    public String ProblemCategory_Expired {get;set;}
+                    public String Location_Expired {get;set;}
+                    public int AttentionLevel_Expired {get;set;}
+                    public String UserName_Expired {get;set;}
+                    public String TokenStatus_Expired {get;set;}
+                    public int TokenAuditID_Expired {get;set;}
+                    public String AddedDate_Expired {get;set;}
+                    public String DeadLine_Expired {get;set;}
+                    public String CompleteStatus_Expired {get;set;}
+                    public String CompleteDate_Expired {get;set;}
+                    public String FinalVerificationStatus_Expired {get;set;}
 
 
 

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.IO;
+using System.Web.UI;
+
 
 namespace MAS_Sustainability.Controllers
 {
@@ -334,7 +336,7 @@ namespace MAS_Sustainability.Controllers
             return RedirectToAction("index");
         }
 
-        public ActionResult UsersInfoReportPreview()
+        public ActionResult EmployeesInfoReportPreview()
         {
 
             DataTable userDetailsDataTable = new DataTable();
@@ -354,13 +356,17 @@ namespace MAS_Sustainability.Controllers
 
             }
 
+
             for (int i = 0; i < userListDataTable.Rows.Count; i++)
             {
 
+                mainModel.CurrentDate ="June 2018"/* DateTime.Now.ToString("dd-MM-yyyy")*/;
+                mainModel.CurrentTime = "05:45PM"/* DateTime.Now.ToString("HH:mm:ss")*/;
 
                 List_UserRegistration.Add(new UserRegistrationModel
                 {
 
+           
                     UserFullName = userListDataTable.Rows[i][1].ToString(),
                     UserType = userListDataTable.Rows[i][7].ToString(),
                     UserID = Convert.ToInt32(userListDataTable.Rows[i][0]),
@@ -374,6 +380,54 @@ namespace MAS_Sustainability.Controllers
 
             return View(mainModel);
         }
+
+        public ActionResult DepartmentLeadersInfoReportPreview()
+        {
+
+            DataTable userDetailsDataTable = new DataTable();
+            DataTable userListDataTable = new DataTable();
+            MainModel mainModel = new MainModel();
+
+            List<UserRegistrationModel> List_UserRegistration = new List<UserRegistrationModel>();
+
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String qry_listOfUsers = "SELECT * FROM users";
+                MySqlDataAdapter mySqlData_UserList = new MySqlDataAdapter(qry_listOfUsers, mySqlCon);
+                mySqlData_UserList.Fill(userListDataTable);
+
+            }
+
+
+            for (int i = 0; i < userListDataTable.Rows.Count; i++)
+            {
+
+                mainModel.CurrentDate = "June 2018"/* DateTime.Now.ToString("dd-MM-yyyy")*/;
+                mainModel.CurrentTime = "05:45PM"/* DateTime.Now.ToString("HH:mm:ss")*/;
+
+                List_UserRegistration.Add(new UserRegistrationModel
+                {
+
+
+                    UserFullName = userListDataTable.Rows[i][1].ToString(),
+                    UserType = userListDataTable.Rows[i][7].ToString(),
+                    UserID = Convert.ToInt32(userListDataTable.Rows[i][0]),
+                    UserEmail = userListDataTable.Rows[i][2].ToString(),
+                    UserMobile = userListDataTable.Rows[i][3].ToString(),
+                    UserDepartment = userListDataTable.Rows[i][6].ToString()
+
+                });
+            }
+            mainModel.ListUserRegistration = List_UserRegistration;
+
+            return View(mainModel);
+        }
+
+
+
 
 
 

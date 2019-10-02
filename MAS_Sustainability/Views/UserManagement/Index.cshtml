@@ -108,6 +108,7 @@
                                                 </div>
                                             </div>
 
+
                                             <div class="table-responsive">
                                                 <table id="add-row" class="display table table-striped table-hover">
 
@@ -125,7 +126,7 @@
 
                                                         @foreach (var userDetailList in Model.ListUserRegistration)
                                                         {
-                                                           
+
                                                             if (@userDetailList.UserType == ("Employee"))
                                                             {
                                                                 <tr>
@@ -188,7 +189,7 @@
 
                                                                 </tr>
                                                             }
-                                                           
+
                                                         }
 
                                                     </tbody>
@@ -196,13 +197,19 @@
 
                                                 </table>
                                             </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- end of datatable of panel 1 -->
                             </p>
-
+                            <a style="float:right" href="@Url.Action("EmployeesInfoReportPreview","UserManagement")" class="btn btn-info">
+                                Export PDF
+                            </a>
+                            
                         </div>
 
 
@@ -307,6 +314,11 @@
 
                                 <!-- end of datatable of panel 2 -->
                             </p>
+
+                            <a style="float:right" href="@Url.Action("DepartmentLeadersInfoReportPreview","UserManagement")" class="btn btn-info">
+                                Export PDF
+                            </a>
+
                         </div> <!-- end of panel 2 -->
 
 
