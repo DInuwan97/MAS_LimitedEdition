@@ -47,7 +47,6 @@ namespace MAS_Sustainability.Controllers
                 MySqlCommand mySqlcmd = new MySqlCommand(qry, mySqlCon);
 
 
-
                 mySqlcmd.Parameters.AddWithValue("@UserName", userRegistrationModel.UserFullName);
                 mySqlcmd.Parameters.AddWithValue("@UserEmail", userRegistrationModel.UserEmail);
                 mySqlcmd.Parameters.AddWithValue("@UserMobile", userRegistrationModel.UserMobile);
@@ -88,9 +87,6 @@ namespace MAS_Sustainability.Controllers
                 }
 
                 mySqlcmd.ExecuteNonQuery();
-
-
-
 
 
             }
@@ -184,11 +180,19 @@ namespace MAS_Sustainability.Controllers
                     Session["forgotEmail"] = userRegistrationModel.UserEmail;
                     Session["forgotMobile"] = Convert.ToInt32(userRegistrationModel.UserMobile);
 
+                    int mobileDigists = Convert.ToInt32(userRegistrationModel.UserMobile) % 10000;
+                    userRegistrationModel.SecretKey = mobileDigists + Convert.ToInt32(DateTime.Now.ToString("yymmssfff"));
 
-                   /* string UserName = "0766061689"; //acount username
+                    String qry_update_user_secure_code = "UPDATE users SET SecretKey = '" + userRegistrationModel.SecretKey + "',Validation = 'false' WHERE UserEmail = '" +Session["forgotEmail"] + "'";
+                    MySqlCommand mySqlCommand_update_user_secure_code = new MySqlCommand(qry_update_user_secure_code, mySqlCon);
+             
+        
+
+                    //sending updated secure code to mobile
+                    string UserName = "0766061689"; //acount username
                     string Password = "4873"; //account password
-                    string PhoneNo = "94" + userRegistrationModel.UserMobile.ToString();
-                    string Message = "Hello " + userRegistrationModel.UserFullName + ". Welcome to MAS IMS.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
+                    string PhoneNo = "94" + Session["forgotMobile"];
+                    string Message = "Hello " + userRegistrationModel.UserFullName + ".Settings are Reseted.Your Security Code : " + userRegistrationModel.SecretKey.ToString();
 
                     string url = @"http://api.liyanagegroup.com/sms_api.php?sms=" + @Message + "&to=" + @PhoneNo + "&usr=" + @UserName + "&pw=" + @Password;
                     WebRequest request = HttpWebRequest.Create(url);
@@ -205,16 +209,9 @@ namespace MAS_Sustainability.Controllers
                     {
                         Response.Write("SMS Sent Fail.!");
                     }
-                    */
+                    //sending updated secure code to mobile
 
-
-
-
-
-
-
-
-
+                    mySqlCommand_update_user_secure_code.ExecuteNonQuery();
 
                     return RedirectToAction("SecureCode", "UserRegistration");
                 }
@@ -249,13 +246,15 @@ namespace MAS_Sustainability.Controllers
 
                 if (dt.Rows.Count == 1)
                 {
-
-
                     ForgotDetails.Add(new UserRegistrationModel
                     {
                         UserID = Convert.ToInt32(dt.Rows[0][0].ToString()),
                         UserMobile = dt.Rows[0][1].ToString()
                     });
+
+                  
+
+
 
                     mainModel.ForgottenDetails = ForgotDetails;
 
