@@ -11,97 +11,29 @@
 
 @foreach (var userInformation in Model.ListUserRegistration)
 {
- 
-    <div class="main-panel">
-        <div class="content">
-            <div class="page-inner">
-                <h4 class="page-title">User Profile</h4>
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card card-with-nav">
-                            <div class="card-header">
-                                <div class="row row-nav-line">
-                                    <ul class="nav nav-tabs nav-line nav-color-secondary" role="tablist">
-                                        <li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#home" role="tab" aria-selected="true">Timeline</a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profile</a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab" aria-selected="false">Settings</a> </li>
 
-                                    </ul>
-                                </div>
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <h4 class="page-title">User Profile</h4>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card card-with-nav">
+                        <div class="card-header">
+                            <div class="row row-nav-line">
+                                <ul class="nav nav-tabs nav-line nav-color-secondary" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#info" role="tab" aria-selected="true">info</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Profile</a> </li>
+                                </ul>
                             </div>
+                        </div>
 
+                        @using (Html.BeginForm("UpdateUserProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                        @Html.AntiForgeryToken()
 
-
-
-                            @using (Html.BeginForm("UpdateUserProfile", "UserManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                            @Html.AntiForgeryToken()
-
-
-
-                            <div class="card-body" id="home">
-                                <div class="row mt-3">
-
-                                    <table>
-                                        <tr>
-                                            <td style="width:180px">Name</td>
-                                            <td style="width:180px">@userInformation.UserFullName</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">Email</td>
-                                            <td style="width:180px">@userInformation.UserEmail</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">Mobile</td>
-                                            <td style="width:180px">@userInformation.UserMobile</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">Date of Joined</td>
-                                            <td style="width:180px"></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">First Logged Date</td>
-                                            <td style="width:180px">@userInformation.FirstLoggedDate</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">First Logged Time</td>
-                                            <td style="width:180px">@userInformation.FirstLoggedTime</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">Last Logged Date</td>
-                                            <td style="width:180px">@userInformation.LastLoggedDate</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width:180px">Last Logged Time</td>
-                                            <td style="width:180px">@userInformation.LastLoggedTime</td>
-                                        </tr>
-
-                                    </table>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group form-group-default">
-                                            <label>Department</label>
-                                            <input type="text" class="form-control" value="" name="UserDepartment" placeholder="Department">
-                                        </div>
-
-
-                                        <div class="form-group form-group-default">
-                                            <label>Designation</label>
-                                            <input type="text" class="form-control" value="" name="UserType" placeholder="Designation">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="card-body" id="info">
 
                                 <div class="row mt-3">
                                     <div class="col-md-12">
@@ -120,111 +52,152 @@
                                     </div>
                                 </div>
 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Name</label>
+                                            <p>@userInformation.UserFullName</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>E-Mail</label>
+                                            <p>@userInformation.UserEmail</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Mobile</label>
+                                            <p>@userInformation.UserMobile</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Department</label>
+                                            <p>@userInformation.UserDepartment</p>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                          
+
+                                <div class="row mt-3">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>First Logged Date/Time</label>
+                                            <p>@userInformation.FirstLoggedDate&nbsp;&nbsp;&nbsp;@userInformation.FirstLoggedTime</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Last Logged Date/Time</label>
+                                            <p>@userInformation.LastLoggedDate&nbsp;&nbsp;&nbsp;@userInformation.LastLoggedTime</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
                                 <input type="hidden" value="@userInformation.UserID" name="UserID" id="UserID">
 
-                                <div class="text-right mt-3 mb-3">
-                                    <button class="btn btn-success">Save</button>
-                                    <button class="btn btn-danger">Reset</button>
-                                </div>
+                       
+
                             </div>
-                            }
-
-
-
-
-
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-profile">
-                            <div class="card-header" style="background-image:url('~/Content/images/dinuwan_user.png');">
-                                <div class="profile-picture">
-                                    <div class="avatar avatar-xl">
-                                        <img src="@Url.Content(Model.UserProfileImagePath)" alt="..." class="avatar-img rounded-circle">
-                                    </div>
-                                </div>
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel">
+                            <div class="card-body" id="profile">
+
                             </div>
-                            <div class="card-body">
-                                <div class="user-profile text-center">
-                                    <div class="name">@userInformation.UserFullName</div>
-                                    <div class="job">@userInformation.UserDepartment</div>
-                                    <div class="desc">@userInformation.UserType</div>
-                                    <div class="social-media">
-                                        <a class="btn btn-info btn-twitter btn-sm btn-link" href="#">
-                                            <span class="btn-label just-icon"><i class="flaticon-twitter"></i> </span>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
-                                            <span class="btn-label just-icon"><i class="flaticon-google-plus"></i> </span>
-                                        </a>
-                                        <a class="btn btn-primary btn-sm btn-link" rel="publisher" href="#">
-                                            <span class="btn-label just-icon"><i class="flaticon-facebook"></i> </span>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
-                                            <span class="btn-label just-icon"><i class="flaticon-dribbble"></i> </span>
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row user-stats text-center">
-                                    <div class="col">
-                                        <div class="number">125</div>
-                                        <div class="title">Post</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="number">25K</div>
-                                        <div class="title">Followers</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="number">134</div>
-                                        <div class="title">Following</div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
                         </div>
 
 
+                        }
+
 
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-profile">
+                        <div class="card-header" style="background-image:url('~/Content/images/dinuwan_user.png');">
+                            <div class="profile-picture">
+                                <div class="avatar avatar-xl">
+                                    <img src="@Url.Content(Model.UserProfileImagePath)" alt="..." class="avatar-img rounded-circle">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="user-profile text-center">
+                                <div class="name">@userInformation.UserFullName</div>
+                                <div class="job">@userInformation.UserDepartment</div>
+                                <div class="desc">@userInformation.UserType</div>
+                                <div class="social-media">
+                                    <a class="btn btn-info btn-twitter btn-sm btn-link" href="#">
+                                        <span class="btn-label just-icon"><i class="flaticon-twitter"></i> </span>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
+                                        <span class="btn-label just-icon"><i class="flaticon-google-plus"></i> </span>
+                                    </a>
+                                    <a class="btn btn-primary btn-sm btn-link" rel="publisher" href="#">
+                                        <span class="btn-label just-icon"><i class="flaticon-facebook"></i> </span>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
+                                        <span class="btn-label just-icon"><i class="flaticon-dribbble"></i> </span>
+                                    </a>
+                                </div>
 
-                    <div class="col-md-4">
-                    </div>
-
-                    <div class="col-md-4">
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body pb-0">
-                                <div class="h1 fw-bold float-right text-primary">+5%</div>
-                                <h2 class="mb-2">17</h2>
-                                <p class="text-muted">Users online</p>
-                                <div class="pull-in sparkline-fix">
-                                    <div id="lineChart"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row user-stats text-center">
+                                <div class="col">
+                                    <div class="number">125</div>
+                                    <div class="title">Post</div>
+                                </div>
+                                <div class="col">
+                                    <div class="number">25K</div>
+                                    <div class="title">Followers</div>
+                                </div>
+                                <div class="col">
+                                    <div class="number">134</div>
+                                    <div class="title">Following</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                
+
+                    <div class="card card-dark bg-primary-gradient">
+                        <div class="card-body pb-0">
+                            <div class="h1 fw-bold float-right">+3%</div>
+                            <h2 class="mb-2">13</h2>
+                            <p>User Interactivity</p>
+                            <div class="pull-in sparkline-fix chart-as-background">
+                                <div id="lineChart4"></div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
+            </div>
 
-
-
-
-
-
-
-
-
-                </div>
         </div>
-
     </div>
+
+</div>
 }
 
 
@@ -309,18 +282,3 @@
         fillColor: 'rgba(255, 255, 255, .15)'
     });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

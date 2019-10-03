@@ -291,7 +291,7 @@ namespace MAS_Sustainability.Controllers
             // TODO: Add insert logic here
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("MyTokens", "Token");
         }
 
 
@@ -389,7 +389,7 @@ namespace MAS_Sustainability.Controllers
 
         // POST: Token/Edit/5
         [HttpPost]
-        public void TokenForward(Token tokenModel)
+        public ActionResult TokenForward(Token tokenModel)
         {
             DB dbConn = new DB();
             String ForwardUser = Session["user"].ToString();
@@ -412,9 +412,10 @@ namespace MAS_Sustainability.Controllers
                 mySqlCommand_update_token_status.Parameters.AddWithValue("@ReparationDepartment", tokenModel.ReparationDepartment);
                 mySqlCommand_update_token_status.ExecuteNonQuery();
 
-               // return RedirectToAction("index");
+               
 
             }
+            return RedirectToAction("Index","Token");
 
 
         }
@@ -663,15 +664,6 @@ namespace MAS_Sustainability.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
         public ActionResult TokenUpdate(int id)
         {
             DataTable userDetailsDataTable = new DataTable();
@@ -810,14 +802,16 @@ namespace MAS_Sustainability.Controllers
 
             List<Token> List_Token = new List<Token>();
             List<Token> Token_List = new List<Token>();
+            List<Token> Token_Expired_List = new List<Token>();
 
             DataTable dtblRepair = new DataTable();
+            DataTable dtblRepair_Expired_Deadlines = new DataTable();
             DataTable userDetailsDataTable = new DataTable();
             
 
             using (MySqlConnection mySqlCon = dbConn.DBConnection())
             {
-                String qry = "SELECT tk.ProblemName,tk.Location,tk.AttentionLevel,usr.UserName,tkr.SentDate,tkr.Status,tka.TokenAuditID,tkf.TokenManagerStatus FROM token_audit tka,tokens tk,token_flow tkf,users usr,token_review tkr WHERE tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and tk.TokenAuditID = tkf.TokenAuditID and tkr.TokenAuditID = tka.TokenAuditID";
+                String qry = "SELECT tk.ProblemName,tk.Location,tk.AttentionLevel,usr.UserName,tkr.SentDate,tkr.Status,tka.TokenAuditID,tkf.TokenManagerStatus,tkf.DeptLeaderStatus FROM token_audit tka,tokens tk,token_flow tkf,users usr,token_review tkr WHERE tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and tk.TokenAuditID = tkf.TokenAuditID and tkr.TokenAuditID = tka.TokenAuditID  AND (tkf.DeptLeaderStatus >= CURDATE() OR tkf.DeptLeaderStatus = 'Pending')";
                 MySqlDataAdapter mySqlDataRepair = new MySqlDataAdapter(qry, mySqlCon);
                 mySqlDataRepair.Fill(dtblRepair);
 
@@ -826,8 +820,10 @@ namespace MAS_Sustainability.Controllers
                 mySqlDa.Fill(userDetailsDataTable);
 
 
+                String qry_Expired_Deadlines = "SELECT tk.ProblemName,tk.Location,tk.AttentionLevel,usr.UserName,tkr.SentDate,tkr.Status,tka.TokenAuditID,tkf.TokenManagerStatus,tkf.DeptLeaderStatus FROM token_audit tka, tokens tk,token_flow tkf, users usr,token_review tkr WHERE tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and tk.TokenAuditID = tkf.TokenAuditID and tkr.TokenAuditID = tka.TokenAuditID AND tkf.DeptLeaderStatus < CURDATE() and tkf.DeptLeaderStatus != 'Pending' AND tkf.CompleteStatus = 'Pending'";
+                MySqlDataAdapter mySqlDataAdapter_Expired_Deadlines = new MySqlDataAdapter(qry_Expired_Deadlines,mySqlCon);
+                mySqlDataAdapter_Expired_Deadlines.Fill(dtblRepair_Expired_Deadlines);
 
-                
 
             }
 
@@ -864,10 +860,13 @@ namespace MAS_Sustainability.Controllers
                             SentDate = dtblRepair.Rows[i][4].ToString(),
                             RecievedStatus = dtblRepair.Rows[i][5].ToString(),
                             TokenAuditID = Convert.ToInt32(dtblRepair.Rows[i][6]),
-                            TokenManagerStatus = dtblRepair.Rows[i][7].ToString()
+                            TokenManagerStatus = dtblRepair.Rows[i][7].ToString(),
+                            DeadLine = dtblRepair.Rows[i][8].ToString()
 
                         }
                         );
+
+
                     }//user type
                 }//user dept
 
@@ -882,22 +881,86 @@ namespace MAS_Sustainability.Controllers
                         SentDate = dtblRepair.Rows[i][4].ToString(),
                         RecievedStatus = dtblRepair.Rows[i][5].ToString(),
                         TokenAuditID = Convert.ToInt32(dtblRepair.Rows[i][6]),
-                        TokenManagerStatus = dtblRepair.Rows[i][7].ToString()
+                        TokenManagerStatus = dtblRepair.Rows[i][7].ToString(),
+                        DeadLine = dtblRepair.Rows[i][8].ToString()
 
                     }
                     );
+
                 }
 
+            }
 
 
 
 
+            //for expired list
+
+            for (int i = 0; i < dtblRepair_Expired_Deadlines.Rows.Count; i++)
+            {
+                if (mainModel.LoggedUserDepartment == dtblRepair_Expired_Deadlines.Rows[i][7].ToString())
+                {
+
+                    if (mainModel.LoggedUserType == "Department Leader")
+                    {
+
+                        Token_Expired_List.Add(new Token
+                        {
+                            ProblemName_Expired = dtblRepair_Expired_Deadlines.Rows[i][0].ToString(),
+                            Location_Expired = dtblRepair_Expired_Deadlines.Rows[i][1].ToString(),
+                            AttentionLevel_Expired = Convert.ToInt32(dtblRepair_Expired_Deadlines.Rows[i][2]),
+                            AddedUserName_Expired = dtblRepair_Expired_Deadlines.Rows[i][3].ToString(),
+                            SentDate_Expired = dtblRepair_Expired_Deadlines.Rows[i][4].ToString(),
+                            RecievedStatus_Expired = dtblRepair_Expired_Deadlines.Rows[i][5].ToString(),
+                            TokenAuditID_Expired = Convert.ToInt32(dtblRepair_Expired_Deadlines.Rows[i][6]),
+                            TokenManagerStatus_Expired = dtblRepair_Expired_Deadlines.Rows[i][7].ToString(),
+                            DeadLine_Expired = dtblRepair_Expired_Deadlines.Rows[i][8].ToString()
+
+
+                        });
+
+                    }//user type
+                }//user dept
+
+                if (mainModel.LoggedUserType == "Administrator")
+                {
+                    
+                    Token_Expired_List.Add(new Token
+                    {
+                        ProblemName_Expired = dtblRepair_Expired_Deadlines.Rows[i][0].ToString(),
+                        Location_Expired = dtblRepair_Expired_Deadlines.Rows[i][1].ToString(),
+                        AttentionLevel_Expired = Convert.ToInt32(dtblRepair_Expired_Deadlines.Rows[i][2]),
+                        AddedUserName_Expired = dtblRepair_Expired_Deadlines.Rows[i][3].ToString(),
+                        SentDate_Expired = dtblRepair_Expired_Deadlines.Rows[i][4].ToString(),
+                        RecievedStatus_Expired = dtblRepair_Expired_Deadlines.Rows[i][5].ToString(),
+                        TokenAuditID_Expired = Convert.ToInt32(dtblRepair_Expired_Deadlines.Rows[i][6]),
+                        TokenManagerStatus_Expired = dtblRepair_Expired_Deadlines.Rows[i][7].ToString(),
+                        DeadLine_Expired = dtblRepair_Expired_Deadlines.Rows[i][8].ToString()
+
+
+                    });
+                }
 
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             mainModel.ListToken = List_Token;
             mainModel.ListUserLogin = List_UserLogin;
             mainModel.TokenList = Token_List;
+            mainModel.ExpiredTokensList = Token_Expired_List;
             ViewBag.LoggedUserVariable = mainModel;
 
             return View(mainModel);
@@ -1066,7 +1129,9 @@ namespace MAS_Sustainability.Controllers
             mainModel.SideBarTokenReparationDetails = SideBarTokenRepair_List;
             mainModel.ListToken = List_Token;
             return View(mainModel);
-        }
+
+
+        }//end ViewRepairation
 
 
 
@@ -1261,7 +1326,50 @@ namespace MAS_Sustainability.Controllers
             return View(mainModel);
 
 
-        }
+        }//view Complete Token method end
+
+
+
+        public ActionResult RejectRepairation(CompletedTokenModel completedTokenModel)
+        {
+            DB dbConn = new DB();
+            DataTable rejectedTokenDetailsDataTable = new DataTable();
+
+            MainModel mainModel = new MainModel();
+            
+
+            List<CompletedTokenModel> CompletedTokenModel_List = new List<CompletedTokenModel>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String qry_add_reject_list = "INSERT INTO rejected_tokens(TokenAuditID,RejectedDate,RejectedTime,RejectedReason,RejectRepairDept)VALUES(@TokenAuditID,CURDATE(),CURTIME(),@RejectReason,@RejectRepairDept)";
+
+                MySqlCommand mySqlCmd_add_verifited_list = new MySqlCommand(qry_add_reject_list, mySqlCon);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@TokenAuditID", completedTokenModel.TokenAuditID);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@RejectRepairDept", completedTokenModel.RepairationDepartment);
+                mySqlCmd_add_verifited_list.Parameters.AddWithValue("@RejectReason", "InComplete");
+                mySqlCmd_add_verifited_list.ExecuteNonQuery();
+
+
+                String qry_reject_token_flow = "UPDATE token_flow SET FinalVerification = 'Rejected' , VerifiedDate = CURDATE() WHERE TokenAuditID = @TokenAuditID";
+
+                MySqlCommand mySqlCmd_reject_token_flow = new MySqlCommand(qry_reject_token_flow, mySqlCon);
+                mySqlCmd_reject_token_flow.Parameters.AddWithValue("@TokenAuditID", completedTokenModel.TokenAuditID);
+                mySqlCmd_reject_token_flow.ExecuteNonQuery();
+
+            }
+
+               return RedirectToAction("MyTokens","Token");
+        }//end of reject repairation method
+
+
+
+
+
+
+
+
 
         public ActionResult VerifyRepairation(CompletedTokenModel completedTokenModel)
         {
@@ -1493,8 +1601,273 @@ namespace MAS_Sustainability.Controllers
         }
 
 
+        public ActionResult TokenManagerReverseAction(Token tokenModel)
+        {
+
+            DB dbConn = new DB();
+            String ForwardUser = Session["user"].ToString();
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+
+                mySqlCon.Open();
+                string qry = "DELETE FROM token_review WHERE TokenAuditID = @TokenAuditID";
+                MySqlCommand mySqlCmd_Token_Reverse = new MySqlCommand(qry, mySqlCon);
+                mySqlCmd_Token_Reverse.Parameters.AddWithValue("@TokenAuditID", tokenModel.TokenAuditID);
+                mySqlCmd_Token_Reverse.ExecuteNonQuery();
+
+                String update_token_status = "UPDATE token_flow SET TokenManagerStatus = 'Pending' WHERE TokenAuditID = @TokenAuditID";
+
+                MySqlCommand mySqlCommand_update_token_status = new MySqlCommand(update_token_status, mySqlCon);
+                mySqlCommand_update_token_status.Parameters.AddWithValue("@TokenAuditID", tokenModel.TokenAuditID);
+                mySqlCommand_update_token_status.ExecuteNonQuery();
+
+                // return RedirectToAction("index");
+
+            }
+
+            return RedirectToAction("index","Token");
+
+        }
+
+        public ActionResult RevertToken(Token tokenModel)
+        {
+            DB dbConn = new DB();
+            MainModel mainModel = new MainModel();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_revert_token_flow = "UPDATE token_flow SET TokenManagerStatus = 'Revert' WHERE TokenAuditID = @TokenAuditID";
+
+                MySqlCommand mySqlCommand_revert_token_flow = new MySqlCommand(qry_revert_token_flow, mySqlCon);
+                mySqlCommand_revert_token_flow.Parameters.AddWithValue("@TokenAuditID", tokenModel.TokenAuditID);
+                mySqlCommand_revert_token_flow.ExecuteNonQuery();
+
+            }
+
+            return RedirectToAction("index", "Token");
+        }
+
+        public ActionResult ReverseTokens()
+        {
+
+            DB dbConn = new DB();
+            DataTable dtblTokens = new DataTable();
+            DataTable userDetailsDataTable = new DataTable();
+            MainModel mainModel = new MainModel();
+
+ 
+            List<UserLogin> List_UserLogin = new List<UserLogin>();
+            List<Token> List_Token = new List<Token>();
+            List<Token> Token_List = new List<Token>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+
+                mySqlCon.Open();
+                String qry_myTokens = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tkf.TokenManagerStatus,tkf.DeptLeaderStatus,tkf.CompleteStatus,tkf.CompleteDate,tkf.FinalVerification FROM mas_isscs.token_audit tka,mas_isscs.tokens tk,mas_isscs.token_flow tkf,mas_isscs.users usr WHERE tka.TokenAuditID = tk.TokenAuditID  and tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = '" + Session["user"] + "' and tka.AddedUser = usr.UserEmail and tkf.TokenManagerStatus = 'Revert'";
+                MySqlDataAdapter mySqlDA = new MySqlDataAdapter(qry_myTokens, mySqlCon);
+                mySqlDA.Fill(dtblTokens);
+
+                String qry_listOfTokens = "SELECT UserName,UserType,UserID,UserEmail,UserImage FROM users WHERE UserEmail = '" + Session["user"] + "'";
+                MySqlDataAdapter mySqlDa_userDetails = new MySqlDataAdapter(qry_listOfTokens, mySqlCon);
+                mySqlDa_userDetails.Fill(userDetailsDataTable);
+
+            }
+
+            if (userDetailsDataTable.Rows.Count == 1)
+            {
+                mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
+                mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
+                mainModel.LoggedUserID = Convert.ToInt32(userDetailsDataTable.Rows[0][2]);
+                mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
+                mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
+            }
+
+
+            for (int i = 0; i < dtblTokens.Rows.Count; i++)
+            {
+                Token_List.Add(new Token
+                {
+                    ProblemName = dtblTokens.Rows[i][4].ToString(),
+                    ProblemCategory = dtblTokens.Rows[i][1].ToString(),
+                    Location = dtblTokens.Rows[i][5].ToString(),
+                    AttentionLevel = Convert.ToInt32(dtblTokens.Rows[i][6]),
+                    UserName = dtblTokens.Rows[i][2].ToString(),
+                    TokenStatus = dtblTokens.Rows[i][7].ToString(),
+                    TokenAuditID = Convert.ToInt32(dtblTokens.Rows[i][0]),
+                    AddedDate = dtblTokens.Rows[i][3].ToString()
+     
+                }
+             );
+
+            }
+
+            mainModel.ListToken = Token_List;
+            return View(mainModel);
+        }
+
+
+
+        public ActionResult UpdateMyTokenCategory(Token tokenModel)
+        {
+            DB dbConn = new DB();
+            MainModel mainModel = new MainModel();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String update_token_category = "UPDATE token_audit SET Category = @ProblemCategory WHERE TokenAuditID = @TokenAuditID";
+
+                MySqlCommand mySqlCommand_update_token_category = new MySqlCommand(update_token_category, mySqlCon);
+                mySqlCommand_update_token_category.Parameters.AddWithValue("@ProblemCategory", tokenModel.ProblemCategory);
+                mySqlCommand_update_token_category.Parameters.AddWithValue("@TokenAuditID", tokenModel.TokenAuditID);
+
+                mySqlCommand_update_token_category.ExecuteNonQuery();
+
+
+            }
+
+            return RedirectToAction("MyTokens", "Token");
+        }
+
+
+
+
+        public ActionResult DeleteMyToken(int id)
+        {
+            DB dbConn = new DB();
+            DataTable dtblTokens = new DataTable();
+            MainModel mainModel = new MainModel();
+
+            List<Token> List_Token = new List<Token>();
+            List<Token> Token_List = new List<Token>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_delete_MyToken_tokens = "DELETE FROM tokens WHERE TokenAuditID = @TokenAuditID";
+                MySqlCommand mySqlCmd_delete_MyToken_tokens = new MySqlCommand(qry_delete_MyToken_tokens, mySqlCon);
+                mySqlCmd_delete_MyToken_tokens.Parameters.AddWithValue("@TokenAuditID", id);
+                mySqlCmd_delete_MyToken_tokens.ExecuteNonQuery();
+
+                String qry_delete_MyToken_token_flow = "DELETE FROM token_flow WHERE TokenAuditID = @TokenAuditID";
+                MySqlCommand mySqlCmd_delete_MyToken_token_flow = new MySqlCommand(qry_delete_MyToken_token_flow, mySqlCon);
+                mySqlCmd_delete_MyToken_token_flow.Parameters.AddWithValue("@TokenAuditID", id);
+                mySqlCmd_delete_MyToken_token_flow.ExecuteNonQuery();
+
+            }
+
+            return RedirectToAction("MyTokens","Token");
+        }
+
+
+
+        public ActionResult DeleteReverseToken(int id)
+        {
+            DB dbConn = new DB();
+            DataTable dtblTokens = new DataTable();
+            MainModel mainModel = new MainModel();
+
+            List<Token> List_Token = new List<Token>();
+            List<Token> Token_List = new List<Token>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_delete_MyToken_tokens = "DELETE FROM tokens WHERE TokenAuditID = @TokenAuditID";
+                MySqlCommand mySqlCmd_delete_MyToken_tokens = new MySqlCommand(qry_delete_MyToken_tokens, mySqlCon);
+                mySqlCmd_delete_MyToken_tokens.Parameters.AddWithValue("@TokenAuditID", id);
+                mySqlCmd_delete_MyToken_tokens.ExecuteNonQuery();
+
+                String qry_delete_MyToken_token_flow = "DELETE FROM token_flow WHERE TokenAuditID = @TokenAuditID";
+                MySqlCommand mySqlCmd_delete_MyToken_token_flow = new MySqlCommand(qry_delete_MyToken_token_flow, mySqlCon);
+                mySqlCmd_delete_MyToken_token_flow.Parameters.AddWithValue("@TokenAuditID", id);
+                mySqlCmd_delete_MyToken_token_flow.ExecuteNonQuery();
+
+            }
+
+            return RedirectToAction("ReverseTokens", "Token");
+        }
+
+
+
+
+
+        public ActionResult RepairRejectionTokenList()
+        {
+            DB dbConn = new DB();
+            DataTable dtblTokens = new DataTable();
+            DataTable userDetailsDataTable = new DataTable();
+            MainModel mainModel = new MainModel();
+
+
+            List<UserLogin> List_UserLogin = new List<UserLogin>();
+            List<Token> List_Token = new List<Token>();
+            List<Token> Token_List = new List<Token>();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+
+                mySqlCon.Open();
+                String qry_myTokens = "SELECT tka.TokenAuditID,tka.Category,usr.UserName,tka.AddedDate,tk.ProblemName,tk.Location,tk.AttentionLevel,tkf.TokenManagerStatus,tkf.DeptLeaderStatus,tkf.CompleteStatus,tkf.CompleteDate,tkf.FinalVerification FROM mas_isscs.token_audit tka,mas_isscs.tokens tk,mas_isscs.token_flow tkf,mas_isscs.users usr WHERE tka.TokenAuditID = tk.TokenAuditID  and tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = usr.UserEmail and (tkf.DeptLeaderStatus >= CURDATE() OR DeptLeaderStatus = 'Pending')";
+                MySqlDataAdapter mySqlDA = new MySqlDataAdapter(qry_myTokens, mySqlCon);
+                mySqlDA.Fill(dtblTokens);
+
+                String qry_listOfTokens = "SELECT UserName,UserType,UserID,UserEmail,UserImage FROM users WHERE UserEmail = '" + Session["user"] + "'";
+                MySqlDataAdapter mySqlDa_userDetails = new MySqlDataAdapter(qry_listOfTokens, mySqlCon);
+                mySqlDa_userDetails.Fill(userDetailsDataTable);
+
+            }
+
+            if (userDetailsDataTable.Rows.Count == 1)
+            {
+                mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();
+                mainModel.LoggedUserType = userDetailsDataTable.Rows[0][1].ToString();
+                mainModel.LoggedUserID = Convert.ToInt32(userDetailsDataTable.Rows[0][2]);
+                mainModel.LoggedUserEmail = userDetailsDataTable.Rows[0][3].ToString();
+                mainModel.UserImagePath = userDetailsDataTable.Rows[0][4].ToString();
+            }
+
+
+            for (int i = 0; i < dtblTokens.Rows.Count; i++)
+            {
+                Token_List.Add(new Token
+                {
+                    
+                    ProblemName = dtblTokens.Rows[i][4].ToString(),
+                    ProblemCategory = dtblTokens.Rows[i][1].ToString(),
+                    Location = dtblTokens.Rows[i][5].ToString(),
+                    AttentionLevel = Convert.ToInt32(dtblTokens.Rows[i][6]),
+                    UserName = dtblTokens.Rows[i][2].ToString(),
+                    TokenStatus = dtblTokens.Rows[i][7].ToString(),
+                    TokenAuditID = Convert.ToInt32(dtblTokens.Rows[i][0]),
+                    AddedDate = dtblTokens.Rows[i][3].ToString(),
+                    DeadLine = dtblTokens.Rows[i][8].ToString(),
+                    CompleteStatus = dtblTokens.Rows[i][9].ToString(),
+                    CompleteDate = dtblTokens.Rows[i][10].ToString(),
+                    FinalVerificationStatus = dtblTokens.Rows[i][11].ToString()
+
+                }
+             );
+
+            }
+
+            mainModel.ListToken = Token_List;
+            return View(mainModel);
+        }
+
+
 
 
 
     }
 }
+ 
+
+
+
+       

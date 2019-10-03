@@ -34,6 +34,8 @@ namespace MAS_Sustainability.Models
 
         public int SatisfactionLevel { get; set; }
 
+        public String RejectReason { get; set; }
+
 
 
     }

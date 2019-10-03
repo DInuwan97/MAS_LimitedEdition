@@ -227,6 +227,8 @@
     <Content Include="Views\UserManagement\DepartmentLeadersInfoReportPreview.cshtml" />
     <Content Include="Views\Token\ProcessingTokensPreView.cshtml" />
     <Content Include="Views\Token\TokenManagerActionsPrviewTokens.cshtml" />
+    <Content Include="Views\Token\ReverseTokens.cshtml" />
+    <Content Include="Views\Token\RepairRejectionTokenList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

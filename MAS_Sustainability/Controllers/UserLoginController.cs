@@ -11,6 +11,7 @@ namespace MAS_Sustainability.Controllers
     public class UserLoginController : Controller
     {
         // GET: UserLogin
+
         public ActionResult Login()
         {
             UserLogin userLogin = new UserLogin();
@@ -71,6 +72,8 @@ namespace MAS_Sustainability.Controllers
                         mySqlCmd_insert_login_details.ExecuteNonQuery();
 
                     }
+
+
 
 
                     return RedirectToAction("Index", "Dashbord");

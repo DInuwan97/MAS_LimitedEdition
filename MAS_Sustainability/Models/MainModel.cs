@@ -171,6 +171,10 @@ namespace MAS_Sustainability
 
 
 
+        public int TokenManagerRevertActions { get; set; }
+
+
+
 
         /*public MainModel()
         {

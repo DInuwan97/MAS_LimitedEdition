@@ -17,6 +17,31 @@ namespace MAS_Sustainability.Controllers
         public String LoginUserName = null;
 
 
+        public MainModel SetDashbordStatCounts()
+        {
+            DB dbConn = new DB();
+            MainModel mainModel = new MainModel();
+            DataTable dtblTokens = new DataTable();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+                String qry_myTokens = "SELECT COUNT(*) FROM mas_isscs.token_audit tka,mas_isscs.tokens tk,mas_isscs.token_flow tkf,mas_isscs.users usr WHERE tka.TokenAuditID = tk.TokenAuditID  and tka.TokenAuditID = tkf.TokenAuditID AND tka.AddedUser = '" + Session["user"] + "' and tka.AddedUser = usr.UserEmail and tkf.TokenManagerStatus = 'Revert'";
+                MySqlDataAdapter mySqlDA = new MySqlDataAdapter(qry_myTokens, mySqlCon);
+                mySqlDA.Fill(dtblTokens);
+
+            }
+
+            if (dtblTokens.Rows.Count == 1)
+            {
+                mainModel.TokenManagerRevertActions = Convert.ToInt32(dtblTokens.Rows[0][0].ToString());
+            }
+
+            return mainModel;
+
+        }
+
+
         public String getReparationDepartmentCount(String DepartmentName,String Category)
         {
 
@@ -35,12 +60,7 @@ namespace MAS_Sustainability.Controllers
             DataTable userDetailsDataTable = new DataTable();
             DB dbConn = new DB();
 
-
-
-
-            
-
-
+           
 
               if (Session["user"] == null)
               {
@@ -389,6 +409,7 @@ namespace MAS_Sustainability.Controllers
 
                 if (userDetailsDataTable.Rows.Count == 1)
                 {
+                    SetDashbordStatCounts();
                     mainModel.TokenManagerStatusPending = TokenController.TokenManagerPendingSattusCount();
 
                     mainModel.LoggedUserName = userDetailsDataTable.Rows[0][0].ToString();

@@ -83,6 +83,12 @@ namespace MAS_Sustainability
 
 
 
+                    public String AddedUserName_Expired { get; set; }
+                    public String SentDate_Expired { get; set; }
+                    public String RecievedStatus_Expired { get; set; }
+                    public String TokenManagerStatus_Expired { get; set; }
+
+
 
     }
 }

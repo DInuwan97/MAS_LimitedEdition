@@ -84,6 +84,8 @@
 
                                                 <div class="table-responsive">
                                                     <table id="add-row" class="display table table-striped table-hover">
+
+
                                                         <thead>
                                                             <tr>
                                                                 <th>Problem Name</th>
@@ -105,26 +107,14 @@
 
                                                             <tr>
 
-                                                                @using (Html.BeginForm("DoUpdateProcess", "Token", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                                @using (Html.BeginForm(FormMethod.Post))
                                                                 {
-                                                                @Html.AntiForgeryToken()
-                                                                <td>
-                                                                    <div class="input-group">
-                                                                        <input required="" type="text" value="@no_of_tokens.ProblemName" placeholder="@no_of_tokens.ProblemName" class="form-control" id="ProblemName" name="ProblemName">
-                                                                    </div>
-                                                                </td>
+                                                                
 
+                                                                <td>@no_of_tokens.ProblemName</td>
+                                                                <td>@no_of_tokens.Location</td>
 
                                                                 <td>
-
-                                                                    <div class="input-group">
-                                                                        <input required="" type="text" value="@no_of_tokens.Location" placeholder="@no_of_tokens.Location" class="form-control" id="Location" name="Location">
-                                                                    </div>
-
-                                                                </td>
-
-                                                                <td>
-
                                                                     @if (Convert.ToDouble(@no_of_tokens.AttentionLevel) <= 20)
                                                                     {
                                                                     <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
@@ -167,10 +157,7 @@
                                                                     <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
                                                                     <i class="fas fa-star py-2 px-1 rate-popover" style="color:red" data-index="4" data-html="true"></i>
                                                                     }
-
                                                                     @no_of_tokens.AttentionLevel
-
-
                                                                 </td>
 
                                                                 <td>
@@ -188,14 +175,17 @@
                                                                     </div>
                                                                 </td>
 
-                                                                <td>
-                                                                    <input type="hidden" name="TokenAuditID" value=" @no_of_tokens.TokenAuditID">
 
-                                                                    <button class="btn btn-success btn-sm"><strong>Update</strong></button>
-                                                                    <a href="@Url.Action(" TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="badge badge-primary"><strong>View</strong></a>
-                                                                    <button class="btn btn-danger btn-sm"><strong>Delete</strong></button>
+                                                                <td>
+                                                                    <input type="hidden" value="@no_of_tokens.TokenAuditID" name="TokenAuditID" id="TokenAuditID">
+                                                                    <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateMyTokenCategory","Token")"><strong>Update</strong></button>
+                                                                    <a href="@Url.Action("TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="badge badge-primary"><strong>View</strong></a>
+                                                                    <button class="btn btn-danger btn-sm" formaction="@Url.Action("DeleteMyToken","Token", new { @id=no_of_tokens.TokenAuditID })"><strong>Delete</strong></button>
                                                                 </td>
+
+
                                                                 }
+
                                                             </tr>
 
 
@@ -203,10 +193,9 @@
 
                                                             }
 
-
-
-
                                                         </tbody>
+
+
                                                     </table>
                                                 </div>
                                             </div>
@@ -275,7 +264,7 @@
 
                                                                 @foreach (var no_of_tokens in Model.ListToken)
                                                                 {
-                                                                if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Completed"))
+                                                                if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Completed") && @no_of_tokens.TokenStatus != ("Revert"))
                                                                 {
 
                                                                 <tr>
@@ -345,7 +334,7 @@
                                                             <tbody>
                                                                 @foreach (var no_of_tokens in Model.ListToken)
                                                                 {
-                                                                if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Pending") && @no_of_tokens.FinalVerificationStatus != ("Verified"))
+                                                                if (@no_of_tokens.TokenStatus != ("Pending") && @no_of_tokens.CompleteStatus != ("Pending") && @no_of_tokens.FinalVerificationStatus != ("Verified") && @no_of_tokens.FinalVerificationStatus != ("Rejected"))
                                                                 {
 
 
