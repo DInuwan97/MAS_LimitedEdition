@@ -129,65 +129,100 @@
 
                                                             if (@userDetailList.UserType == ("Employee"))
                                                             {
-                                                                <tr>
+                                                              
+                                                        <tr>
+                                                            @using (Html.BeginForm(FormMethod.Post))
+                                                            {
 
-                                                                    <td>
+                                                                <td>
 
-                                                                        <div class="avatar-sm float-left mr-2">
-                                                                            <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
-                                                                        </div>
+                                                                    <div class="avatar-sm float-left mr-2">
+                                                                        <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
+                                                                    </div>
 
-                                                                        <strong>@userDetailList.UserFullName</strong>
+                                                                    <strong>@userDetailList.UserFullName</strong>
 
-                                                                    </td>
-
-
-                                                                    <td><strong>@userDetailList.UserEmail</strong></td>
-                                                                    <td><strong>@userDetailList.UserMobile</strong> </td>
-                                                                    <td>
-                                                                        <strong>
-
-                                                                            <div class="select2-input">
-
-                                                                                <select class="custom-select" name="ReparationDepartment" id="inputGroupSelect02" required="" style="margin-right:8px; height:40px;">
-
-                                                                                    <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
-                                                                                    <option value="Factory Engineering">Factory Engineering</option>
-                                                                                    <option value="Production Engineering">Production Engineering</option>
-                                                                                    <option value="Autonomation">Autonomation</option>
-                                                                                    <option value="MOS">MOS</option>
-                                                                                    <option value="RM">RM</option>
-                                                                                    <option value="Quality">Quality</option>
-                                                                                    <option value="FG">FG</option>
-                                                                                    <option value="Technical">Technical</option>
-                                                                                    <option value="Cutting">Cutting</option>
-                                                                                    <option value="HR">HR</option>
-                                                                                    <option value="Operation">Operation</option>
-                                                                                    <option value="Production VSM 01">Production VSM 01</option>
-                                                                                    <option value="Production VSM 02">Production VSM 02</option>
-                                                                                    <option value="Production VSM 03">Production VSM 03</option>
-                                                                                    <option value="Production VSM 04">Production VSM 04</option>
-                                                                                    <option value="Pre-Sewing">Pre-Sewing</option>
-                                                                                    <option value="Emblishment">Emblishment</option>
-                                                                                    <option value="IE">IE</option>
-                                                                                </select>
-                                                                            </div>
+                                                                </td>
 
 
+                                                                <td><strong>@userDetailList.UserEmail</strong></td>
+                                                                <td><strong>@userDetailList.UserMobile</strong> </td>
+
+                                                                <td>
+
+                                                                    @if (@userDetailList.UserValidity == ("true"))
+                                                                    {
+                                                                        <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;">
+                                                                            <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                            <option value="Factory Engineering">Factory Engineering</option>
+                                                                            <option value="Production Engineering">Production Engineering</option>
+                                                                            <option value="Autonomation">Autonomation</option>
+                                                                            <option value="MOS">MOS</option>
+                                                                            <option value="RM">RM</option>
+                                                                            <option value="Quality">Quality</option>
+                                                                            <option value="FG">FG</option>
+                                                                            <option value="Technical">Technical</option>
+                                                                            <option value="Cutting">Cutting</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="Operation">Operation</option>
+                                                                            <option value="Production VSM 01">Production VSM 01</option>
+                                                                            <option value="Production VSM 02">Production VSM 02</option>
+                                                                            <option value="Production VSM 03">Production VSM 03</option>
+                                                                            <option value="Production VSM 04">Production VSM 04</option>
+                                                                            <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                            <option value="Emblishment">Emblishment</option>
+                                                                            <option value="IE">IE</option>
+                                                                        </select>
+                                                                    }
+                                                                    else
+                                                                    {
+
+                                                                        <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;" disabled>
+                                                                            <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                            <option value="Factory Engineering">Factory Engineering</option>
+                                                                            <option value="Production Engineering">Production Engineering</option>
+                                                                            <option value="Autonomation">Autonomation</option>
+                                                                            <option value="MOS">MOS</option>
+                                                                            <option value="RM">RM</option>
+                                                                            <option value="Quality">Quality</option>
+                                                                            <option value="FG">FG</option>
+                                                                            <option value="Technical">Technical</option>
+                                                                            <option value="Cutting">Cutting</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="Operation">Operation</option>
+                                                                            <option value="Production VSM 01">Production VSM 01</option>
+                                                                            <option value="Production VSM 02">Production VSM 02</option>
+                                                                            <option value="Production VSM 03">Production VSM 03</option>
+                                                                            <option value="Production VSM 04">Production VSM 04</option>
+                                                                            <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                            <option value="Emblishment">Emblishment</option>
+                                                                            <option value="IE">IE</option>
+                                                                        </select>
 
 
-                                                                        </strong>
-                                                                    </td>
+                                                                    }
 
-                                                                    <td>
+                                                                </td>
 
-                                                                        <button class="btn btn-success btn-sm"><strong>Change</strong></button>
-                                                                        <button class="btn btn-warning btn-sm"><strong> <i class="fas fa-user-lock"></i></strong></button>
-                                                                        <button class="btn btn-danger btn-sm"><strong><i class="fas fa-trash-alt"></i></strong></button>
-                                                                        <a href="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID})"><i class="fas fa-hand-point-right fa-2x"></i></a>
-                                                                    </td>
+                                                                <td>
+                                                                    <input type="hidden" value="@userDetailList.UserID" name="UserID">
+                                                                    @if (@userDetailList.UserValidity == ("true"))
+                                                                    {
+                                                                        <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })"><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                        <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")"><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                        <button class="btn btn-danger btn-sm" formaction="@Url.Action("LockUser", "UserManagement")"><strong> <i class="fas fa-lock"></i></strong></button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })" disabled><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                        <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")" disabled><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                        <button class="btn btn-warning btn-sm" formaction="@Url.Action("UnLockUser", "UserManagement")"><strong> <i class="fas fa-unlock"></i></strong></button>
+                                                                    }
+                                                                </td>
 
-                                                                </tr>
+                                                            }
+                                                        </tr>
+                                                                
                                                             }
 
                                                         }
@@ -240,67 +275,96 @@
                                                         {
                                                             if (@userDetailList.UserType == ("Department Leader"))
                                                             {
-                                                                <tr>
+                                                        <tr>
+                                                            @using (Html.BeginForm(FormMethod.Post))
+                                                            {
 
-                                                                    <td>
+                                                                <td>
 
-                                                                        <div class="avatar-sm float-left mr-2">
-                                                                            <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
-                                                                        </div>
+                                                                    <div class="avatar-sm float-left mr-2">
+                                                                        <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
+                                                                    </div>
 
-                                                                        <strong>@userDetailList.UserFullName</strong>
+                                                                    <strong>@userDetailList.UserFullName</strong>
 
-                                                                    </td>
-                                                                    <td><strong>@userDetailList.UserEmail</strong></td>
-                                                                    <td><strong>@userDetailList.UserMobile</strong> </td>
+                                                                </td>
+                                                                <td><strong>@userDetailList.UserEmail</strong></td>
+                                                                <td><strong>@userDetailList.UserMobile</strong> </td>
 
-                                                                    <td>
+                                                                <td>
+
+                                                                    @if (@userDetailList.UserValidity == ("true"))
+                                                                    {
+                                                                        <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;">
+                                                                            <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                            <option value="Factory Engineering">Factory Engineering</option>
+                                                                            <option value="Production Engineering">Production Engineering</option>
+                                                                            <option value="Autonomation">Autonomation</option>
+                                                                            <option value="MOS">MOS</option>
+                                                                            <option value="RM">RM</option>
+                                                                            <option value="Quality">Quality</option>
+                                                                            <option value="FG">FG</option>
+                                                                            <option value="Technical">Technical</option>
+                                                                            <option value="Cutting">Cutting</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="Operation">Operation</option>
+                                                                            <option value="Production VSM 01">Production VSM 01</option>
+                                                                            <option value="Production VSM 02">Production VSM 02</option>
+                                                                            <option value="Production VSM 03">Production VSM 03</option>
+                                                                            <option value="Production VSM 04">Production VSM 04</option>
+                                                                            <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                            <option value="Emblishment">Emblishment</option>
+                                                                            <option value="IE">IE</option>
+                                                                        </select>
+                                                                    }
+                                                                    else
+                                                                    {
+
+                                                                        <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;" disabled>
+                                                                            <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                            <option value="Factory Engineering">Factory Engineering</option>
+                                                                            <option value="Production Engineering">Production Engineering</option>
+                                                                            <option value="Autonomation">Autonomation</option>
+                                                                            <option value="MOS">MOS</option>
+                                                                            <option value="RM">RM</option>
+                                                                            <option value="Quality">Quality</option>
+                                                                            <option value="FG">FG</option>
+                                                                            <option value="Technical">Technical</option>
+                                                                            <option value="Cutting">Cutting</option>
+                                                                            <option value="HR">HR</option>
+                                                                            <option value="Operation">Operation</option>
+                                                                            <option value="Production VSM 01">Production VSM 01</option>
+                                                                            <option value="Production VSM 02">Production VSM 02</option>
+                                                                            <option value="Production VSM 03">Production VSM 03</option>
+                                                                            <option value="Production VSM 04">Production VSM 04</option>
+                                                                            <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                            <option value="Emblishment">Emblishment</option>
+                                                                            <option value="IE">IE</option>
+                                                                        </select>
 
 
-                                                                        <strong>
+                                                                    }
 
-                                                                            <div class="select2-input">
+                                                                </td>
 
-                                                                                <select class="custom-select" name="ReparationDepartment" id="inputGroupSelect02" required="" style="margin-right:8px; height:40px;">
+                                                                <td>
+                                                                    <input type="hidden" value="@userDetailList.UserID" name="UserID">
+                                                                    @if (@userDetailList.UserValidity == ("true"))
+                                                                    {
+                                                                        <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })"><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                        <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")"><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                        <button class="btn btn-danger btn-sm" formaction="@Url.Action("LockUser", "UserManagement")"><strong> <i class="fas fa-lock"></i></strong></button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })" disabled><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                        <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")" disabled><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                        <button class="btn btn-warning btn-sm" formaction="@Url.Action("UnLockUser", "UserManagement")"><strong> <i class="fas fa-unlock"></i></strong></button>
+                                                                    }
+                                                                </td>
+                                                            }
 
-                                                                                    <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
-                                                                                    <option value="Factory Engineering">Factory Engineering</option>
-                                                                                    <option value="Production Engineering">Production Engineering</option>
-                                                                                    <option value="Autonomation">Autonomation</option>
-                                                                                    <option value="MOS">MOS</option>
-                                                                                    <option value="RM">RM</option>
-                                                                                    <option value="Quality">Quality</option>
-                                                                                    <option value="FG">FG</option>
-                                                                                    <option value="Technical">Technical</option>
-                                                                                    <option value="Cutting">Cutting</option>
-                                                                                    <option value="HR">HR</option>
-                                                                                    <option value="Operation">Operation</option>
-                                                                                    <option value="Production VSM 01">Production VSM 01</option>
-                                                                                    <option value="Production VSM 02">Production VSM 02</option>
-                                                                                    <option value="Production VSM 03">Production VSM 03</option>
-                                                                                    <option value="Production VSM 04">Production VSM 04</option>
-                                                                                    <option value="Pre-Sewing">Pre-Sewing</option>
-                                                                                    <option value="Emblishment">Emblishment</option>
-                                                                                    <option value="IE">IE</option>
-                                                                                </select>
-                                                                            </div>
-
-
-
-
-                                                                        </strong>
-
-
-                                                                    </td>
-
-                                                                    <td>
-                                                                        <button class="btn btn-success btn-sm"><strong>Change</strong></button>
-                                                                        <button class="btn btn-warning btn-sm"><strong> <i class="fas fa-user-lock"></i></strong></button>
-                                                                        <button class="btn btn-danger btn-sm"><strong><i class="fas fa-trash-alt"></i></strong></button>
-                                                                        <a href="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID})"><i class="fas fa-hand-point-right fa-2x"></i></a>
-                                                                    </td>
-
-                                                                </tr>
+                                                        </tr>
                                                             }
                                                         }
 
@@ -350,63 +414,93 @@
                                                             {
                                                                 if (@userDetailList.UserType == ("Factory Management"))
                                                                 {
-                                                                    <tr>
+                                                            <tr>
+                                                                @using (Html.BeginForm(FormMethod.Post))
+                                                                {
+                                                                    <td>
 
-                                                                        <td>
+                                                                        <div class="avatar-sm float-left mr-2">
+                                                                            <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
+                                                                        </div>
 
-                                                                            <div class="avatar-sm float-left mr-2">
-                                                                                <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
-                                                                            </div>
+                                                                        <strong>@userDetailList.UserFullName</strong>
 
-                                                                            <strong>@userDetailList.UserFullName</strong>
+                                                                    </td>
+                                                                    <td><strong>@userDetailList.UserEmail</strong></td>
+                                                                    <td><strong>@userDetailList.UserMobile</strong> </td>
 
-                                                                        </td>
-                                                                        <td><strong>@userDetailList.UserEmail</strong></td>
-                                                                        <td><strong>@userDetailList.UserMobile</strong> </td>
+                                                                    <td>
 
-                                                                        <td>
+                                                                        @if (@userDetailList.UserValidity == ("true"))
+                                                                        {
+                                                                            <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;">
+                                                                                <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                                <option value="Factory Engineering">Factory Engineering</option>
+                                                                                <option value="Production Engineering">Production Engineering</option>
+                                                                                <option value="Autonomation">Autonomation</option>
+                                                                                <option value="MOS">MOS</option>
+                                                                                <option value="RM">RM</option>
+                                                                                <option value="Quality">Quality</option>
+                                                                                <option value="FG">FG</option>
+                                                                                <option value="Technical">Technical</option>
+                                                                                <option value="Cutting">Cutting</option>
+                                                                                <option value="HR">HR</option>
+                                                                                <option value="Operation">Operation</option>
+                                                                                <option value="Production VSM 01">Production VSM 01</option>
+                                                                                <option value="Production VSM 02">Production VSM 02</option>
+                                                                                <option value="Production VSM 03">Production VSM 03</option>
+                                                                                <option value="Production VSM 04">Production VSM 04</option>
+                                                                                <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                                <option value="Emblishment">Emblishment</option>
+                                                                                <option value="IE">IE</option>
+                                                                            </select>
+                                                                        }
+                                                                        else
+                                                                        {
+
+                                                                            <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;" disabled>
+                                                                                <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                                <option value="Factory Engineering">Factory Engineering</option>
+                                                                                <option value="Production Engineering">Production Engineering</option>
+                                                                                <option value="Autonomation">Autonomation</option>
+                                                                                <option value="MOS">MOS</option>
+                                                                                <option value="RM">RM</option>
+                                                                                <option value="Quality">Quality</option>
+                                                                                <option value="FG">FG</option>
+                                                                                <option value="Technical">Technical</option>
+                                                                                <option value="Cutting">Cutting</option>
+                                                                                <option value="HR">HR</option>
+                                                                                <option value="Operation">Operation</option>
+                                                                                <option value="Production VSM 01">Production VSM 01</option>
+                                                                                <option value="Production VSM 02">Production VSM 02</option>
+                                                                                <option value="Production VSM 03">Production VSM 03</option>
+                                                                                <option value="Production VSM 04">Production VSM 04</option>
+                                                                                <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                                <option value="Emblishment">Emblishment</option>
+                                                                                <option value="IE">IE</option>
+                                                                            </select>
 
 
-                                                                            <strong>
+                                                                        }
 
-                                                                                <div class="select2-input">
-
-                                                                                    <select class="custom-select" name="ReparationDepartment" id="inputGroupSelect02" required="" style="margin-right:8px; height:40px;">
-
-                                                                                        <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
-                                                                                        <option value="Factory Engineering">Factory Engineering</option>
-                                                                                        <option value="Production Engineering">Production Engineering</option>
-                                                                                        <option value="Autonomation">Autonomation</option>
-                                                                                        <option value="MOS">MOS</option>
-                                                                                        <option value="RM">RM</option>
-                                                                                        <option value="Quality">Quality</option>
-                                                                                        <option value="FG">FG</option>
-                                                                                        <option value="Technical">Technical</option>
-                                                                                        <option value="Cutting">Cutting</option>
-                                                                                        <option value="HR">HR</option>
-                                                                                        <option value="Operation">Operation</option>
-                                                                                        <option value="Production VSM 01">Production VSM 01</option>
-                                                                                        <option value="Production VSM 02">Production VSM 02</option>
-                                                                                        <option value="Production VSM 03">Production VSM 03</option>
-                                                                                        <option value="Production VSM 04">Production VSM 04</option>
-                                                                                        <option value="Pre-Sewing">Pre-Sewing</option>
-                                                                                        <option value="Emblishment">Emblishment</option>
-                                                                                        <option value="IE">IE</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </strong>
-
-
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <button class="btn btn-success btn-sm"><strong>Change</strong></button>
-                                                                            <button class="btn btn-warning btn-sm"><strong> <i class="fas fa-user-lock"></i></strong></button>
-                                                                            <button class="btn btn-danger btn-sm"><strong><i class="fas fa-trash-alt"></i></strong></button>
-                                                                            <a href="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID})"><i class="fas fa-hand-point-right fa-2x"></i></a>
-                                                                        </td>
-
-                                                                    </tr>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="hidden" value="@userDetailList.UserID" name="UserID">
+                                                                        @if (@userDetailList.UserValidity == ("true"))
+                                                                        {
+                                                                            <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })"><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                            <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")"><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                            <button class="btn btn-danger btn-sm" formaction="@Url.Action("LockUser", "UserManagement")"><strong> <i class="fas fa-lock"></i></strong></button>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })" disabled><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                            <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")" disabled><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                            <button class="btn btn-warning btn-sm" formaction="@Url.Action("UnLockUser", "UserManagement")"><strong> <i class="fas fa-unlock"></i></strong></button>
+                                                                        }
+                                                                    </td>
+                                                                }
+                                                            </tr>
                                                                 }
                                                             }
 
@@ -451,63 +545,94 @@
                                                             {
                                                                 if (@userDetailList.UserType == ("Token Manager"))
                                                                 {
-                                                                    <tr>
+                                                            <tr>
+                                                                @using (Html.BeginForm(FormMethod.Post))
+                                                                {
+                                                                    <td>
 
-                                                                        <td>
+                                                                        <div class="avatar-sm float-left mr-2">
+                                                                            <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
+                                                                        </div>
 
-                                                                            <div class="avatar-sm float-left mr-2">
-                                                                                <img src="@Url.Content(userDetailList.UserImagePath)" alt="..." class="avatar-img rounded-circle">
-                                                                            </div>
+                                                                        <strong>@userDetailList.UserFullName</strong>
 
-                                                                            <strong>@userDetailList.UserFullName</strong>
+                                                                    </td>
+                                                                    <td><strong>@userDetailList.UserEmail</strong></td>
+                                                                    <td><strong>@userDetailList.UserMobile</strong> </td>
 
-                                                                        </td>
-                                                                        <td><strong>@userDetailList.UserEmail</strong></td>
-                                                                        <td><strong>@userDetailList.UserMobile</strong> </td>
+                                                                    <td>
 
-                                                                        <td>
+                                                                        @if (@userDetailList.UserValidity == ("true"))
+                                                                        {
+                                                                            <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;">
+                                                                                <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                                <option value="Factory Engineering">Factory Engineering</option>
+                                                                                <option value="Production Engineering">Production Engineering</option>
+                                                                                <option value="Autonomation">Autonomation</option>
+                                                                                <option value="MOS">MOS</option>
+                                                                                <option value="RM">RM</option>
+                                                                                <option value="Quality">Quality</option>
+                                                                                <option value="FG">FG</option>
+                                                                                <option value="Technical">Technical</option>
+                                                                                <option value="Cutting">Cutting</option>
+                                                                                <option value="HR">HR</option>
+                                                                                <option value="Operation">Operation</option>
+                                                                                <option value="Production VSM 01">Production VSM 01</option>
+                                                                                <option value="Production VSM 02">Production VSM 02</option>
+                                                                                <option value="Production VSM 03">Production VSM 03</option>
+                                                                                <option value="Production VSM 04">Production VSM 04</option>
+                                                                                <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                                <option value="Emblishment">Emblishment</option>
+                                                                                <option value="IE">IE</option>
+                                                                            </select>
+                                                                        }
+                                                                        else
+                                                                        {
+
+                                                                            <select class="custom-select" name="UserDepartment" id="UserDepartment" required="" style="margin-right:8px; height:40px;" disabled>
+                                                                                <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
+                                                                                <option value="Factory Engineering">Factory Engineering</option>
+                                                                                <option value="Production Engineering">Production Engineering</option>
+                                                                                <option value="Autonomation">Autonomation</option>
+                                                                                <option value="MOS">MOS</option>
+                                                                                <option value="RM">RM</option>
+                                                                                <option value="Quality">Quality</option>
+                                                                                <option value="FG">FG</option>
+                                                                                <option value="Technical">Technical</option>
+                                                                                <option value="Cutting">Cutting</option>
+                                                                                <option value="HR">HR</option>
+                                                                                <option value="Operation">Operation</option>
+                                                                                <option value="Production VSM 01">Production VSM 01</option>
+                                                                                <option value="Production VSM 02">Production VSM 02</option>
+                                                                                <option value="Production VSM 03">Production VSM 03</option>
+                                                                                <option value="Production VSM 04">Production VSM 04</option>
+                                                                                <option value="Pre-Sewing">Pre-Sewing</option>
+                                                                                <option value="Emblishment">Emblishment</option>
+                                                                                <option value="IE">IE</option>
+                                                                            </select>
 
 
-                                                                            <strong>
+                                                                        }
 
-                                                                                <div class="select2-input">
+                                                                    </td>
 
-                                                                                    <select class="custom-select" name="ReparationDepartment" id="inputGroupSelect02" required="" style="margin-right:8px; height:40px;">
-
-                                                                                        <option value="@userDetailList.UserDepartment">@userDetailList.UserDepartment</option>
-                                                                                        <option value="Factory Engineering">Factory Engineering</option>
-                                                                                        <option value="Production Engineering">Production Engineering</option>
-                                                                                        <option value="Autonomation">Autonomation</option>
-                                                                                        <option value="MOS">MOS</option>
-                                                                                        <option value="RM">RM</option>
-                                                                                        <option value="Quality">Quality</option>
-                                                                                        <option value="FG">FG</option>
-                                                                                        <option value="Technical">Technical</option>
-                                                                                        <option value="Cutting">Cutting</option>
-                                                                                        <option value="HR">HR</option>
-                                                                                        <option value="Operation">Operation</option>
-                                                                                        <option value="Production VSM 01">Production VSM 01</option>
-                                                                                        <option value="Production VSM 02">Production VSM 02</option>
-                                                                                        <option value="Production VSM 03">Production VSM 03</option>
-                                                                                        <option value="Production VSM 04">Production VSM 04</option>
-                                                                                        <option value="Pre-Sewing">Pre-Sewing</option>
-                                                                                        <option value="Emblishment">Emblishment</option>
-                                                                                        <option value="IE">IE</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </strong>
-
-
-                                                                        </td>
-
-                                                                        <td>
-                                                                            <button class="btn btn-success btn-sm"><strong>Change</strong></button>
-                                                                            <button class="btn btn-warning btn-sm"><strong> <i class="fas fa-user-lock"></i></strong></button>
-                                                                            <button class="btn btn-danger btn-sm"><strong><i class="fas fa-trash-alt"></i></strong></button>
-                                                                            <a href="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID})"><i class="fas fa-hand-point-right fa-2x"></i></a>
-                                                                        </td>
-
-                                                                    </tr>
+                                                                    <td>
+                                                                        <input type="hidden" value="@userDetailList.UserID" name="UserID">
+                                                                        @if (@userDetailList.UserValidity == ("true"))
+                                                                        {
+                                                                            <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })"><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                            <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")"><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                            <button class="btn btn-danger btn-sm" formaction="@Url.Action("LockUser", "UserManagement")"><strong> <i class="fas fa-lock"></i></strong></button>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <button class="btn btn-primary btn-sm" formaction="@Url.Action("UserProfile", "UserManagement", new { @id = @userDetailList.UserID })" disabled><strong> <i class="fas fa-hand-point-right"></i></strong></button>
+                                                                            <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateUserDepartment", "UserManagement")" disabled><strong><i class="fas fa-pen-alt"></i></strong></button>
+                                                                            <button class="btn btn-warning btn-sm" formaction="@Url.Action("UnLockUser", "UserManagement")"><strong> <i class="fas fa-unlock"></i></strong></button>
+                                                                        }
+                                                                    </td>
+                                                                }
+                                                            </tr>
                                                                 }
                                                             }
 

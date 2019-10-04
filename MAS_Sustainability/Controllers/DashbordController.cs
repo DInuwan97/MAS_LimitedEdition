@@ -44,10 +44,15 @@ namespace MAS_Sustainability.Controllers
 
         public String getReparationDepartmentCount(String DepartmentName,String Category)
         {
-
             String sql_get_reparation_count = "SELECT COUNT(*) FROM users usr,token_flow tkf,token_audit tka WHERE tkf.TokenAuditID = tka.TokenAuditID and tka.AddedUser = usr.UserEmail and tkf.FinalVerification = 'Verified' and usr.UserDepartment = '"+ DepartmentName+ "' and tka.Category = '"+Category+ "'";
-            
             return sql_get_reparation_count;
+        }
+
+
+        public String getmaxReparationsDeparatment(String DepName)
+        {
+            String qty_max_repairation_dept = "SELECT Count(VerifiedTokenID),RepairedDept FROM verified_tokens where RepairedDept = '"+ DepName +"'";
+            return qty_max_repairation_dept;
         }
 
 
@@ -419,6 +424,82 @@ namespace MAS_Sustainability.Controllers
 
 
                 }
+
+
+
+
+                ///////////////////////Safety Tokens/////////////////////////////////
+                DataTable dataTableRepairCount_Complete_FactoryEng = new DataTable();
+                DataTable dataTableRepairCount_Complete_ProductionEng = new DataTable();
+                DataTable dataTableRepairCount_Complete_Autonomation = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_MOS = new DataTable();
+                DataTable dataTableRepairCount_Complete_RM = new DataTable();
+                DataTable dataTableRepairCount_Complete_Quality = new DataTable();
+                DataTable dataTableRepairCount_Complete_FG = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_Technical = new DataTable();
+                DataTable dataTableRepairCount_Complete_Cutting = new DataTable();
+                DataTable dataTableRepairCount_Complete_HR = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_Operation = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_VSM1 = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM2 = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM3 = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM4 = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_PreSewing = new DataTable();
+                DataTable dataTableRepairCount_Complete_Emblishment = new DataTable();
+                DataTable dataTableRepairCount_Complete_IE = new DataTable();
+                //////////////////////Sfety Tokens/////////////////////////////////
+
+
+                //////////////////////Sustainability Tokens/////////////////////////////
+                DataTable dataTableRepairCount_Complete_FactoryEng_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_ProductionEng_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_Autonomation_SUS = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_MOS_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_RM_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_Quality_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_FG_SUS = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_Technical_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_Cutting_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_HR_SUS = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_Operation_SUS = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_VSM1_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM2_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM3_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_VSM4_SUS = new DataTable();
+
+                DataTable dataTableRepairCount_Complete_PreSewing_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_Emblishment_SUS = new DataTable();
+                DataTable dataTableRepairCount_Complete_IE_SUS = new DataTable();
+                //////////////////////Sustainability Tokens/////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

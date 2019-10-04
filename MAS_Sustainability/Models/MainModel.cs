@@ -19,6 +19,8 @@ namespace MAS_Sustainability
         public List<ReparationModel> ReparationAuditIDList { get; set; }
         public List<CompletedTokenModel> CompletedTokenList { get; set; }
 
+        public List<CompletedTokenModel> CompletedToken_Track_Details_List { get; set; }
+
         public List<UserRegistrationModel> UserContList { get; set; }
 
         public List<Token> TokenMaagerStatusPendingList { get; set; }

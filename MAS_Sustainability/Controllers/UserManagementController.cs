@@ -155,8 +155,9 @@ namespace MAS_Sustainability.Controllers
                     UserEmail = userListDataTable.Rows[i][2].ToString(),
                     UserMobile = userListDataTable.Rows[i][3].ToString(),
                     UserDepartment = userListDataTable.Rows[i][6].ToString(),
-                    UserImagePath = userListDataTable.Rows[i][8].ToString()
-                   
+                    UserImagePath = userListDataTable.Rows[i][8].ToString(),
+                    UserValidity = userListDataTable.Rows[i][10].ToString()
+
                 });
 
             }
@@ -424,6 +425,80 @@ namespace MAS_Sustainability.Controllers
             mainModel.ListUserRegistration = List_UserRegistration;
 
             return View(mainModel);
+        }
+
+
+        public ActionResult UpdateUserDepartment(UserRegistrationModel userRegistrationModel)
+        {
+
+            List<UserRegistrationModel> List_UserRegistration = new List<UserRegistrationModel>();
+            MainModel mainModel = new MainModel();
+
+
+
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_update_userDepartment = "UPDATE users SET UserDepartment = @UserDepartment WHERE UserID = @UserID";
+
+                MySqlCommand mySqlCommand_update_userDepartment = new MySqlCommand(qry_update_userDepartment, mySqlCon);
+                mySqlCommand_update_userDepartment.Parameters.AddWithValue("@UserDepartment", userRegistrationModel.UserDepartment);
+                mySqlCommand_update_userDepartment.Parameters.AddWithValue("@UserID", userRegistrationModel.UserID);
+
+                mySqlCommand_update_userDepartment.ExecuteNonQuery();
+
+
+            }
+
+            return RedirectToAction("Index", "UserManagement");
+
+
+        }
+
+        public ActionResult LockUser(UserRegistrationModel userRegistrationModel)
+        {
+            List<UserRegistrationModel> List_UserRegistration = new List<UserRegistrationModel>();
+            MainModel mainModel = new MainModel();
+
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_update_user_lock = "UPDATE users SET Validation = 'false' WHERE UserID = @UserID";
+                MySqlCommand mySqlCommand_update_user_lock = new MySqlCommand(qry_update_user_lock, mySqlCon);
+                mySqlCommand_update_user_lock.Parameters.AddWithValue("@UserID", userRegistrationModel.UserID);
+                mySqlCommand_update_user_lock.ExecuteNonQuery();
+
+
+            }
+            return RedirectToAction("Index", "UserManagement");
+        }
+
+
+        public ActionResult UnLockUser(UserRegistrationModel userRegistrationModel)
+        {
+            List<UserRegistrationModel> List_UserRegistration = new List<UserRegistrationModel>();
+            MainModel mainModel = new MainModel();
+
+            DB dbConn = new DB();
+
+            using (MySqlConnection mySqlCon = dbConn.DBConnection())
+            {
+                mySqlCon.Open();
+
+                String qry_update_user_unlock = "UPDATE users SET Validation = 'true' WHERE UserID = @UserID";
+                MySqlCommand mySqlCommand_update_user_unlock = new MySqlCommand(qry_update_user_unlock, mySqlCon);
+                mySqlCommand_update_user_unlock.Parameters.AddWithValue("@UserID", userRegistrationModel.UserID);
+                mySqlCommand_update_user_unlock.ExecuteNonQuery();
+
+
+            }
+            return RedirectToAction("Index", "UserManagement");
         }
 
 

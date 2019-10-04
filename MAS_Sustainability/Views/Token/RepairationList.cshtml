@@ -366,7 +366,7 @@
 
                                                 @foreach (var no_of_tokens in Model.ListToken)
                                                 {
-                                                    if (@no_of_tokens.RecievedStatus != ("null"))
+                                                    if (@no_of_tokens.RecievedStatus != ("null") && @no_of_tokens.CompleteStatus != ("Completed"))
                                                     {
 
                                                         <tr>
@@ -536,7 +536,7 @@
 
                                                 @foreach (var no_of_tokens in Model.ListToken)
                                                 {
-                                                    if (@no_of_tokens.RecievedStatus != ("null"))
+                                                    if (@no_of_tokens.RecievedStatus != ("null")&& @no_of_tokens.CompleteStatus != ("Completed"))
                                                     {
 
                                                         <tr>

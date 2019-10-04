@@ -80,6 +80,8 @@ namespace MAS_Sustainability
         public int TokenManagerCount { get; set; }
         public String FactoryManagementCount { get; set; }
 
+        public String UserValidity { get; set; }
+
 
    
 

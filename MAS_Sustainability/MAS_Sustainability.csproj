@@ -229,6 +229,7 @@
     <Content Include="Views\Token\TokenManagerActionsPrviewTokens.cshtml" />
     <Content Include="Views\Token\ReverseTokens.cshtml" />
     <Content Include="Views\Token\RepairRejectionTokenList.cshtml" />
+    <Content Include="Views\Token\TokenCompletePathPreView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

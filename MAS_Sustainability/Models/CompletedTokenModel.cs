@@ -38,5 +38,22 @@ namespace MAS_Sustainability.Models
 
 
 
+
+        public String ReparationAssignedUserEmail { get; set; }
+        public String RepairationAssignedDateTime { get; set; }
+        public String RepairationDidUserEmail { get; set; }
+        public String RepairationFinishTime { get; set; }
+        public String RepairationFinishDate { get; set; }
+
+
+        public String RepAssignUserName { get; set; }
+        public String RepAssignUserID { get; set; }
+
+
+        public String RepDidUserName { get; set; }
+        public String RepDidUserID { get; set; }
+
+
+
     }
 }
