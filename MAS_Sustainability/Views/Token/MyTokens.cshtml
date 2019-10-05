@@ -109,7 +109,7 @@
 
                                                                 @using (Html.BeginForm(FormMethod.Post))
                                                                 {
-                                                                
+
 
                                                                 <td>@no_of_tokens.ProblemName</td>
                                                                 <td>@no_of_tokens.Location</td>
@@ -178,9 +178,9 @@
 
                                                                 <td>
                                                                     <input type="hidden" value="@no_of_tokens.TokenAuditID" name="TokenAuditID" id="TokenAuditID">
-                                                                    <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateMyTokenCategory","Token")"><strong>Update</strong></button>
-                                                                    <a href="@Url.Action("TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="badge badge-primary"><strong>View</strong></a>
-                                                                    <button class="btn btn-danger btn-sm" formaction="@Url.Action("DeleteMyToken","Token", new { @id=no_of_tokens.TokenAuditID })"><strong>Delete</strong></button>
+                                                                    <button class="btn btn-success btn-sm" formaction="@Url.Action(" UpdateMyTokenCategory","Token")"><strong>Update</strong></button>
+                                                                    <a href="@Url.Action(" TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="btn btn-primary btn-sm"><strong>View</strong></a>
+                                                                    <button class="btn btn-danger btn-sm" formaction="@Url.Action(" DeleteMyToken","Token", new { @id=no_of_tokens.TokenAuditID })"><strong>Delete</strong></button>
                                                                 </td>
 
 
@@ -294,7 +294,7 @@
                                     <!-- end of datatable of panel 2 -->
 
                                 </p>
-                                <a style="float:right" href="@Url.Action("ProcessingTokensPreView","Token")" class="btn btn-info">
+                                <a style="float:right" href="@Url.Action(" ProcessingTokensPreView","Token")" class="btn btn-info">
                                     Export PDF
                                 </a>
                             </div>
@@ -317,7 +317,7 @@
 
                                                 <div class="card-body">
                                                     <div class="table-responsive">
-                                                        <table id="basic-datatables" class="display table table-striped table-hover">
+                                                        <table id="basic-datatables2" class="display table table-striped table-hover">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Problem Name1</th>
@@ -396,7 +396,7 @@
                                                                     <td>@no_of_tokens.CompleteDate</td>
 
                                                                     <td>
-                                                                        <span class="badge badge-success"><a href="@Url.Action("ViewCompleteToken", "Token" , new { @id=@no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
+                                                                        <span class="badge badge-success"><a href="@Url.Action(" ViewCompleteToken", "Token" , new { @id=@no_of_tokens.TokenAuditID})"><strong>View</strong></a></span>
                                                                     </td>
 
                                                                 </tr>
@@ -478,6 +478,10 @@
 
             // Add Row
             $('#add-row').DataTable({
+                "pageLength": 5,
+            });
+
+            $('#basic-datatables2').DataTable({
                 "pageLength": 5,
             });
 
