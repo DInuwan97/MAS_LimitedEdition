@@ -17,7 +17,7 @@
         <div class="page-inner">
 
             <div class="page-header">
-                <h4 class="page-title">Lists</h4>
+                <h4 class="page-title">Update Problem</h4>
                 <!-- <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="#">
@@ -44,188 +44,427 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Capture the Problem</h4>
+                        </div>
 
-                            @using (Html.BeginForm("DoUpdateProcessInDetail", "Token", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                            @Html.AntiForgeryToken()
+                        @using (Html.BeginForm("DoUpdateProcessInDetail", "Token", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                        @Html.AntiForgeryToken()
 
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-3">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="input-file input-file-image">
-                                            <img class="img-upload-preview img-circle" width="150" height="150" src="@Url.Content(Model.FirstImagePath)" alt="preview">
-                                            <input type="file" class="form-control form-control-file" id="ImageFile1" name="FirstImageFile" accept="image/*" required="">
-                                            <label for="ImageFile1" class="badge badge-primary">
-                                                <span class="btn-label">
-                                                    <i class="fa fa-file-image"></i>
-                                                </span>
-                                                Add New
-                                            </label>
-                                        </div>
-                                    </div>
-
-
-
-
-                                    <div class="col-md-3">
-                                        <div class="input-file input-file-image">
-                                            <img class="img-upload-preview img-circle" width="150" height="150" src="@Url.Content(Model.SecondImagePath)" alt="preview">
-                                            <input type="file" class="form-control form-control-file" id="ImageFile2" name="SecondImageFile" accept="image/*">
-                                            <label for="ImageFile2" class="badge badge-primary">
-                                                <span class="btn-label">
-                                                    <i class="fa fa-file-image"></i>
-                                                </span>
-                                                Add New
-                                            </label>
-                                        </div>
-                                    </div>
-
-
-
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
 
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="input-file input-file-image">
+                                        <img class="img-upload-preview img-circle" width="150" height="150" src="@Url.Content(Model.FirstImagePath)" alt="preview">
+                                        <input type="file" class="form-control form-control-file" id="ImageFile1" name="FirstImageFile" accept="image/*">
+                                        <label for="ImageFile1" class="badge badge-primary">
+                                            <span class="btn-label">
+                                                <i class="fa fa-file-image"></i>
+                                            </span>
+                                            Add New
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="input-file input-file-image">
+                                        <img class="img-upload-preview img-circle" width="150" height="150" src="@Url.Content(Model.SecondImagePath)" alt="preview">
+                                        <input type="file" class="form-control form-control-file" id="ImageFile2" name="SecondImageFile" accept="image/*">
+                                        <label for="ImageFile2" class="badge badge-primary">
+                                            <span class="btn-label">
+                                                <i class="fa fa-file-image"></i>
+                                            </span>
+                                            Add New
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Update Problem Info</h4>
+                                    </div>
+                                    <div class="card-body">
 
-
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4 class="card-title">More Information about Problem</h4>
+                                        <div class="form-group form-show-validation row">
+                                            <label for="name" class="col-sm-4 col-form-label">Problem Name</label>
+                                            <div class="input-group col-sm-8">
+                                                <input type="text" class="form-control" id="ProblemName" name="ProblemName"
+                                                       value="@TokenInformation.ProblemName" required>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="row">
 
+                                        <div class="form-group form-show-validation row">
+                                            <label class="col-sm-4 col-form-label">Problem Category</label>
+                                            <div class="input-group col-sm-8 select2-input">
+                                                <select id="basic" name="ProblemCategory" class="form-control"
+                                                        Please Select Category required>
+                                                    <option value="@TokenInformation.ProblemCategory">@TokenInformation.ProblemCategory</option>
+                                                    <option value="Sustainability">Sustainability</option>
+                                                    <option value="Safety">Safety</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Problem Name</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" id="ProblemName" name="ProblemName"
-                                                                   value="@TokenInformation.ProblemName" placeholder="@TokenInformation.ProblemName">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label>Attention Level</label>
-                                                            <div class="input-group">
-                                                                <input type="number" class="form-control" id="AttentionLevel" name="AttentionLevel" value="@TokenInformation.AttentionLevel">
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-
-                                                    <div class="form-group">
-                                                        <label>Problem Category</label>
-                                                        <div class="input-group">
-                                                            <select id="basic" name="ProblemCategory" class="form-control">
-                                                                <option value="@TokenInformation.ProblemCategory">@TokenInformation.ProblemCategory</option>
-                                                                <option value="Sustainability">Sustainability</option>
-                                                                <option value="Safety">Safety</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Location</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" id="Location" name="Location"
-                                                                   value="@TokenInformation.Location">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="comment">Problem in Brief</label>
-                                                        <textarea class="form-control" id="comment" rows="10" name="Description"
-                                                                  value="@TokenInformation.Description"> </textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3"></div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Attention Level</label>
-                                                        <input class="slider form-control-static" type="range" min="0" max="100"
-                                                               id="AttentionLevel" name="AttentionLevel"
-                                                               required value="@TokenInformation.AttentionLevel" />
-                                                        <center><span id="val" value="@TokenInformation.AttentionLevel"></span></center>
-                                                    </div>
-                                                </div>
-
-
-                                                <!-- <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Problem Category</label>
-                                                        <div class="input-group">
-                                                            <select id="basic" name="ProblemCategory" class="form-control">
-                                                                <option value="@TokenInformation.ProblemCategory">@TokenInformation.ProblemCategory</option>
-                                                                <option value="Sustainability">Sustainability</option>
-                                                                <option value="Safety">Safety</option>
-
-                                                            </select>
-
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Location</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" id="Location" name="Location"  value="@TokenInformation.Location">
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-
-
+                                        <div class="form-group form-show-validation row">
+                                            <label class="col-sm-4 col-form-label">Location</label>
+                                            <div class="input-group col-sm-8">
+                                                <input type="text" class="form-control" id="Location" name="Location"
+                                                       value="@TokenInformation.Location" required>
 
                                             </div>
-
-                                            <input type="hidden" value="@TokenInformation.TokenAuditID" id="TokenAuditID" name="TokenAuditID">
-
-
-                                            <!-- <div class="form-group">
-                                                <label for="comment">Problem in Brief</label>
-                                                <textarea class="form-control" id="comment" rows="5" name="Description">
-                                                    @TokenInformation.Description
-                                                </textarea>
-                                            </div> -->
-
-                                            <center>
-
-                                                <input type="submit" value="UPDATE TOKEN" class="btn btn-success" />
-                                            </center>
+                                        </div>
 
 
+                                        <div class="form-group form-show-validation row">
+                                            <label for="comment" class="col-sm-4 col-form-label">Problem in Brief</label>
+                                            <div class="input-group col-sm-8">
+                                                <textarea class="form-control" id="Description" rows="5" name="Description" required
+                                                          >@TokenInformation.Description</textarea>
+                                            </div>
+                                        </div>
 
+                                        <div class="form-group form-show-validation row">
+                                            <label class="col-sm-4 col-form-label">Attention Level</label>
+                                            <div class="input-group col-sm-8">
+                                                <div class="text-success">Low</div>
+                                                @if (Convert.ToDouble(@TokenInformation.AttentionLevel) <= 20)
+                                                {
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="20" checked />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="40" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="60" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="80" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="100" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                }
+                                                else if (Convert.ToDouble(@TokenInformation.AttentionLevel) <= 40 && Convert.ToDouble(@TokenInformation.AttentionLevel) > 20)
+                                                {
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="20" checked />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="40" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="60" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="80" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="100" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                }
 
-
-
-
+                                                else if (Convert.ToDouble(@TokenInformation.AttentionLevel) <= 60 && Convert.ToDouble(@TokenInformation.AttentionLevel) > 40)
+                                                {
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="20" checked />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="40" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="60" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="80" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="100" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                }
+                                                else if (Convert.ToDouble(@TokenInformation.AttentionLevel) <= 80 && Convert.ToDouble(@TokenInformation.AttentionLevel) > 60)
+                                                {
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="20" checked />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="40" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="60" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="80" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="100" />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                }
+                                                else if (Convert.ToDouble(@TokenInformation.AttentionLevel) <= 100 && Convert.ToDouble(@TokenInformation.AttentionLevel) > 80)
+                                                {
+                                                <div class="rating">
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="20" checked />
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="40" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="60" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="80" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="AttentionLevel" name="AttentionLevel" value="100" checked />
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                        <span class="icon">★</span>
+                                                    </label>
+                                                </div>
+                                                }
+                                                <div class="text-danger">Critical</div>
+                                            </div>
 
                                         </div>
+
+                                        <!---- <div class="form-group">
+                                            <label>Problem Category</label>
+                                            <div class="input-group">
+                                                <select id="basic" name="ProblemCategory" class="form-control">
+                                                    <option value="@TokenInformation.ProblemCategory">@TokenInformation.ProblemCategory</option>
+                                                    <option value="Sustainability">Sustainability</option>
+                                                    <option value="Safety">Safety</option>
+                                                </select>
+                                            </div>
+                                        </div> --->
+                                        <!-----  <div class="form-group">
+                                                <label>Location</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="Location" name="Location"
+                                                           value="@TokenInformation.Location">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="comment">Problem in Brief</label>
+                                                    <textarea class="form-control" id="Description" rows="10" name="Description"
+                                                              value="@TokenInformation.Description"> </textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Attention Level</label>
+                                                    <input class="slider form-control-static" type="range" min="0" max="100"
+                                                           id="AttentionLevel" name="AttentionLevel"
+                                                           required value="@TokenInformation.AttentionLevel" />
+                                                    <center><span id="val" value="@TokenInformation.AttentionLevel"></span></center>
+                                                </div>
+                                            </div> --->
+
+                                        <input type="hidden" value="@TokenInformation.TokenAuditID" id="TokenAuditID" name="TokenAuditID">
+
+
+                                        <!-- <div class="form-group">
+                                            <label for="comment">Problem in Brief</label>
+                                                <textarea class="form-control" id="comment" rows="5" name="Description">
+                                                   @TokenInformation.Description
+                                                </textarea>
+                                         </div> -->
+
+                                        <center>
+                                            <input type="submit" value="Update Info" class="btn btn-success" />
+                                        </center>
+
                                     </div>
                                 </div>
                             </div>
-                            }
+
                         </div>
+                        }
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
     }
 </div>
+
+<style>
+    .rating {
+        display: inline-block;
+        position: relative;
+        height: 100px;
+        line-height: 100px;
+        font-size: 100px;
+    }
+
+        .rating label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            cursor: pointer;
+        }
+
+            .rating label:last-child {
+                position: static;
+            }
+
+            .rating label:nth-child(1) {
+                z-index: 5;
+            }
+
+            .rating label:nth-child(2) {
+                z-index: 4;
+            }
+
+            .rating label:nth-child(3) {
+                z-index: 3;
+            }
+
+            .rating label:nth-child(4) {
+                z-index: 2;
+            }
+
+            .rating label:nth-child(5) {
+                z-index: 1;
+            }
+
+            .rating label input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+            }
+
+            .rating label .icon {
+                float: left;
+                color: transparent;
+                font-size: 50px;
+            }
+
+            .rating label:last-child .icon {
+                color: #000;
+            }
+
+        .rating:not(:hover) label input:checked ~ .icon,
+        .rating:hover label:hover input ~ .icon {
+            color: red;
+        }
+
+        .rating label input:focus:not(:checked) ~ .icon:last-child {
+            color: #000;
+            text-shadow: 0 0 5px red;
+        }
+
+    #value {
+        font-size: 1rem;
+        position: center;
+        left: 0;
+        bottom: 40px;
+        width: 100px;
+    }
+</style>
+
+<script>
+    $(':radio').change(function () {
+        console.log('New star rating: ' + this.value);
+</script>
+
 
 <!--   Core JS Files   -->
 <script src="~/Content/assets/js/core/jquery.3.2.1.min.js"></script>
@@ -403,87 +642,3 @@
 
 
 <!-------Slider Styles--------------------------------------------------------->
-<style>
-    input[type=range] {
-        width: 100%;
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-        input[type=range]:focus {
-            outline: none;
-        }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 19px;
-            cursor: pointer;
-            box-shadow: 0 4px 4px rgba(0,0,0,0.3) inset;
-            background: linear-gradient(to right, #005fc2, #35A834 40%, #ffd400 65%, #FF6400);
-            opacity: 50;
-            border-radius: 0;
-            border: none;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-            border: 1px solid white;
-            height: 20px;
-            width: 20px;
-            border-radius: 20px;
-            background: white;
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -1px;
-        }
-
-    #slide:before {
-        content: attr(min);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        color: black;
-        font-size: 1rem;
-    }
-
-    #slide:after {
-        content: attr(max);
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        color: black;
-        font-size: 1rem;
-    }
-
-    #val {
-        font-size: 1.6rem;
-        position: center;
-        left: 0;
-        bottom: 40px;
-        width: 100px;
-    }
-</style>
-
-<script>
-    const min = document.querySelector('#min');
-    const max = document.querySelector('#max');
-    const span = document.querySelector('#val');
-    const slide = document.querySelector('#slide');
-
-    displayValue.call(slide, {});
-
-    function displayValue(e) {
-        const inp = e.target || this;
-        // const value = +inp.value;
-        //const value = TokenInformation.AttentionLevel;
-        const value = document.getElementById(val);
-        const min = inp.min;
-        const max = inp.max;
-        const width = inp.offsetWidth;
-        const offset = -20;
-        const percent = (value - min) / (max - min);
-        const pos = percent * (width + offset) - 40;
-        span.style.left = `${pos}px`;
-        span.innerHTML = value + "%";
-    }
-</script>
