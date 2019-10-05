@@ -178,8 +178,8 @@
 
                                                                 <td>
                                                                     <input type="hidden" value="@no_of_tokens.TokenAuditID" name="TokenAuditID" id="TokenAuditID">
-                                                                    <button class="btn btn-success btn-sm" formaction="@Url.Action(" UpdateMyTokenCategory","Token")"><strong>Update</strong></button>
-                                                                    <a href="@Url.Action(" TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="btn btn-primary btn-sm"><strong>View</strong></a>
+                                                                    <button class="btn btn-success btn-sm" formaction="@Url.Action("UpdateMyTokenCategory","Token")"><strong>Update</strong></button>
+                                                                    <a href="@Url.Action("TokenUpdate", "Token" , new { @id=no_of_tokens.TokenAuditID })" class="btn btn-primary btn-sm"><strong>View</strong></a>
                                                                     <button class="btn btn-danger btn-sm" formaction="@Url.Action(" DeleteMyToken","Token", new { @id=no_of_tokens.TokenAuditID })"><strong>Delete</strong></button>
                                                                 </td>
 
