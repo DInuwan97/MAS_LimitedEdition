@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<body>
+<body data-background-color="dark">
 
     <div class="wrapper">
         <div class="main-header">
             <!-- Logo Header -->
-            <div class="logo-header" data-background-color="blue">
+            <div class="logo-header" data-background-color="dark">
 
                 <a href="index.html" class="logo">
                     <img src="~/Content/images/MAS_logo.png" alt="" style="width:150px; height:35px">
@@ -29,7 +29,7 @@
             </div>
             <!-- End Logo Header -->
             <!-- Navbar Header -->
-            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
 
                 <div class="container-fluid">
                     <div class="collapse" id="search-nav">
@@ -281,7 +281,7 @@
         </div>
 
         <!-- Sidebar -->
-        <div class="sidebar sidebar-style-2">
+        <div class="sidebar sidebar-style-2" data-background-color="dark2">
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
                     <div class="user">
@@ -425,12 +425,12 @@
                         }
 
                         @{
-                        if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Department Leader")){
+                        if( Model.LoggedUserType == ("Administrator")){
                         if(controllerName== "UserManagement")
                         {
                         <li class="nav-item active">
                             <a href="@Url.Action("Index","UserManagement")">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-users-cog"></i>
                                 <p>User Manager</p>
 
                             </a>
@@ -438,19 +438,20 @@
                         }else{
                         <li class="nav-item">
                             <a href="@Url.Action("Index","UserManagement")">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-users-cog"></i>
                                 <p>User Manager</p>
 
                             </a>
                         </li>
                         }
-
+                        }
+                        if( Model.LoggedUserType == ("Administrator") || Model.LoggedUserType == ("Department Leader")){
                         if(controllerName== "Token"&& ActionName=="RepairationList")
                         {
 
                         <li class="nav-item active">
                             <a href="@Url.Action("RepairationList","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-wrench"></i>
                                 <p>Repairations</p>
 
                             </a>
@@ -459,7 +460,7 @@
 
                         <li class="nav-item">
                             <a href="@Url.Action("RepairationList","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-wrench"></i>
                                 <p>Repairations</p>
 
                             </a>
@@ -494,7 +495,7 @@
 
                         <li class="nav-item active">
                             <a href="@Url.Action("ExpiredTokens","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-hourglass-end"></i>
                                 <p>ExpiredTokens</p>
 
                             </a>
@@ -503,7 +504,7 @@
 
                         <li class="nav-item">
                             <a href="@Url.Action("ExpiredTokens","Token")">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-hourglass-end"></i>
                                 <p>ExpiredTokens</p>
 
                             </a>
@@ -522,7 +523,7 @@
 
 
 
-                       
+
                         <li class="nav-section" style="margin-top:15px;">
                             <span class="sidebar-mini-icon">
                                 <i class="fa fa-ellipsis-h"></i>
@@ -1310,11 +1311,10 @@
         @RenderBody()
 
 
-
-
         <!-- End Custom template -->
     </div>
-
+    <!-- jQuery Scrollbar -->
+    <script src="~/Content/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
 
 

@@ -29,7 +29,7 @@ namespace MAS_Sustainability
 
         public string UserImagePath { get; set; }
 
-
+        public HttpPostedFileBase UserImage1 { get; set; }
 
         public int SecretKey { get; set; }
 
